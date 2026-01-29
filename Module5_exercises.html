@@ -3917,7 +3917,7 @@ vertical-align: -.125em;
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Module1_datawrangling.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Module 1 Data wrangling</span></a>
+ <span class="menu-text">Module 1 Data wrangling example</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -4227,7 +4227,7 @@ vertical-align: -.125em;
 <p>Using the <strong>apdc_subset</strong>, we will calculate a Charlson comorbidity index (CCI) for each patient with a 1 year lookback period. Complete the following to create a dataset with one row per patient and their corresponding CCI. This will also be used to derive whether they have diabetes and diabetes complications.</p>
 <ol type="A">
 <li><p>Create a new dataset, <strong>apdc_subset_com</strong>, that restricts the dataset to the index hospital admission and any episodes of care within 1 year prior to the index hospital admission for cardiovascular disease.</p></li>
-<li><p>Create new variables for each of the comorbid condition that flag whether that condition was ever recorded during each episode of care. Ensure you exclude the flag for myocardial infarction.</p></li>
+<li><p>Create new variables for each of the comorbid condition that flag whether that condition was ever recorded during each episode of care.</p></li>
 </ol>
 <div class="callout callout-style-simple callout-caution callout-titled">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
@@ -4265,7 +4265,7 @@ vertical-align: -.125em;
 </div>
 </div>
 <ol start="4" type="A">
-<li><p>Calculate the CCI manually and name the variable <em>cogrp</em>, ensuring you exclude diabetes and diabetes complications from the final calculation. Merge this into your analysis dataset, <strong>analysis_data_v2</strong>.</p></li>
+<li><p>Calculate the CCI manually and name the variable <em>cogrp</em>. We would like you to exclude the following comorbidities from your CCI: any cardiovascular comorbidities (including myocardial infarction <em>mi</em>, congestive heart failure <em>chf</em>, peripheral vascular disease <em>pvd</em>, cerebral vascular accident <em>cva</em>), renal disease <em>rend</em> and, diabetes <em>diab</em> and diabetes complications <em>diabwc</em> (for further evaluation) from the final calculation. Merge this into your analysis dataset, <strong>analysis_data_v2</strong>.</p></li>
 <li><p>Examine the frequency distribution of <em>cogrp</em>.</p></li>
 <li><p>Convert <em>cogrp</em> to a categorical variable with categories: 0, 1, 2 and 3+ and tabulate this variable.</p></li>
 </ol>
@@ -4919,7 +4919,7 @@ vertical-align: -.125em;
 <span id="cb6-132"><a href="#cb6-132" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-133"><a href="#cb6-133" aria-hidden="true" tabindex="-1"></a>A.  Create a new dataset, **apdc_subset_com**, that restricts the dataset to the index hospital admission and any episodes of care within 1 year prior to the index hospital admission for cardiovascular disease.</span>
 <span id="cb6-134"><a href="#cb6-134" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-135"><a href="#cb6-135" aria-hidden="true" tabindex="-1"></a>B.  Create new variables for each of the comorbid condition that flag whether that condition was ever recorded during each episode of care. Ensure you exclude the flag for myocardial infarction.</span>
+<span id="cb6-135"><a href="#cb6-135" aria-hidden="true" tabindex="-1"></a>B.  Create new variables for each of the comorbid condition that flag whether that condition was ever recorded during each episode of care.</span>
 <span id="cb6-136"><a href="#cb6-136" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-137"><a href="#cb6-137" aria-hidden="true" tabindex="-1"></a>::: {.callout-caution appearance=&quot;simple&quot; collapse=&quot;true&quot;}</span>
 <span id="cb6-138"><a href="#cb6-138" aria-hidden="true" tabindex="-1"></a><span class="fu">### Hint</span></span>
@@ -4935,7 +4935,7 @@ vertical-align: -.125em;
 <span id="cb6-148"><a href="#cb6-148" aria-hidden="true" tabindex="-1"></a>Take the maximum value for each comorbid condition flag per ppn.</span>
 <span id="cb6-149"><a href="#cb6-149" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb6-150"><a href="#cb6-150" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-151"><a href="#cb6-151" aria-hidden="true" tabindex="-1"></a>D.  Calculate the CCI manually and name the variable *cogrp*, ensuring you exclude diabetes and diabetes complications from the final calculation. Merge this into your analysis dataset, **analysis_data_v2**.</span>
+<span id="cb6-151"><a href="#cb6-151" aria-hidden="true" tabindex="-1"></a>D.  Calculate the CCI manually and name the variable *cogrp*. We would like you to exclude the following comorbidities from your CCI: any cardiovascular comorbidities (including myocardial infarction *mi*, congestive heart failure *chf*, peripheral vascular disease *pvd*, cerebral vascular accident *cva*), renal disease *rend* and, diabetes *diab* and diabetes complications *diabwc*  (for further evaluation) from the final calculation. Merge this into your analysis dataset, **analysis_data_v2**.</span>
 <span id="cb6-152"><a href="#cb6-152" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-153"><a href="#cb6-153" aria-hidden="true" tabindex="-1"></a>E.  Examine the frequency distribution of *cogrp*.</span>
 <span id="cb6-154"><a href="#cb6-154" aria-hidden="true" tabindex="-1"></a></span>
