@@ -4112,7 +4112,7 @@ vertical-align: -.125em;
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>We have uploaded our file to Github, so you’ll be able to import this file as below.</p>
 <div class="cell">
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import data from Github ----</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Read in csv file</span></span>
@@ -4139,7 +4139,7 @@ vertical-align: -.125em;
 <p>Contents for the APDC hospitalisations data (<strong>tx_apdc_subset</strong>).</p>
 <p>Using the following R code:</p>
 <div class="cell">
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="do">## tx_apdc_subset</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="do">### Print the dataset to screen </span></span>
@@ -4168,7 +4168,7 @@ vertical-align: -.125em;
 #   diagnosis_code3 &lt;chr&gt;, diagnosis_code4 &lt;chr&gt;, diagnosis_code5 &lt;chr&gt;,
 #   diagnosis_code6 &lt;chr&gt;, diagnosis_code7 &lt;chr&gt;, diagnosis_code8 &lt;chr&gt;, …</code></pre>
 </div>
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="do">### View full dataset in a separate tab</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(tx_apdc_subset)</span>
@@ -4847,7 +4847,7 @@ vertical-align: -.125em;
 </tbody>
 </table>
 </div>
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Check labelling of coded variables</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>tx_apdc_subset <span class="sc">%&gt;%</span> <span class="fu">generate_dictionary</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -4904,7 +4904,7 @@ vertical-align: -.125em;
  48  procedure_code18           —     dbl      143           
  49  procedure_code19           —     dbl      143           </code></pre>
 </div>
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Check variables with name containing the word &#39;date&#39;</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>tx_apdc_subset <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="fu">contains</span>(<span class="st">&quot;date&quot;</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -4925,7 +4925,7 @@ vertical-align: -.125em;
 10 15jun1997          27jun1997       
 # ℹ 135 more rows</code></pre>
 </div>
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Check for duplicate rows</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>tx_apdc_subset <span class="sc">%&gt;%</span> <span class="fu">distinct</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -4952,7 +4952,7 @@ vertical-align: -.125em;
 #   diagnosis_code3 &lt;chr&gt;, diagnosis_code4 &lt;chr&gt;, diagnosis_code5 &lt;chr&gt;,
 #   diagnosis_code6 &lt;chr&gt;, diagnosis_code7 &lt;chr&gt;, diagnosis_code8 &lt;chr&gt;, …</code></pre>
 </div>
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>tx_apdc_subset <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="fu">duplicated</span>(.))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
@@ -4966,7 +4966,7 @@ vertical-align: -.125em;
 #   diagnosis_code4 &lt;chr&gt;, diagnosis_code5 &lt;chr&gt;, diagnosis_code6 &lt;chr&gt;,
 #   diagnosis_code7 &lt;chr&gt;, diagnosis_code8 &lt;chr&gt;, diagnosis_code9 &lt;chr&gt;, …</code></pre>
 </div>
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Count number of individuals</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>tx_apdc_subset <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(ppn)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -5007,7 +5007,7 @@ vertical-align: -.125em;
 <span style="color:red;">‘episode_start_date’ and ‘episode_end_date’ are date variables. They are both stored as characters so will need to be converted to dates.</span></p></li>
 </ol>
 <div class="cell">
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Reformat dates</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>tx_apdc_subset <span class="ot">&lt;-</span> tx_apdc_subset <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">episode_start_date =</span> <span class="fu">as.Date</span>(episode_start_date, <span class="at">format =</span> <span class="st">&quot;%d%b%Y&quot;</span>),</span>
@@ -5040,7 +5040,7 @@ vertical-align: -.125em;
 <span style="color:red;">We should have ‘sex’ and ‘mode_of_separation_recode’ stored as categorical. Coding for labelling is provided below.</span></p></li>
 </ol>
 <div class="cell">
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Check sex variable values</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(tx_apdc_subset<span class="sc">$</span>sex)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -5050,7 +5050,7 @@ vertical-align: -.125em;
  1  2 
 89 56 </code></pre>
 </div>
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Labelling sex variable</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>tx_apdc_subset<span class="sc">$</span>sex <span class="ot">&lt;-</span> <span class="fu">factor</span>(tx_apdc_subset<span class="sc">$</span>sex,</span>
@@ -5065,7 +5065,7 @@ vertical-align: -.125em;
   Male Female 
     89     56 </code></pre>
 </div>
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Check mode of separation variable values</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(tx_apdc_subset<span class="sc">$</span>mode_of_separation_recode)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -5075,7 +5075,7 @@ vertical-align: -.125em;
   1   5   7 
 141   3   1 </code></pre>
 </div>
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Labelling mode_of_separation_recode variable</span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>tx_apdc_subset<span class="sc">$</span>mode_of_separation_recode <span class="ot">&lt;-</span> <span class="fu">factor</span>(tx_apdc_subset<span class="sc">$</span>mode_of_separation_recode,</span>
@@ -5100,7 +5100,7 @@ vertical-align: -.125em;
 <p>Contents for the deaths data (<strong>dth_subset</strong>).</p>
 <p>Using the following R code:</p>
 <div class="cell">
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="do">## dth_subset</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="do">### Print the dataset to screen </span></span>
@@ -5124,7 +5124,7 @@ vertical-align: -.125em;
 # ℹ 57 more rows
 # ℹ 4 more variables: racs6 &lt;lgl&gt;, racs7 &lt;lgl&gt;, racs8 &lt;lgl&gt;, ucod_codeset &lt;chr&gt;</code></pre>
 </div>
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="do">### View full dataset in a separate tab</span></span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(dth_subset)</span>
@@ -5381,7 +5381,7 @@ vertical-align: -.125em;
 </tbody>
 </table>
 </div>
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Check labelling of coded variables</span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>dth_subset <span class="sc">%&gt;%</span> <span class="fu">generate_dictionary</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -5403,7 +5403,7 @@ vertical-align: -.125em;
  13  racs8        —     lgl      67            
  14  ucod_codeset —     chr      0             </code></pre>
 </div>
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Check variables with name containing the word &#39;date&#39;</span></span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>dth_subset <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="fu">contains</span>(<span class="st">&quot;date&quot;</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -5424,7 +5424,7 @@ vertical-align: -.125em;
 10 29sep2008 
 # ℹ 57 more rows</code></pre>
 </div>
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Check for duplicate rows</span></span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>dth_subset <span class="sc">%&gt;%</span> <span class="fu">distinct</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -5446,7 +5446,7 @@ vertical-align: -.125em;
 # ℹ 54 more rows
 # ℹ 4 more variables: racs6 &lt;lgl&gt;, racs7 &lt;lgl&gt;, racs8 &lt;lgl&gt;, ucod_codeset &lt;chr&gt;</code></pre>
 </div>
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>dth_subset <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="fu">duplicated</span>(.))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
@@ -5459,7 +5459,7 @@ vertical-align: -.125em;
 3 egTPz07…         43     1 10apr2007  N288        &lt;NA&gt;  &lt;NA&gt;  NA    NA    NA   
 # ℹ 4 more variables: racs6 &lt;lgl&gt;, racs7 &lt;lgl&gt;, racs8 &lt;lgl&gt;, ucod_codeset &lt;chr&gt;</code></pre>
 </div>
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Count number of individuals</span></span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>dth_subset <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(ppn)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -5495,7 +5495,7 @@ vertical-align: -.125em;
 <span style="color:red;">‘death_date’ is the only date variables. This is stored as a character and needs to be converted to dates.</span></p></li>
 </ol>
 <div class="cell">
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Reformat dates</span></span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>dth_subset <span class="ot">&lt;-</span> dth_subset <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">death_date =</span> <span class="fu">as.Date</span>(death_date, <span class="at">format =</span> <span class="st">&quot;%d%b%Y&quot;</span>))</span>
@@ -5527,7 +5527,7 @@ vertical-align: -.125em;
 <span style="color:red;">We should have ‘sex’ stored as categorical. Coding for labelling is provided below. There are also 6 logical variables (racs3-racs8) that have occurred due to blank cells in all columns.</span></p></li>
 </ol>
 <div class="cell">
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Check sex variable values</span></span>
 <span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(dth_subset<span class="sc">$</span>sex)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -5537,7 +5537,7 @@ vertical-align: -.125em;
  1  2 
 49 18 </code></pre>
 </div>
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Labelling sex variable</span></span>
 <span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>dth_subset<span class="sc">$</span>sex <span class="ot">&lt;-</span> <span class="fu">factor</span>(dth_subset<span class="sc">$</span>sex,</span>
@@ -5564,7 +5564,7 @@ vertical-align: -.125em;
 <h2 class="anchored" data-anchor-id="question-2">Question 2</h2>
 <p>Compare the variables with common names across the datasets. If needed, rename and/or change how a variable is stored.</p>
 <div class="cell">
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Check for variables with same name in both datasets</span></span>
 <span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="fu">compare_df_cols</span>(tx_apdc_subset, dth_subset) <span class="sc">%&gt;%</span> </span>
@@ -5582,7 +5582,7 @@ vertical-align: -.125em;
 </div>
 <p>We see that ppn variable is the same, which won’t cause any issues. We also see that sex and age_recode is the same between the datasets. Let’s rename both of these to retain them and cross-check if we need to.</p>
 <div class="cell">
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Rename age variable in each dataset</span></span>
 <span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>tx_apdc_subset <span class="ot">&lt;-</span> tx_apdc_subset <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">age_hosp =</span> age_recode, <span class="at">sex_hosp =</span> sex)</span>
@@ -5618,7 +5618,7 @@ vertical-align: -.125em;
 [47] &quot;procedure_code17&quot;           &quot;procedure_code18&quot;          
 [49] &quot;procedure_code19&quot;          </code></pre>
 </div>
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(dth_subset)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
@@ -5634,7 +5634,7 @@ vertical-align: -.125em;
 <p>Write code to determine which individuals have multiple death dates. Record their ID. Examine the hospitalisation data for these individuals.</p>
 <p>Can we conclude which record is most appropriate to retain? If so, remove the incorrect death dates from the death dataset. If not, remove all individuals with duplicated records from both <strong>tx_apdc_subset</strong> and <strong>dth_subset</strong>.</p>
 <div class="cell">
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="do">## View all records in dth_subset for individuals with more than 1 record</span></span>
 <span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>dth_subset <span class="sc">%&gt;%</span></span>
@@ -5659,7 +5659,7 @@ vertical-align: -.125em;
 </div>
 <p><span style="color:red;">There are four individuals with two death records. For three of the four, the death records are identical duplicates so we can simply remove the duplicated records. For PPN kxR9rzL6oR2, there are two separate death dates that are one year apart. Let’s cross check with the hospital records.</span></p>
 <div class="cell">
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="do">## View all hospitalisation records for selected ppns as above</span></span>
 <span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>tx_apdc_subset <span class="sc">%&gt;%</span></span>
@@ -5669,7 +5669,7 @@ vertical-align: -.125em;
 </div>
 <p><span style="color:red;">For PPN kxR9rzL6oR2, that had a hospitalisation directly preceding their latest death date. So, we can sensibly assume that the death record with death date in 2003 was incorrect. Let’s remove this record and the duplicated records from the death data.</span></p>
 <div class="cell">
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="do">## From death data, remove exact duplicates and keep 2004 record for PPN kxR9rzL6oR2</span></span>
 <span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>dth_subset <span class="ot">&lt;-</span> dth_subset <span class="sc">%&gt;%</span></span>
@@ -5682,7 +5682,7 @@ vertical-align: -.125em;
 <h2 class="anchored" data-anchor-id="question-4">Question 4</h2>
 <p>Sort the <strong>tx_apdc_subset</strong> and <strong>dth_subset data</strong> by the appropriate variables and merge them together. Check for any errors or warning messages.</p>
 <div class="cell">
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Sort datasets by PPN (and episode start and end date for hospitalisations)</span></span>
 <span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>tx_apdc_subset <span class="ot">&lt;-</span> tx_apdc_subset <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(ppn, episode_start_date, episode_end_date)</span>
@@ -5695,7 +5695,7 @@ vertical-align: -.125em;
 </div>
 <p><span style="color:red;">We have successfully merged the files today and can now look at running some checks.</span></p>
 <div class="cell">
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Summarise records that were linked</span></span>
 <span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>merged_data <span class="sc">%&gt;%</span> <span class="fu">tabyl</span>(in_apdc, in_dth)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -5705,7 +5705,7 @@ vertical-align: -.125em;
        1 48  97
       NA 15   0</code></pre>
 </div>
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Count number of deaths without corresponding hospital records</span></span>
 <span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>merged_data <span class="sc">%&gt;%</span> <span class="fu">filter</span>(in_dth <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;</span> <span class="fu">is.na</span>(in_apdc)) <span class="sc">%&gt;%</span>  <span class="fu">nrow</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -5713,7 +5713,7 @@ vertical-align: -.125em;
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 15</code></pre>
 </div>
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Count number of hospitalisations without corresponding death records</span></span>
 <span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a><span class="do">### Records</span></span>
@@ -5724,7 +5724,7 @@ vertical-align: -.125em;
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 97</code></pre>
 </div>
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Individuals</span></span>
 <span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>merged_data <span class="sc">%&gt;%</span> </span>
@@ -5753,7 +5753,7 @@ vertical-align: -.125em;
 <h2 class="anchored" data-anchor-id="question-5">Question 5</h2>
 <p>Use the merged dataset to compare the age recorded in <strong>tx_apdc_subset</strong> and the age recorded in <strong>dth_subset</strong>. Are they consistent?</p>
 <div class="cell">
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Summarise age variables</span></span>
 <span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>merged_data <span class="sc">%&gt;%</span></span>
@@ -5857,7 +5857,7 @@ vertical-align: -.125em;
 </tbody>
 </table>
 </div>
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="do">## View the dataset to manually check whether ages are consistent between datasets</span></span>
 <span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>merged_data <span class="sc">%&gt;%</span> </span>
@@ -5890,7 +5890,7 @@ vertical-align: -.125em;
 <p>Which rows from the merged dataset could we drop if we wish to analyse the time between the last separation date and death?</p>
 <p><span style="color:red;">To analyse time from last separation to death, we would need to include only those with any linked hospitalisation records, and only keep the last hospitalisation record for each person. We can keep everyone regardless of whether they had a linked death date, since some people may not have died.</span></p>
 <div class="cell">
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="do">##Drop rows for analysis of time between last separation and death ----</span></span>
 <span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>analysis_data <span class="ot">&lt;-</span> merged_data <span class="sc">%&gt;%</span></span>
@@ -5907,7 +5907,7 @@ vertical-align: -.125em;
 <h2 class="anchored" data-anchor-id="question-7">Question 7</h2>
 <p>Optional: Calculate the time (in days) between the last separation date and death. How many patients had died by the end of 2004? Summarise the number of deaths by year of last separation.</p>
 <div class="cell">
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="do">## How many had died by end of 2004?</span></span>
 <span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a>analysis_data <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="fu">year</span>(death_date) <span class="sc">&lt;=</span> <span class="dv">2004</span>) <span class="sc">%&gt;%</span> <span class="fu">nrow</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -5915,7 +5915,7 @@ vertical-align: -.125em;
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 16</code></pre>
 </div>
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Summary of number of deaths by year of last separation</span></span>
 <span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a>analysis_data <span class="sc">%&gt;%</span>  </span>

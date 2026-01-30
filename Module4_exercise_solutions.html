@@ -4124,7 +4124,7 @@ vertical-align: -.125em;
 <li>All hospital admissions for patient subset</li>
 </ol>
 <div class="cell">
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Read in csv file</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>apdc_subset <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/NicoleDeLaMata/LinkedData/refs/heads/main/apdc_subset.csv&quot;</span>)</span>
@@ -4140,7 +4140,7 @@ vertical-align: -.125em;
 <li>Hospital admissions relating to patients first kidney transplant only</li>
 </ol>
 <div class="cell">
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Create a flag for patients with any admissions related to kidney transplant</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>diag_vars <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">&quot;diagnosis_code&quot;</span>, <span class="fu">c</span>(<span class="st">&quot;P&quot;</span>, <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">19</span>)))</span>
@@ -4153,7 +4153,7 @@ vertical-align: -.125em;
 [13] &quot;diagnosis_code12&quot; &quot;diagnosis_code13&quot; &quot;diagnosis_code14&quot; &quot;diagnosis_code15&quot;
 [17] &quot;diagnosis_code16&quot; &quot;diagnosis_code17&quot; &quot;diagnosis_code18&quot; &quot;diagnosis_code19&quot;</code></pre>
 </div>
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>ktx_codes <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Z94&quot;</span>)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -4173,7 +4173,7 @@ vertical-align: -.125em;
 <li>Death records relating to patient subset</li>
 </ol>
 <div class="cell">
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Read in csv file</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>dth_tx_subset <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/NicoleDeLaMata/LinkedData/refs/heads/main/dth_tx_subset.csv&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -4185,7 +4185,7 @@ vertical-align: -.125em;
 <p>Apply the provided transfers code <em>transfers()</em> to add variables to all hospital admissions dataset (<strong>apdc_subset</strong>) to identify which episodes of care belong to the same hospital admission.</p>
 <p>How many periods of stay contained one or more transfers? What is the maximum number of transfers?</p>
 <div class="cell">
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Load transfers package</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(devtools)</span>
@@ -4226,7 +4226,7 @@ vertical-align: -.125em;
 <p>Only keep hospital admissions occurring after the first kidney transplant data, as given by the episode_start_date from the <strong>analysis_ktx_data1</strong> dataset.</p>
 <p>How many patients with first kidney transplant were there? How many patients had hospital admissions after their first kidney transplant?</p>
 <div class="cell">
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="do">##Check there are 88 patients from analysis_ktx_data1</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>analysis_ktx_data1 <span class="sc">%&gt;%</span> <span class="fu">distinct</span>(ppn) <span class="sc">%&gt;%</span> <span class="fu">nrow</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -4234,7 +4234,7 @@ vertical-align: -.125em;
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 88</code></pre>
 </div>
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="do">##Merge in date of first kidney transplant</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>apdc_aftertx <span class="ot">&lt;-</span> analysis_ktx_data1 <span class="sc">%&gt;%</span></span>
@@ -4258,7 +4258,7 @@ vertical-align: -.125em;
 <p>Using the resulting dataset from Question 2, identify hospital admissions that related to cardiovascular disease in any of the diagnosis fields. Cardiovascular disease is defined by ICD-10-AM codes including I20-I25, I34-I37, I42, I44-I49, I60-I61, and I63. Create a <em>cvd_flag</em> variable that takes a value of 1 for admissions relating to cardiovascular disease.</p>
 <p>How many hospital admissions relating to cardiovascular disease were there after patients had their first kidney transplant?</p>
 <div class="cell">
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Create a flag for patients with any admissions related to ischemic heart disease</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>diag_vars <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">&quot;diagnosis_code&quot;</span>, <span class="fu">c</span>(<span class="st">&quot;P&quot;</span>, <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">19</span>)))</span>
@@ -4271,7 +4271,7 @@ vertical-align: -.125em;
 [13] &quot;diagnosis_code12&quot; &quot;diagnosis_code13&quot; &quot;diagnosis_code14&quot; &quot;diagnosis_code15&quot;
 [17] &quot;diagnosis_code16&quot; &quot;diagnosis_code17&quot; &quot;diagnosis_code18&quot; &quot;diagnosis_code19&quot;</code></pre>
 </div>
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>cvd_codes <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;I20&quot;</span>, <span class="st">&quot;I21&quot;</span>, <span class="st">&quot;I22&quot;</span>, <span class="st">&quot;I24&quot;</span>, <span class="st">&quot;I25&quot;</span>, <span class="st">&quot;I34&quot;</span>, <span class="st">&quot;I35&quot;</span>, <span class="st">&quot;I36&quot;</span>, <span class="st">&quot;I37&quot;</span>, <span class="st">&quot;I42&quot;</span>, <span class="st">&quot;I44&quot;</span>, <span class="st">&quot;I45&quot;</span>, <span class="st">&quot;I46&quot;</span>, <span class="st">&quot;I47&quot;</span>, <span class="st">&quot;I48&quot;</span>, <span class="st">&quot;I49&quot;</span>, <span class="st">&quot;I60&quot;</span>, <span class="st">&quot;I61&quot;</span>, <span class="st">&quot;I63&quot;</span>)</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -4296,7 +4296,7 @@ vertical-align: -.125em;
 <p><em>fileseq</em> would not be correct as we removed observations. <em>episode</em> and <em>stayseq</em> may be correct in certain circumstances (i.e. if their first hospital admission for the data period was the first kidney transplant) but generally would not always - although it is consecutively correct, it would not always start from 1 for the first observation for a patient. <em>transfer, transseq, admdate_first, sepdate_last</em> and <em>totlos</em> would all be correct.</p>
 <p>Keeping this in mind, let’s start by reducing our dataset to the necessary variables (i.e. <em>ppn, stayseq, admdate_first, sepdate_last, totlos</em> and <em>cvd_flag</em>) and removing duplicates.Consider any additional data checks you may need to undertake to ensure the resulting dataset has one row per ppn per hospital admission. Then, we will recreate <em>fileseq</em> and create an index sequence varaible (<em>index_seq</em>) to flag the first admission with cardiovascular disease (if any) for each patient using the <em>cvd_flag</em>.</p>
 <div class="cell">
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Keep necessary variables and de-duplicate rows</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>apdc_aftertx_red <span class="ot">&lt;-</span> apdc_aftertx <span class="sc">%&gt;%</span> </span>
@@ -4307,7 +4307,7 @@ vertical-align: -.125em;
 <p><span style="color:red;">Let’s check if this has worked as we expected. There should not be any duplicated <em>ppn</em> and <em>stayseq</em> - could you think of scenarios where they may be?</span><br>
 </p>
 <div class="cell">
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check if there is duplicated rows for ppn and stayseq</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>check <span class="ot">&lt;-</span>  apdc_aftertx_red <span class="sc">%&gt;%</span></span>
@@ -4319,7 +4319,7 @@ vertical-align: -.125em;
 <p><span style="color:red;">We see here that cvd_flag was 1 for only one row of the same admission, which could very possibly occur. Let’s amend our coding so we take the observation rows where cvd_flag = 1.</span><br>
 </p>
 <div class="cell">
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Keep necessary variables and de-duplicate rows</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>apdc_aftertx_red <span class="ot">&lt;-</span> apdc_aftertx <span class="sc">%&gt;%</span> </span>
@@ -4431,7 +4431,7 @@ vertical-align: -.125em;
 </tbody>
 </table>
 </div>
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(apdc_aftertx_red<span class="sc">$</span>index_seq)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
@@ -4453,7 +4453,7 @@ vertical-align: -.125em;
 <h2 class="anchored" data-anchor-id="question-5">Question 5</h2>
 <p>Retain all the records for patients who had at least one admission relating to cardiovascular disease (i.e. post_cvd = 1) into a new dataframe (<strong>cvd_adm</strong>). How many records are in this dataframe?</p>
 <div class="cell">
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Only cvd admissions</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>cvd_adm <span class="ot">&lt;-</span> apdc_aftertx_red <span class="sc">%&gt;%</span> <span class="fu">filter</span>(post_cvd<span class="sc">!=</span><span class="dv">0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -4466,7 +4466,7 @@ vertical-align: -.125em;
 <h2 class="anchored" data-anchor-id="question-6">Question 6</h2>
 <p>Let’s work on the deaths data (<strong>dth_tx_subset</strong>). Perform data checks (e.g remove duplicates, format dates) and ensure there is only one record per ppn.</p>
 <div class="cell">
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove exact duplicates</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>dth_tx_subset <span class="ot">&lt;-</span> dth_tx_subset <span class="sc">%&gt;%</span> </span>
@@ -4482,7 +4482,7 @@ vertical-align: -.125em;
 <p><span style="color:red;">We see that the non-exact duplicates have occurred due to differences in the order of the secondary causes of death (i.e. <em>racs1</em> to <em>racs8</em>). As we are not concerned with causes of death for this analysis, let’s remove these variables and de-duplicate the data.</span><br>
 </p>
 <div class="cell">
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove exact duplicates</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>dth_tx_subset2 <span class="ot">&lt;-</span> dth_tx_subset <span class="sc">%&gt;%</span> <span class="fu">select</span>(ppn, age_recode, sex, death_date) <span class="sc">%&gt;%</span> <span class="fu">distinct</span>()</span>
@@ -4501,7 +4501,7 @@ vertical-align: -.125em;
 <h2 class="anchored" data-anchor-id="question-7">Question 7</h2>
 <p>Merge the deaths data with <strong>cvd_adm</strong>. Ensure you remove any death records that didn’t have a hospitalisation (i.e. left-join with keeping all observations from <strong>cvd_adm</strong>).</p>
 <div class="cell">
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Merge cvd_adm with dth_tx_subset2</span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>cvd_dth_subset <span class="ot">&lt;-</span> cvd_adm <span class="sc">%&gt;%</span> <span class="fu">left_join</span>(dth_tx_subset2, <span class="at">by =</span> <span class="st">&quot;ppn&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -4513,7 +4513,7 @@ vertical-align: -.125em;
 <p>We will now be undertaking checks to identify inconsistencies in the death dates with the hospitalisation records, which may indicate a linkage or other error.</p>
 <p>First, we need to find and merge in the <em>mode_of_separation_recode</em> for the last observation for each ppn and <em>admdate_first</em>.</p>
 <div class="cell">
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Find mode_of_separation_recode for last observation per ppn and admdate_first</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>mode_sep <span class="ot">&lt;-</span> apdc_aftertx <span class="sc">%&gt;%</span> </span>
@@ -4528,7 +4528,7 @@ vertical-align: -.125em;
 </div>
 <p>Then, create a separate flag variable for each of the following types of inconsistency and report the total number of cases where these occurred:</p>
 <div class="cell">
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Ensure dates are formatted</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>cvd_dth_subset <span class="ot">&lt;-</span> cvd_dth_subset <span class="sc">%&gt;%</span> </span>
@@ -4591,7 +4591,7 @@ vertical-align: -.125em;
 <p>Examine the records of the flagged patients. What kind of error does this appear to be?</p>
 <p>To avoid relying on assumptions, delete all records for those patients flagged as having incorrect death dates.</p>
 <div class="cell">
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Flag patients with any dodgy records</span></span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>cvd_dth_subset <span class="ot">&lt;-</span> cvd_dth_subset <span class="sc">%&gt;%</span></span>
@@ -4617,7 +4617,7 @@ vertical-align: -.125em;
 <p><span style="color:red;">There were 6 PPNs. PPN “5bW4Trp3PCM”, “6O.4rTOZq0O”, “Ke/4jTBLEV9” and “a0pPzqaNAfx” had no death dates recorded. Despite “5bW4Trp3PCM” having over 18 admissions, whilst the other PPNS only had one or two admissions. Similarly, PPN “VM5t/xO0xcB” only had one hospital admission and had a death date assigned prior to this, so perhaps a data linkage error. Finally, PPN “cJDUPD.1/5U” had a death date that aligned with the admission separation date of the second last hospitalisation. This suggests the last admission may be a data linkage error.</span><br>
 </p>
 <div class="cell">
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Delete all records for patients with any incorrect death dates</span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>cvd_dth_subset <span class="ot">&lt;-</span> cvd_dth_subset <span class="sc">%&gt;%</span> <span class="fu">filter</span>(dodgy_person <span class="sc">==</span> <span class="dv">0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -4628,7 +4628,7 @@ vertical-align: -.125em;
 <h2 class="anchored" data-anchor-id="question-10">Question 10</h2>
 <p>Create an analysis dataset (<strong>analysis_data</strong>) including only the index admission relating to cardiovascular disease for each patient. Create a <em>final_date</em> variable for all patients. This should be the end of the study period (31 December 2020) or their date of death, whichever comes first.</p>
 <div class="cell">
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create analysis dataset restricted to index admission</span></span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>analysis_data <span class="ot">&lt;-</span> cvd_dth_subset <span class="sc">%&gt;%</span></span>
@@ -4645,7 +4645,7 @@ vertical-align: -.125em;
 <p>Create the survival time (<em>survtime</em>) from <em>admdate_first</em> of the index admission until the <em>final_date</em> and censoring variable (<em>status</em>) to indicate whether the patient died before the end of the study period. If the survtime variable is 0, recode to 1 day. Convert the survival time to be in years, rather than days.</p>
 <p>What is the median survival time for those who died compared to those who survived?</p>
 <div class="cell">
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create survtime</span></span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>analysis_data <span class="ot">&lt;-</span> analysis_data <span class="sc">%&gt;%</span></span>
@@ -4773,7 +4773,7 @@ vertical-align: -.125em;
 <h2 class="anchored" data-anchor-id="question-12">Question 12</h2>
 <p>Plot the overall survival curve. Using this plot, what is the approximate survival probability at 5 years?</p>
 <div class="cell">
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Survival analysis</span></span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>survfit <span class="ot">&lt;-</span> <span class="fu">survfit</span>(<span class="at">data =</span> analysis_data,</span>
@@ -4789,7 +4789,7 @@ vertical-align: -.125em;
       n events median 0.95LCL 0.95UCL
 [1,] 24      7     NA    6.95      NA</code></pre>
 </div>
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Quick survival plot</span></span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>survfit <span class="sc">%&gt;%</span> <span class="fu">plot</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -4801,7 +4801,7 @@ vertical-align: -.125em;
 </figure>
 </div>
 </div>
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Nicer looking plot - if interested</span></span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>plotdata <span class="ot">&lt;-</span> <span class="fu">tidy</span>(survfit) <span class="sc">%&gt;%</span></span>
@@ -4847,7 +4847,7 @@ vertical-align: -.125em;
 <h2 class="anchored" data-anchor-id="question-13">Question 13</h2>
 <p>Find the probability of patients who survived for:</p>
 <div class="cell">
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Proportion surviving to each time point</span></span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(survfit, <span class="at">times =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="dv">1</span>, <span class="dv">3</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>

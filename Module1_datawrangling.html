@@ -4104,7 +4104,7 @@ vertical-align: -.125em;
 <section id="libraries" class="level2">
 <h2 class="anchored" data-anchor-id="libraries">Libraries</h2>
 <div class="cell">
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(skimr)</span>
@@ -4116,7 +4116,7 @@ vertical-align: -.125em;
 <h2 class="anchored" data-anchor-id="set-directories">Set directories</h2>
 <p>Make sure to use a single /, or two \\, since R interprets a single \ as an escape character</p>
 <div class="cell">
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>main_dir <span class="ot">&lt;-</span> <span class="st">&quot;G:/My Drive/Linked data course/Short course Feburary 2026/Module 1&quot;</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -4150,7 +4150,7 @@ vertical-align: -.125em;
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>You can also read in the data directly from the github</p>
 <div class="cell">
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>anzdata_patients <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/NicoleDeLaMata/LinkedData/refs/heads/main/anzdata_patients.csv&quot;</span>)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>anzdata_transplants <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/NicoleDeLaMata/LinkedData/refs/heads/main/anzdata_transplants.csv&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -4162,7 +4162,7 @@ vertical-align: -.125em;
 <section id="anzdata-patients" class="level3">
 <h3 class="anchored" data-anchor-id="anzdata-patients">ANZDATA patients</h3>
 <div class="cell">
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check number of records, columns, and data types</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>anzdata_patients</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -4192,7 +4192,7 @@ vertical-align: -.125em;
 <li>date is a date</li>
 </ul>
 <div class="cell">
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Quick overview - check missing data</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>anzdata_patients <span class="sc">%&gt;%</span> <span class="fu">skim</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -4374,7 +4374,7 @@ vertical-align: -.125em;
 </div>
 <p>There is no missing data</p>
 <div class="cell">
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Table for categorical variables</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>anzdata_patients <span class="sc">%&gt;%</span></span>
@@ -4391,7 +4391,7 @@ vertical-align: -.125em;
 <li>106 males (68%)</li>
 </ul>
 <div class="cell">
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Histograms for continuous variables</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>anzdata_patients <span class="sc">%&gt;%</span> <span class="fu">pull</span>(age) <span class="sc">%&gt;%</span> <span class="fu">hist</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -4406,7 +4406,7 @@ vertical-align: -.125em;
 </div>
 <p>Patients are mostly older, median age is 60</p>
 <div class="cell">
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check range for dates</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>anzdata_patients <span class="sc">%&gt;%</span> <span class="fu">skim</span>(date)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -4490,7 +4490,7 @@ vertical-align: -.125em;
 <section id="anzdata-transplants" class="level3">
 <h3 class="anchored" data-anchor-id="anzdata-transplants">ANZDATA transplants</h3>
 <div class="cell">
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check data types</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>anzdata_transplants</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -4511,7 +4511,7 @@ vertical-align: -.125em;
 10 3540792637       1 2018-02-18 Deceased
 # ℹ 2,213 more rows</code></pre>
 </div>
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Overview summary</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>anzdata_transplants <span class="sc">%&gt;%</span> <span class="fu">skim</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -4693,7 +4693,7 @@ vertical-align: -.125em;
 </tbody>
 </table>
 </div>
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Histogram for graftno</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>anzdata_transplants <span class="sc">%&gt;%</span> <span class="fu">pull</span>(graftno) <span class="sc">%&gt;%</span> <span class="fu">hist</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -4705,7 +4705,7 @@ vertical-align: -.125em;
 </figure>
 </div>
 </div>
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Table for graftno</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>anzdata_transplants <span class="sc">%&gt;%</span> <span class="fu">tabyl</span>(graftno)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -4716,7 +4716,7 @@ vertical-align: -.125em;
        2   46 0.0206927575
        3    1 0.0004498426</code></pre>
 </div>
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Table for transplant type</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>anzdata_transplants <span class="sc">%&gt;%</span> <span class="fu">tabyl</span>(txtype)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -4726,7 +4726,7 @@ vertical-align: -.125em;
  Deceased 1442 0.648673
    Living  781 0.351327</code></pre>
 </div>
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check range for dates</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>anzdata_transplants <span class="sc">%&gt;%</span> <span class="fu">skim</span>(date)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -4826,7 +4826,7 @@ vertical-align: -.125em;
 </ul>
 <p>The transplant dates range from 1st Jan 2015 to 27th Dec 2024</p>
 <div class="cell">
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Manually check some examples where graftno != 1</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>anzdata_transplants <span class="sc">%&gt;%</span> <span class="fu">filter</span>(graftno <span class="sc">!=</span> <span class="dv">1</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -4847,7 +4847,7 @@ vertical-align: -.125em;
 10 1509465340       2 2020-09-20 Deceased
 # ℹ 37 more rows</code></pre>
 </div>
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check if first few people have any other records</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>anzdata_transplants <span class="sc">%&gt;%</span> <span class="fu">filter</span>(ppn <span class="sc">==</span> <span class="dv">326543177</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -4859,7 +4859,7 @@ vertical-align: -.125em;
 1 326543177       1 2019-05-11 Deceased
 2 326543177       2 2020-01-31 Deceased</code></pre>
 </div>
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>anzdata_transplants <span class="sc">%&gt;%</span> <span class="fu">filter</span>(ppn <span class="sc">==</span> <span class="dv">396129623</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
@@ -4870,7 +4870,7 @@ vertical-align: -.125em;
 1 396129623       1 2020-04-29 Deceased
 2 396129623       2 2023-12-16 Deceased</code></pre>
 </div>
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>anzdata_transplants <span class="sc">%&gt;%</span> <span class="fu">filter</span>(ppn <span class="sc">==</span> <span class="dv">1010159219</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
@@ -4890,7 +4890,7 @@ vertical-align: -.125em;
 <h2 class="anchored" data-anchor-id="data-cleaning">Data cleaning</h2>
 <p>Rename ‘date’ to ‘krtstartdate’ to make clear it refers to the date that kidney replacement therapy started</p>
 <div class="cell">
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>anzdata_patients_clean <span class="ot">&lt;-</span> anzdata_patients <span class="sc">%&gt;%</span></span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Rename date variable</span></span>
@@ -4900,7 +4900,7 @@ vertical-align: -.125em;
 <p>Rename ‘date’ to ‘txdate’ to make clear it refers to the date of the kidney transplant</p>
 <p>Convert PPN to a character string, starting with ‘PPN’, and including leading zeroes (to match how it is stored in anzdata_patients)</p>
 <div class="cell">
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>anzdata_transplants_clean <span class="ot">&lt;-</span> anzdata_transplants <span class="sc">%&gt;%</span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Rename date variable</span></span>
@@ -4913,7 +4913,7 @@ vertical-align: -.125em;
 <section id="merge-datasets" class="level2">
 <h2 class="anchored" data-anchor-id="merge-datasets">Merge datasets</h2>
 <div class="cell">
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>merged_data <span class="ot">&lt;-</span> <span class="fu">left_join</span>(anzdata_patients_clean, </span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>                         anzdata_transplants_clean,</span>
@@ -4924,7 +4924,7 @@ vertical-align: -.125em;
 <p>Since some people can have more than one transplant, this is a 1-to-many merge. Each PPN appears exactly once in the left-hand dataset (anzdata_patients). But each PPN can potentially appear more than once (many times) in the right-hand dataset (anzdata_transplants)</p>
 <p>The merged dataset will therefore contain multiple rows per person, one row for each transplant</p>
 <div class="cell">
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Answer our original question</span></span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>merged_data <span class="sc">%&gt;%</span> <span class="fu">tabyl</span>(graftno)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -5462,11 +5462,11 @@ vertical-align: -.125em;
 <span id="cb34-63"><a href="#cb34-63" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb34-64"><a href="#cb34-64" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb34-65"><a href="#cb34-65" aria-hidden="true" tabindex="-1"></a>You can also read in the data directly from the github</span>
-<span id="cb34-68"><a href="#cb34-68" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb34-69"><a href="#cb34-69" aria-hidden="true" tabindex="-1"></a>anzdata_patients <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/NicoleDeLaMata/LinkedData/refs/heads/main/anzdata_patients.csv&quot;</span>)</span>
-<span id="cb34-70"><a href="#cb34-70" aria-hidden="true" tabindex="-1"></a>anzdata_transplants <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/NicoleDeLaMata/LinkedData/refs/heads/main/anzdata_transplants.csv&quot;</span>)</span>
-<span id="cb34-71"><a href="#cb34-71" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb34-72"><a href="#cb34-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-66"><a href="#cb34-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-69"><a href="#cb34-69" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb34-70"><a href="#cb34-70" aria-hidden="true" tabindex="-1"></a>anzdata_patients <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/NicoleDeLaMata/LinkedData/refs/heads/main/anzdata_patients.csv&quot;</span>)</span>
+<span id="cb34-71"><a href="#cb34-71" aria-hidden="true" tabindex="-1"></a>anzdata_transplants <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/NicoleDeLaMata/LinkedData/refs/heads/main/anzdata_transplants.csv&quot;</span>)</span>
+<span id="cb34-72"><a href="#cb34-72" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb34-73"><a href="#cb34-73" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb34-74"><a href="#cb34-74" aria-hidden="true" tabindex="-1"></a><span class="fu">## Data checks</span></span>
 <span id="cb34-75"><a href="#cb34-75" aria-hidden="true" tabindex="-1"></a></span>

@@ -4122,7 +4122,7 @@ vertical-align: -.125em;
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>We import the data as below.</p>
 <div class="cell">
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import data from Github ----</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Read in csv file</span></span>
@@ -4143,7 +4143,7 @@ vertical-align: -.125em;
 <p><span style="color:red;">Below is the relevant R coding.</span><br>
 </p>
 <div class="cell">
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># canc_reg</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>canc_reg <span class="ot">&lt;-</span> canc_reg <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">diag_date =</span> <span class="fu">as.Date</span>(diag_date, <span class="at">format =</span> <span class="st">&quot;%d%b%Y&quot;</span>),</span>
@@ -4173,7 +4173,7 @@ vertical-align: -.125em;
 <p>Compare the year of approximate date of births within each ppn and each dataset. Select only one year of approximate date of birth per ppn based on the most frequently reported value.</p>
 <p>Would it be possible to do the same for the month of approximate date of birth?</p>
 <div class="cell">
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># canc_reg</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>canc_reg <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="fu">duplicated</span>(ppn))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -4190,7 +4190,7 @@ vertical-align: -.125em;
 6 g1CGbGGppon           67 2017-09-25 F     1950-09-25
 7 u3ZsPb2Mdv8           69 2013-02-14 M     1944-02-14</code></pre>
 </div>
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># napd</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>napd <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="fu">duplicated</span>(ppn))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -4211,7 +4211,7 @@ vertical-align: -.125em;
 10 .0Blbs.MCyy           48 M     2007-07-16      1959-07-16
 # ℹ 137,904 more rows</code></pre>
 </div>
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># pbs</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>pbs <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="fu">duplicated</span>(ppn))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -4232,7 +4232,7 @@ vertical-align: -.125em;
 10 .0Blbs.MCyy                48 M     2007-03-22     1959-03-22
 # ℹ 174,630 more rows</code></pre>
 </div>
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># dth</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>dth <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="fu">duplicated</span>(ppn))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -4255,7 +4255,7 @@ vertical-align: -.125em;
 12 cs5Bz6enqoD               54 M     2012-06-20 1958-06-20
 13 kgL1fwN/bFn               23 M     2012-03-27 1989-03-27</code></pre>
 </div>
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># anzdata</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>anzdata <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="fu">duplicated</span>(ppn))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -4269,7 +4269,7 @@ vertical-align: -.125em;
 <p><span style="color:red;">ANZDATA is the only dataset that doesn’t have duplicated ppn. The death records should also have no duplicated ppn. Let’s review and fix the death data first.</span><br>
 </p>
 <div class="cell">
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Create year of approximate date of birth for anzdata</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>anzdata <span class="ot">&lt;-</span> anzdata <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">year_bod_anz=</span><span class="fu">year</span>(bod_anz))</span>
@@ -4296,7 +4296,7 @@ vertical-align: -.125em;
 10 cs5Bz6enqoD               54 M     2012-06-20 1958-06-20
 # ℹ 16 more rows</code></pre>
 </div>
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Remove the exact duplicates and create year of approximate date of birth</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>dth <span class="ot">&lt;-</span> dth <span class="sc">%&gt;%</span></span>
@@ -4311,7 +4311,7 @@ vertical-align: -.125em;
 <p><span style="color:red;">We will walkthrough the process with canc_reg. We initially prepare the data to include a sequence id for each observation row for each ppn. We then reshape into wide format. Using this data, we check across the rows of data for discrepancies.</span><br>
 </p>
 <div class="cell">
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># canc_reg</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>canc_reg <span class="ot">&lt;-</span> canc_reg <span class="sc">%&gt;%</span> </span>
@@ -4344,7 +4344,7 @@ vertical-align: -.125em;
 #   bod_canc_3 &lt;date&gt;, year_bod_1 &lt;dbl&gt;, year_bod_2 &lt;dbl&gt;, year_bod_3 &lt;dbl&gt;,
 #   month_bod_1 &lt;dbl&gt;, month_bod_2 &lt;dbl&gt;, month_bod_3 &lt;dbl&gt;, flag_year &lt;dbl&gt;</code></pre>
 </div>
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Compare the different months of birth - discrepancies</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>canc_reg_long <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">flag_month =</span> <span class="fu">case_when</span>(</span>
@@ -4366,7 +4366,7 @@ vertical-align: -.125em;
 #   year_bod_3 &lt;dbl&gt;, month_bod_1 &lt;dbl&gt;, month_bod_2 &lt;dbl&gt;, month_bod_3 &lt;dbl&gt;,
 #   flag_month &lt;dbl&gt;</code></pre>
 </div>
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Collate cancer registry data</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>canc_reg_red <span class="ot">&lt;-</span> canc_reg_long <span class="sc">%&gt;%</span> <span class="fu">select</span>(ppn, <span class="at">year_bod_canc =</span> year_bod_1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -4379,7 +4379,7 @@ vertical-align: -.125em;
 <p><span style="color:red;">Now let’s move on to the more complicated datasets - napd and pbs.</span><br>
 </p>
 <div class="cell">
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># napd</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>napd <span class="ot">&lt;-</span> napd <span class="sc">%&gt;%</span> </span>
@@ -4400,7 +4400,7 @@ vertical-align: -.125em;
 <p><span style="color:red;">We see at this stage, the prior approach used in the canc_reg data is not as straightforward as when using napd. Summarising the number of observations per person, we can see the maximum sequence was 3010. It would be cumbersome to try to recreate the above coding to look across all these potential year of birth. So, let’s first reduce the observations per ppn down to unique observations of year of birth per ppn.</span><br>
 </p>
 <div class="cell">
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># napd</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>napd_unique <span class="ot">&lt;-</span> napd <span class="sc">%&gt;%</span> </span>
@@ -4418,7 +4418,7 @@ vertical-align: -.125em;
   1   2   3   4 
 273 260   6   2 </code></pre>
 </div>
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Reshape</span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>napd_long <span class="ot">&lt;-</span> napd_unique <span class="sc">|&gt;</span> <span class="fu">pivot_wider</span>(</span>
@@ -4432,7 +4432,7 @@ vertical-align: -.125em;
 <p><span style="color:red;">This is much more manageable to work with. Let’s proceed with the rest of the steps.</span><br>
 </p>
 <div class="cell">
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Compare the different years of birth - discrepancies</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>napd_long <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">flag_year =</span> <span class="fu">case_when</span>(</span>
@@ -4465,7 +4465,7 @@ vertical-align: -.125em;
 <p><span style="color:red;">Now we do see here some discrepancies by year of approximate birthdate. Taking a closer look, most of these are only one year different which may occur due to rounding. Let’s find cases that are more substantial.</span><br>
 </p>
 <div class="cell">
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Compare the different years of birth - discrepancies greater than 1 year</span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>napd_long <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">flag_year =</span> <span class="fu">case_when</span>(</span>
@@ -4493,7 +4493,7 @@ vertical-align: -.125em;
 <p><span style="color:red;">The discrepancies greater than one year have reduced to six observations. Even with rounding errors, we wouldn’t expect there to be a difference of greater than a year. PPN eKLnjT620Fp is especially interesting as it has two sets of year of birth that are one unit apart. Due to this, we will count the occurrence of each year of birthdate to see if there is a clear preference.</span><br>
 </p>
 <div class="cell">
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># napd</span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>napd_unique2 <span class="ot">&lt;-</span> napd <span class="sc">%&gt;%</span> </span>
@@ -4542,7 +4542,7 @@ vertical-align: -.125em;
 <p><span style="color:red;">Different algorithms or decision trees can be made to determine agreement between values, and deciding which values to use, when relying on linked administrative health data. The frequency of reporting, most recent observation or ‘gold standard’ are the most commonly used rules. We discuss these further in Module 5: Covariates. For this exercise, we will take the most frequently reported year. Feel free to re-do these exercises while using the most recent observation instead.</span><br>
 </p>
 <div class="cell">
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Collate NAPD data</span></span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>napd_long_red <span class="ot">&lt;-</span> napd_long <span class="sc">%&gt;%</span> </span>
@@ -4573,7 +4573,7 @@ vertical-align: -.125em;
 <p><span style="color:red;">Now let’s proceed with PBS data.</span><br>
 </p>
 <div class="cell">
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># pbs</span></span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>pbs_unique <span class="ot">&lt;-</span> pbs <span class="sc">%&gt;%</span> </span>
@@ -4596,7 +4596,7 @@ vertical-align: -.125em;
   1   2   3   4 
 265 242   2   2 </code></pre>
 </div>
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Reshape</span></span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>pbs_long <span class="ot">&lt;-</span> pbs_unique <span class="sc">|&gt;</span> <span class="fu">pivot_wider</span>(</span>
@@ -4628,7 +4628,7 @@ vertical-align: -.125em;
 <p><span style="color:red;">There’s only a couple discrepancies, which is great but we will use the same approach as napd.</span><br>
 </p>
 <div class="cell">
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Collate PBS data</span></span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>pbs_long_red <span class="ot">&lt;-</span> pbs_long <span class="sc">%&gt;%</span> </span>
@@ -4648,7 +4648,7 @@ vertical-align: -.125em;
 <h2 class="anchored" data-anchor-id="question-3">Question 3</h2>
 <p>Merge the datasets together.</p>
 <div class="cell">
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Merge datasets together</span></span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>merged_data <span class="ot">&lt;-</span> anzdata <span class="sc">%&gt;%</span> </span>
@@ -4663,7 +4663,7 @@ vertical-align: -.125em;
 <h2 class="anchored" data-anchor-id="question-4">Question 4</h2>
 <p>Let’s start with comparing the sex between all the datasets. How many discrepancies have occurred?</p>
 <div class="cell">
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Tabulate</span></span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(merged_data<span class="sc">$</span>sex.x, merged_data<span class="sc">$</span>sex.y)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -4684,7 +4684,7 @@ vertical-align: -.125em;
 <p><span style="color:red;">As opposed to coding above, we can look across the rows to take the most commonly reported year of approximate date of birth. Where the year value is reported equally among the multiple years, we will set to NA.</span><br>
 </p>
 <div class="cell">
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Most commonly reported year of birth</span></span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>merged_data <span class="ot">&lt;-</span> merged_data <span class="sc">%&gt;%</span></span>
@@ -4710,7 +4710,7 @@ vertical-align: -.125em;
 <p><span style="color:red;">Of the 372 patients (ppn), the most frequently reported year of approximate date of birth matched ANZDATA for 275 (74%) patients.</span><br>
 </p>
 <div class="cell">
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Count occurrences</span></span>
 <span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>merged_data <span class="sc">%&gt;%</span> <span class="fu">filter</span>(most_year_bod<span class="sc">==</span>year_bod_anz) <span class="sc">%&gt;%</span> <span class="fu">nrow</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -4739,7 +4739,7 @@ vertical-align: -.125em;
 <span style="color:red;">First, we import the dataset.</span><br>
 </p>
 <div class="cell">
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import data from Github ----</span></span>
 <span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Read in csv file</span></span>
@@ -4749,7 +4749,7 @@ vertical-align: -.125em;
 <p><span style="color:red;">Creating the <em>tx_seq</em> variable and summarising number of kidney transplants.</span><br>
 </p>
 <div class="cell">
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create tx_seq</span></span>
 <span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>kidney_long <span class="ot">&lt;-</span> kidney_long <span class="sc">%&gt;%</span></span>
@@ -4769,7 +4769,7 @@ vertical-align: -.125em;
       3  23 0.06284153
       4   1 0.00273224</code></pre>
 </div>
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Total count of 2 or more kidney transplants</span></span>
 <span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>kidney_long <span class="sc">%&gt;%</span> <span class="fu">filter</span>(tx_seq<span class="sc">&gt;=</span><span class="dv">2</span>) <span class="sc">%&gt;%</span> <span class="fu">nrow</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -4787,7 +4787,7 @@ vertical-align: -.125em;
 <p><span style="color:red;">See below coding for variable <em>post_ltx_seq</em>.</span><br>
 </p>
 <div class="cell">
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create post_ltx_seq</span></span>
 <span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>kidney_long <span class="ot">&lt;-</span> kidney_long <span class="sc">%&gt;%</span></span>
@@ -4823,7 +4823,7 @@ vertical-align: -.125em;
 <li>How many patients had at least one kidney transplant from a living donor?</li>
 </ol>
 <div class="cell">
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Frequency table of post_ltx_seq</span></span>
 <span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>kidney_long <span class="sc">%&gt;%</span> <span class="fu">tabyl</span>(post_ltx_seq)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -4852,7 +4852,7 @@ vertical-align: -.125em;
 <p><span style="color:red;">See below coding for variable <em>liv_seq</em>.</span><br>
 </p>
 <div class="cell">
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create liv_seq</span></span>
 <span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>kidney_long <span class="ot">&lt;-</span> kidney_long <span class="sc">%&gt;%</span></span>
@@ -4885,7 +4885,7 @@ vertical-align: -.125em;
 <li>What is maximum number of living donor transplants to one patient in our study population?</li>
 </ol>
 <div class="cell">
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Frequency table of post_ltx_seq</span></span>
 <span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>kidney_long <span class="sc">%&gt;%</span> <span class="fu">tabyl</span>(liv_seq)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -4915,7 +4915,7 @@ vertical-align: -.125em;
 <li>Determine what proportion of patients had a deceased donor transplant immediately following their first living donor transplant.</li>
 </ol>
 <div class="cell">
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Proportion with deceased donor immediately after first living donor</span></span>
 <span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>kidney_long <span class="sc">%&gt;%</span> </span>
@@ -4934,7 +4934,7 @@ vertical-align: -.125em;
 <li>Determine what proportion of patients that had a deceased donor transplant immediately following their first living donor transplant, where their first living donor transplant was also their first ever kidney transplant.</li>
 </ol>
 <div class="cell">
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Proportion with deceased donor immediately after first living donor, </span></span>
 <span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   where first living donor transplant was also their first ever transplant</span></span>
@@ -4955,7 +4955,7 @@ vertical-align: -.125em;
 </li>
 </ol>
 <div class="cell">
-<details class="code-fold">
+<details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Proportion with deceased donor immediately after first living donor, </span></span>
 <span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   where first living donor transplant was NOT their first ever transplant</span></span>
