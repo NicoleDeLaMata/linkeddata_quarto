@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Module 2 Data wrangling – Analysis of Linked Health Data</title>
+<title>Module 2 Data wrangling example – Analysis of Linked Health Data</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -3875,7 +3875,7 @@ vertical-align: -.125em;
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Module2_datawrangling.html">Module 2</a></li><li class="breadcrumb-item"><a href="./Module2_datawrangling.html">Module 2 Data wrangling</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Module2_datawrangling.html">Module 2</a></li><li class="breadcrumb-item"><a href="./Module2_datawrangling.html">Module 2 Data wrangling example</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -3946,7 +3946,7 @@ vertical-align: -.125em;
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Module2_datawrangling.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Module 2 Data wrangling</span></a>
+ <span class="menu-text">Module 2 Data wrangling example</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -4066,16 +4066,20 @@ vertical-align: -.125em;
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#r-coding" id="toc-r-coding" class="nav-link active" data-scroll-target="#r-coding">R coding</a></li>
+  <li><a href="#libraries" id="toc-libraries" class="nav-link active" data-scroll-target="#libraries">Libraries</a></li>
+  <li><a href="#set-folder-directories" id="toc-set-folder-directories" class="nav-link" data-scroll-target="#set-folder-directories">Set folder directories</a></li>
+  <li><a href="#read-in-raw-data" id="toc-read-in-raw-data" class="nav-link" data-scroll-target="#read-in-raw-data">Read in raw data</a></li>
+  <li><a href="#add-icd10-descriptions-to-apdc-data" id="toc-add-icd10-descriptions-to-apdc-data" class="nav-link" data-scroll-target="#add-icd10-descriptions-to-apdc-data">Add ICD10 descriptions to APDC data</a></li>
+  <li><a href="#create-sequence-variables" id="toc-create-sequence-variables" class="nav-link" data-scroll-target="#create-sequence-variables">Create sequence variables</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Module2_datawrangling.html">Module 2</a></li><li class="breadcrumb-item"><a href="./Module2_datawrangling.html">Module 2 Data wrangling</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Module2_datawrangling.html">Module 2</a></li><li class="breadcrumb-item"><a href="./Module2_datawrangling.html">Module 2 Data wrangling example</a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">Module 2 Data wrangling</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+<div class="quarto-title-block"><div><h1 class="title">Module 2 Data wrangling example</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
 </div>
 
 
@@ -4092,72 +4096,653 @@ vertical-align: -.125em;
 </header>
 
 
-<section id="r-coding" class="level2">
-<h2 class="anchored" data-anchor-id="r-coding">R coding</h2>
-<p>See below for data wrangling content.</p>
-<p>The following packages were used for the solutions.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Load libraries</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse) <span class="co"># for data manipulation</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(skimr) <span class="co"># for skim() to summarise datasets</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(labelled) <span class="co"># for generate_dictionary() to view value labels </span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor) <span class="co"># for tabyl() to create frequency tables</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate) <span class="co"># for working with date variables</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell">
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package &#39;tidyverse&#39; was built under R version 4.4.3</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package &#39;lubridate&#39; was built under R version 4.4.3</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-✔ dplyr     1.1.4     ✔ readr     2.1.5
-✔ forcats   1.0.0     ✔ stringr   1.5.1
-✔ ggplot2   3.5.1     ✔ tibble    3.2.1
-✔ lubridate 1.9.4     ✔ tidyr     1.3.1
-✔ purrr     1.0.2     
-── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-✖ dplyr::filter() masks stats::filter()
-✖ dplyr::lag()    masks stats::lag()
-ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package &#39;skimr&#39; was built under R version 4.4.3</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package &#39;labelled&#39; was built under R version 4.4.3</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package &#39;janitor&#39; was built under R version 4.4.3</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-Attaching package: &#39;janitor&#39;
-
-The following objects are masked from &#39;package:stats&#39;:
-
-    chisq.test, fisher.test</code></pre>
-</div>
-</div>
-<p>We import the data as below.</p>
+<p>We have three datasets for this example: anzdata_transplants.csv apdc_subset_2010_2024.csv icd10_descriptions.csv</p>
+<p>Our goal is to summarise the primary reasons for hospital admissions immediately following kidney transplant</p>
+<section id="libraries" class="level1">
+<h1>Libraries</h1>
 <div class="cell">
 <details open class="code-fold">
 <summary>Show R code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import data from Github ----</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Read in csv file</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>ppn_subset_2000 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/NicoleDeLaMata/LinkedData/refs/heads/main/ppn_subset_2000.csv&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
-<div class="cell-output cell-output-stderr">
-<pre><code>Rows: 80512 Columns: 49
-── Column specification ────────────────────────────────────────────────────────
-Delimiter: &quot;,&quot;
-chr (22): episode_start_date, episode_end_date, diagnosis_codeP, diagnosis_c...
-dbl (27): ppn, age_recode, facility_identifier_recode, episode_length_of_sta...
-
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+</section>
+<section id="set-folder-directories" class="level1">
+<h1>Set folder directories</h1>
+<p>You may choose to read in the raw data via your folder directory. As below:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>main_dir <span class="ot">&lt;-</span> <span class="st">&quot;G:/My Drive/Linked data course/Module 2 example&quot;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>data_dir <span class="ot">&lt;-</span> <span class="fu">file.path</span>(main_dir, <span class="st">&quot;Data&quot;</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>anzdata_transplants <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">file.path</span>(data_dir, <span class="fu">paste0</span>(<span class="st">&quot;anzdata_transplants&quot;</span>, <span class="st">&quot;.csv&quot;</span>)))</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>apdc_subset_2010_2024 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">file.path</span>(data_dir, <span class="fu">paste0</span>(<span class="st">&quot;apdc_subset_2010_2024&quot;</span>, <span class="st">&quot;.csv&quot;</span>)))</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>icd10_descriptions <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">file.path</span>(data_dir, <span class="fu">paste0</span>(<span class="st">&quot;icd10_descriptions&quot;</span>, <span class="st">&quot;.csv&quot;</span>)))</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="read-in-raw-data" class="level1">
+<h1>Read in raw data</h1>
+<p>We will be using github to read in our data.</p>
+<div class="cell">
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>anzdata_transplants <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/NicoleDeLaMata/LinkedData/refs/heads/main/anzdata_transplants.csv&quot;</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>apdc_subset_2010_2024 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/NicoleDeLaMata/LinkedData/refs/heads/main/apdc_subset_2010_2024.csv&quot;</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>icd10_descriptions <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/NicoleDeLaMata/LinkedData/refs/heads/main/icd10_descriptions.csv&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>Let’s have a quick look to check they have been read in correctly. How many rows and columns? What are the variable names and data types? What does each row represent?</p>
+<div class="cell">
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>anzdata_transplants</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2,223 × 4
+   ppn            graftno transplantdate txtype  
+   &lt;chr&gt;            &lt;dbl&gt; &lt;date&gt;         &lt;chr&gt;   
+ 1 PPN00326543177       1 2019-05-11     Deceased
+ 2 PPN00326543177       2 2020-01-31     Deceased
+ 3 PPN00396129623       1 2020-04-29     Deceased
+ 4 PPN00396129623       2 2023-12-16     Deceased
+ 5 PPN01010159219       2 2020-05-23     Living  
+ 6 PPN04069009646       1 2019-01-18     Deceased
+ 7 PPN06536577087       1 2022-06-03     Deceased
+ 8 PPN05745609186       2 2018-10-25     Living  
+ 9 PPN01523010064       1 2018-08-16     Deceased
+10 PPN09139098438       1 2021-09-17     Deceased
+# ℹ 2,213 more rows</code></pre>
+</div>
+</div>
+<div class="cell">
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>apdc_subset_2010_2024</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4,258 × 55
+   ppn   hosp_id start_date end_date   diag1 diag2 diag3 diag4 diag5 diag6 diag7
+   &lt;chr&gt; &lt;chr&gt;   &lt;date&gt;     &lt;date&gt;     &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;
+ 1 PPN0… H0252   2011-06-05 2011-06-06 Z86.… R07.4 &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; 
+ 2 PPN0… H0252   2011-08-02 2011-08-02 Z41.1 E65   &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; 
+ 3 PPN0… H0252   2017-07-24 2017-07-24 K31.7 K29.… K21.9 &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; 
+ 4 PPN0… H0252   2017-11-28 2017-11-28 N95.0 N19   &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; 
+ 5 PPN0… H0252   2019-02-19 2019-02-21 N18.5 Q61.2 I10   Z86.… &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; 
+ 6 PPN0… H0152   2019-08-03 2019-08-03 N18.5 Q61.3 Z51.… &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; 
+ 7 PPN0… H0152   2019-08-04 2019-08-04 N18.5 Z51.… &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; 
+ 8 PPN0… H0152   2019-08-05 2019-08-05 Z51.… N18.5 &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; 
+ 9 PPN0… H0152   2019-08-10 2019-08-10 N18.5 Z51.… &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; 
+10 PPN0… H0152   2019-08-11 2019-08-11 Z51.… N18.5 &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; 
+# ℹ 4,248 more rows
+# ℹ 44 more variables: diag8 &lt;chr&gt;, diag9 &lt;chr&gt;, diag10 &lt;chr&gt;, diag11 &lt;chr&gt;,
+#   diag12 &lt;chr&gt;, diag13 &lt;chr&gt;, diag14 &lt;chr&gt;, diag15 &lt;chr&gt;, diag16 &lt;chr&gt;,
+#   diag17 &lt;chr&gt;, diag18 &lt;chr&gt;, diag19 &lt;chr&gt;, diag20 &lt;chr&gt;, diag21 &lt;chr&gt;,
+#   diag22 &lt;chr&gt;, diag23 &lt;chr&gt;, diag24 &lt;chr&gt;, diag25 &lt;chr&gt;, diag26 &lt;chr&gt;,
+#   diag27 &lt;chr&gt;, diag28 &lt;chr&gt;, diag29 &lt;chr&gt;, diag30 &lt;chr&gt;, diag31 &lt;chr&gt;,
+#   diag32 &lt;chr&gt;, diag33 &lt;chr&gt;, diag34 &lt;chr&gt;, diag35 &lt;chr&gt;, diag36 &lt;chr&gt;, …</code></pre>
+</div>
+</div>
+<div class="cell">
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>icd10_descriptions</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 121,611 × 2
+   icd10_code icd10_desc                                        
+   &lt;chr&gt;      &lt;chr&gt;                                             
+ 1 A00        Cholera                                           
+ 2 A00.0      Cholera due to Vibrio cholerae 01, biovar cholerae
+ 3 A00.1      Cholera due to Vibrio cholerae 01, biovar eltor   
+ 4 A00.9      Cholera, unspecified                              
+ 5 A01        Typhoid and paratyphoid fevers                    
+ 6 A01.0      Typhoid fever                                     
+ 7 A01.00     Typhoid fever, unspecified                        
+ 8 A01.01     Typhoid meningitis                                
+ 9 A01.02     Typhoid fever with heart involvement              
+10 A01.03     Typhoid pneumonia                                 
+# ℹ 121,601 more rows</code></pre>
+</div>
+</div>
+<p>Let’s check that icd10_descriptions has exactly one row per person, since this will help us decide how to work with it.</p>
+<div class="cell">
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>icd10_descriptions <span class="sc">%&gt;%</span> <span class="fu">distinct</span>(icd10_code)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 121,611 × 1
+   icd10_code
+   &lt;chr&gt;     
+ 1 A00       
+ 2 A00.0     
+ 3 A00.1     
+ 4 A00.9     
+ 5 A01       
+ 6 A01.0     
+ 7 A01.00    
+ 8 A01.01    
+ 9 A01.02    
+10 A01.03    
+# ℹ 121,601 more rows</code></pre>
+</div>
+</div>
+<p>There are the same number of rows in the original dataset as there are unique values icd10_code.</p>
+<p>Therefore, each icd10_code must appear once only.</p>
+</section>
+<section id="add-icd10-descriptions-to-apdc-data" class="level1">
+<h1>Add ICD10 descriptions to APDC data</h1>
+<p>Our APDC dataset is one row per person per hospital admission, with 51 columns for the 51 possible diagnosis codes for each admission</p>
+<p>We also have a dataset of ICD descriptions, which has one row per ICD10 code</p>
+<p>We need to reshape our APDC dataset to make it easier to merge on the diagnosis code descriptions.</p>
+<p>Our data is currently in wide format, with many columns for the different diagnosis codes. We need to transform this to long format, with many rows (one for each diagnosis code)</p>
+<p>The function we use is therefore pivot_longer(). The columns we want to pivot longer is everything starting with “diag” In the transformed dataset, we want a create new variable called “diag_seq”, where the original column names will be stored. We also want to create a new variable called “diag_code” where the actual diagnosis code values will be stored.</p>
+<div class="cell">
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>apdc_subset_2010_2024 <span class="sc">%&gt;%</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">&quot;diag&quot;</span>),</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">&quot;diag_seq&quot;</span>,</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">&quot;diag_code&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 217,158 × 6
+   ppn            hosp_id start_date end_date   diag_seq diag_code
+   &lt;chr&gt;          &lt;chr&gt;   &lt;date&gt;     &lt;date&gt;     &lt;chr&gt;    &lt;chr&gt;    
+ 1 PPN05630154747 H0252   2011-06-05 2011-06-06 diag1    Z86.43   
+ 2 PPN05630154747 H0252   2011-06-05 2011-06-06 diag2    R07.4    
+ 3 PPN05630154747 H0252   2011-06-05 2011-06-06 diag3    &lt;NA&gt;     
+ 4 PPN05630154747 H0252   2011-06-05 2011-06-06 diag4    &lt;NA&gt;     
+ 5 PPN05630154747 H0252   2011-06-05 2011-06-06 diag5    &lt;NA&gt;     
+ 6 PPN05630154747 H0252   2011-06-05 2011-06-06 diag6    &lt;NA&gt;     
+ 7 PPN05630154747 H0252   2011-06-05 2011-06-06 diag7    &lt;NA&gt;     
+ 8 PPN05630154747 H0252   2011-06-05 2011-06-06 diag8    &lt;NA&gt;     
+ 9 PPN05630154747 H0252   2011-06-05 2011-06-06 diag9    &lt;NA&gt;     
+10 PPN05630154747 H0252   2011-06-05 2011-06-06 diag10   &lt;NA&gt;     
+# ℹ 217,148 more rows</code></pre>
+</div>
+</div>
+<p>Each hospital admission (i.e. each row) has been copied 51 times, once for each diagnosis code. Some of these copies are redundant, since not every admission has all 51 diagnosis codes entered. So we can remove the records where diag_code is NA</p>
+<div class="cell">
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>apdc_subset_2010_2024 <span class="sc">%&gt;%</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">&quot;diag&quot;</span>),</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">&quot;diag_seq&quot;</span>,</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">&quot;diag_code&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(diag_code))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 21,737 × 6
+   ppn            hosp_id start_date end_date   diag_seq diag_code
+   &lt;chr&gt;          &lt;chr&gt;   &lt;date&gt;     &lt;date&gt;     &lt;chr&gt;    &lt;chr&gt;    
+ 1 PPN05630154747 H0252   2011-06-05 2011-06-06 diag1    Z86.43   
+ 2 PPN05630154747 H0252   2011-06-05 2011-06-06 diag2    R07.4    
+ 3 PPN05630154747 H0252   2011-08-02 2011-08-02 diag1    Z41.1    
+ 4 PPN05630154747 H0252   2011-08-02 2011-08-02 diag2    E65      
+ 5 PPN05630154747 H0252   2017-07-24 2017-07-24 diag1    K31.7    
+ 6 PPN05630154747 H0252   2017-07-24 2017-07-24 diag2    K29.50   
+ 7 PPN05630154747 H0252   2017-07-24 2017-07-24 diag3    K21.9    
+ 8 PPN05630154747 H0252   2017-11-28 2017-11-28 diag1    N95.0    
+ 9 PPN05630154747 H0252   2017-11-28 2017-11-28 diag2    N19      
+10 PPN05630154747 H0252   2019-02-19 2019-02-21 diag1    N18.5    
+# ℹ 21,727 more rows</code></pre>
+</div>
+</div>
+<p>We can also remove the “diag” part of each diag_seq, since all we need is the number</p>
+<div class="cell">
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>apdc_subset_2010_2024 <span class="sc">%&gt;%</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">&quot;diag&quot;</span>),</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">&quot;diag_seq&quot;</span>,</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">&quot;diag_code&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(diag_code)) <span class="sc">%&gt;%</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">diag_seq =</span> <span class="fu">str_remove</span>(diag_seq, <span class="st">&quot;diag&quot;</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 21,737 × 6
+   ppn            hosp_id start_date end_date   diag_seq diag_code
+   &lt;chr&gt;          &lt;chr&gt;   &lt;date&gt;     &lt;date&gt;     &lt;chr&gt;    &lt;chr&gt;    
+ 1 PPN05630154747 H0252   2011-06-05 2011-06-06 1        Z86.43   
+ 2 PPN05630154747 H0252   2011-06-05 2011-06-06 2        R07.4    
+ 3 PPN05630154747 H0252   2011-08-02 2011-08-02 1        Z41.1    
+ 4 PPN05630154747 H0252   2011-08-02 2011-08-02 2        E65      
+ 5 PPN05630154747 H0252   2017-07-24 2017-07-24 1        K31.7    
+ 6 PPN05630154747 H0252   2017-07-24 2017-07-24 2        K29.50   
+ 7 PPN05630154747 H0252   2017-07-24 2017-07-24 3        K21.9    
+ 8 PPN05630154747 H0252   2017-11-28 2017-11-28 1        N95.0    
+ 9 PPN05630154747 H0252   2017-11-28 2017-11-28 2        N19      
+10 PPN05630154747 H0252   2019-02-19 2019-02-21 1        N18.5    
+# ℹ 21,727 more rows</code></pre>
+</div>
+</div>
+<p>Now we can merge on the ICD10 descriptions, and call this new column “diag_desc”</p>
+<div class="cell">
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>apdc_icd10_desc <span class="ot">&lt;-</span> apdc_subset_2010_2024 <span class="sc">%&gt;%</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">&quot;diag&quot;</span>),</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">&quot;diag_seq&quot;</span>,</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">&quot;diag_code&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(diag_code)) <span class="sc">%&gt;%</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">diag_seq =</span> <span class="fu">str_remove</span>(diag_seq, <span class="st">&quot;diag&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(icd10_descriptions, <span class="at">by =</span> <span class="fu">join_by</span>(<span class="st">&quot;diag_code&quot;</span> <span class="sc">==</span> <span class="st">&quot;icd10_code&quot;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">diag_desc =</span> icd10_desc)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>And finally, now that the descriptions have been added on, we can reshape back to the original wide format. We want to keep the original columns ppn, hosp_id, start_date, and end_date We want to create new columns, using the values currently stored in the column “diag_seq” to create new column names We want to create two sets of new columns, one set for diagnosis code “diag_code”, and one set for the descriptions “diag_desc”</p>
+<div class="cell">
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>apdc_subset_2010_2024 <span class="sc">%&gt;%</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">&quot;diag&quot;</span>),</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">&quot;diag_seq&quot;</span>,</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">&quot;diag_code&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(diag_code)) <span class="sc">%&gt;%</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(icd10_descriptions, <span class="at">by =</span> <span class="fu">join_by</span>(<span class="st">&quot;diag_code&quot;</span> <span class="sc">==</span> <span class="st">&quot;icd10_code&quot;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">diag_desc =</span> icd10_desc) <span class="sc">%&gt;%</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">diag_seq =</span> <span class="fu">str_remove</span>(diag_seq, <span class="st">&quot;diag&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">id_cols =</span> <span class="fu">c</span>(ppn, hosp_id, start_date, end_date),</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>              <span class="at">names_from =</span> diag_seq,</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>              <span class="at">values_from =</span> <span class="fu">c</span>(diag_code, diag_desc)) <span class="sc">%&gt;%</span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Only show a few columns to check</span></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(ppn, start_date, end_date, diag_code_1, diag_desc_1, diag_code_2, <span class="fu">everything</span>())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4,258 × 106
+   ppn         start_date end_date   diag_code_1 diag_desc_1 diag_code_2 hosp_id
+   &lt;chr&gt;       &lt;date&gt;     &lt;date&gt;     &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;  
+ 1 PPN0563015… 2011-06-05 2011-06-06 Z86.43      Personal h… R07.4       H0252  
+ 2 PPN0563015… 2011-08-02 2011-08-02 Z41.1       Other plas… E65         H0252  
+ 3 PPN0563015… 2017-07-24 2017-07-24 K31.7       Polyp of s… K29.50      H0252  
+ 4 PPN0563015… 2017-11-28 2017-11-28 N95.0       Postmenopa… N19         H0252  
+ 5 PPN0563015… 2019-02-19 2019-02-21 N18.5       Chronic ki… Q61.2       H0252  
+ 6 PPN0563015… 2019-08-03 2019-08-03 N18.5       Chronic ki… Q61.3       H0152  
+ 7 PPN0563015… 2019-08-04 2019-08-04 N18.5       Chronic ki… Z51.81      H0152  
+ 8 PPN0563015… 2019-08-05 2019-08-05 Z51.81      Apheresis   N18.5       H0152  
+ 9 PPN0563015… 2019-08-10 2019-08-10 N18.5       Chronic ki… Z51.81      H0152  
+10 PPN0563015… 2019-08-11 2019-08-11 Z51.81      Apheresis   N18.5       H0152  
+# ℹ 4,248 more rows
+# ℹ 99 more variables: diag_code_3 &lt;chr&gt;, diag_code_4 &lt;chr&gt;, diag_code_5 &lt;chr&gt;,
+#   diag_code_6 &lt;chr&gt;, diag_code_7 &lt;chr&gt;, diag_code_8 &lt;chr&gt;, diag_code_9 &lt;chr&gt;,
+#   diag_code_10 &lt;chr&gt;, diag_code_11 &lt;chr&gt;, diag_code_12 &lt;chr&gt;,
+#   diag_code_13 &lt;chr&gt;, diag_code_14 &lt;chr&gt;, diag_code_15 &lt;chr&gt;,
+#   diag_code_16 &lt;chr&gt;, diag_code_17 &lt;chr&gt;, diag_code_18 &lt;chr&gt;,
+#   diag_code_19 &lt;chr&gt;, diag_code_20 &lt;chr&gt;, diag_code_21 &lt;chr&gt;, …</code></pre>
+</div>
+</div>
+<p>Now that we’re happy with this, let’s assign it to a new dataset</p>
+<div class="cell">
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>apdc_icd10_desc <span class="ot">&lt;-</span> apdc_subset_2010_2024 <span class="sc">%&gt;%</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">&quot;diag&quot;</span>),</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">&quot;diag_seq&quot;</span>,</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">&quot;diag_code&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(diag_code)) <span class="sc">%&gt;%</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(icd10_descriptions, <span class="at">by =</span> <span class="fu">join_by</span>(<span class="st">&quot;diag_code&quot;</span> <span class="sc">==</span> <span class="st">&quot;icd10_code&quot;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">diag_desc =</span> icd10_desc) <span class="sc">%&gt;%</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">diag_seq =</span> <span class="fu">str_remove</span>(diag_seq, <span class="st">&quot;diag&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">id_cols =</span> <span class="fu">c</span>(ppn, hosp_id, start_date, end_date),</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>              <span class="at">names_from =</span> diag_seq,</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>              <span class="at">values_from =</span> <span class="fu">c</span>(diag_code, diag_desc))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="create-sequence-variables" class="level1">
+<h1>Create sequence variables</h1>
+<p>Now we can create sequence variables to help organise our data</p>
+<p>First we’ll create a variable to help count the admissions for each person, called “admission_seq”. We’ll put this new variable immediately after ppn</p>
+<div class="cell">
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>apdc_icd10_desc <span class="sc">%&gt;%</span> </span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Admission sequence</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(ppn) <span class="sc">%&gt;%</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">admission_seq =</span> <span class="fu">row_number</span>(), <span class="at">.after =</span> ppn) <span class="sc">%&gt;%</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4,258 × 107
+   ppn       admission_seq hosp_id start_date end_date   diag_code_1 diag_code_2
+   &lt;chr&gt;             &lt;int&gt; &lt;chr&gt;   &lt;date&gt;     &lt;date&gt;     &lt;chr&gt;       &lt;chr&gt;      
+ 1 PPN05630…             1 H0252   2011-06-05 2011-06-06 Z86.43      R07.4      
+ 2 PPN05630…             2 H0252   2011-08-02 2011-08-02 Z41.1       E65        
+ 3 PPN05630…             3 H0252   2017-07-24 2017-07-24 K31.7       K29.50     
+ 4 PPN05630…             4 H0252   2017-11-28 2017-11-28 N95.0       N19        
+ 5 PPN05630…             5 H0252   2019-02-19 2019-02-21 N18.5       Q61.2      
+ 6 PPN05630…             6 H0152   2019-08-03 2019-08-03 N18.5       Q61.3      
+ 7 PPN05630…             7 H0152   2019-08-04 2019-08-04 N18.5       Z51.81     
+ 8 PPN05630…             8 H0152   2019-08-05 2019-08-05 Z51.81      N18.5      
+ 9 PPN05630…             9 H0152   2019-08-10 2019-08-10 N18.5       Z51.81     
+10 PPN05630…            10 H0152   2019-08-11 2019-08-11 Z51.81      N18.5      
+# ℹ 4,248 more rows
+# ℹ 100 more variables: diag_code_3 &lt;chr&gt;, diag_code_4 &lt;chr&gt;,
+#   diag_code_5 &lt;chr&gt;, diag_code_6 &lt;chr&gt;, diag_code_7 &lt;chr&gt;, diag_code_8 &lt;chr&gt;,
+#   diag_code_9 &lt;chr&gt;, diag_code_10 &lt;chr&gt;, diag_code_11 &lt;chr&gt;,
+#   diag_code_12 &lt;chr&gt;, diag_code_13 &lt;chr&gt;, diag_code_14 &lt;chr&gt;,
+#   diag_code_15 &lt;chr&gt;, diag_code_16 &lt;chr&gt;, diag_code_17 &lt;chr&gt;,
+#   diag_code_18 &lt;chr&gt;, diag_code_19 &lt;chr&gt;, diag_code_20 &lt;chr&gt;, …</code></pre>
+</div>
+</div>
+<p>Now we can create our index sequence. The index admission for each person is the hospital admission where their first kidney transplant was performed To identify this, first we need to look up the first transplant date for each person</p>
+<div class="cell">
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>apdc_icd10_desc <span class="sc">%&gt;%</span> </span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Admission sequence</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(ppn) <span class="sc">%&gt;%</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">admission_seq =</span> <span class="fu">row_number</span>(), <span class="at">.after =</span> ppn) <span class="sc">%&gt;%</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Adding transplant date</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(anzdata_transplants <span class="sc">%&gt;%</span> </span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>              <span class="fu">filter</span>(graftno <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>              <span class="fu">select</span>(ppn, transplantdate)) <span class="sc">%&gt;%</span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Only show the variables we need to check</span></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(ppn, admission_seq, start_date, end_date, transplantdate) <span class="sc">%&gt;%</span> </span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">20</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 20 × 5
+   ppn            admission_seq start_date end_date   transplantdate
+   &lt;chr&gt;                  &lt;int&gt; &lt;date&gt;     &lt;date&gt;     &lt;date&gt;        
+ 1 PPN05630154747             1 2011-06-05 2011-06-06 2019-08-16    
+ 2 PPN05630154747             2 2011-08-02 2011-08-02 2019-08-16    
+ 3 PPN05630154747             3 2017-07-24 2017-07-24 2019-08-16    
+ 4 PPN05630154747             4 2017-11-28 2017-11-28 2019-08-16    
+ 5 PPN05630154747             5 2019-02-19 2019-02-21 2019-08-16    
+ 6 PPN05630154747             6 2019-08-03 2019-08-03 2019-08-16    
+ 7 PPN05630154747             7 2019-08-04 2019-08-04 2019-08-16    
+ 8 PPN05630154747             8 2019-08-05 2019-08-05 2019-08-16    
+ 9 PPN05630154747             9 2019-08-10 2019-08-10 2019-08-16    
+10 PPN05630154747            10 2019-08-11 2019-08-11 2019-08-16    
+11 PPN05630154747            11 2019-08-12 2019-08-12 2019-08-16    
+12 PPN05630154747            12 2019-08-14 2019-08-25 2019-08-16    
+13 PPN05630154747            13 2019-09-03 2019-09-06 2019-08-16    
+14 PPN05630154747            14 2019-09-14 2019-09-15 2019-08-16    
+15 PPN05630154747            15 2019-09-20 2019-11-11 2019-08-16    
+16 PPN05630154747            16 2019-12-15 2019-12-15 2019-08-16    
+17 PPN05630154747            17 2020-01-21 2020-01-26 2019-08-16    
+18 PPN05630154747            18 2020-02-04 2020-04-11 2019-08-16    
+19 PPN05630154747            19 2020-12-11 2020-12-14 2019-08-16    
+20 PPN05630154747            20 2022-01-02 2022-01-09 2019-08-16    </code></pre>
+</div>
+</div>
+<p>Now we need to flag the hospital admissions where this transplant was performed. To do this, we’ll check if the transplant date is between the admission start and end date (being careful to set the flag to 0 if someone didn’t have a transplant)</p>
+<div class="cell">
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>apdc_icd10_desc <span class="sc">%&gt;%</span> </span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Admission sequence</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(ppn) <span class="sc">%&gt;%</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">admission_seq =</span> <span class="fu">row_number</span>(), <span class="at">.after =</span> ppn) <span class="sc">%&gt;%</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Adding transplant date</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(anzdata_transplants <span class="sc">%&gt;%</span> </span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>              <span class="fu">filter</span>(graftno <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>              <span class="fu">select</span>(ppn, transplantdate)) <span class="sc">%&gt;%</span></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Flag transplant admissions</span></span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">transplant =</span> <span class="fu">if_else</span>(transplantdate <span class="sc">%&gt;%</span> <span class="fu">between</span>(start_date, end_date), <span class="dv">1</span>, <span class="dv">0</span>) <span class="sc">%&gt;%</span> <span class="fu">replace_na</span>(<span class="dv">0</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Only show the variables we need to check</span></span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(ppn, admission_seq, start_date, end_date, transplantdate, transplant) <span class="sc">%&gt;%</span> </span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">20</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 20 × 6
+   ppn            admission_seq start_date end_date   transplantdate transplant
+   &lt;chr&gt;                  &lt;int&gt; &lt;date&gt;     &lt;date&gt;     &lt;date&gt;              &lt;dbl&gt;
+ 1 PPN05630154747             1 2011-06-05 2011-06-06 2019-08-16              0
+ 2 PPN05630154747             2 2011-08-02 2011-08-02 2019-08-16              0
+ 3 PPN05630154747             3 2017-07-24 2017-07-24 2019-08-16              0
+ 4 PPN05630154747             4 2017-11-28 2017-11-28 2019-08-16              0
+ 5 PPN05630154747             5 2019-02-19 2019-02-21 2019-08-16              0
+ 6 PPN05630154747             6 2019-08-03 2019-08-03 2019-08-16              0
+ 7 PPN05630154747             7 2019-08-04 2019-08-04 2019-08-16              0
+ 8 PPN05630154747             8 2019-08-05 2019-08-05 2019-08-16              0
+ 9 PPN05630154747             9 2019-08-10 2019-08-10 2019-08-16              0
+10 PPN05630154747            10 2019-08-11 2019-08-11 2019-08-16              0
+11 PPN05630154747            11 2019-08-12 2019-08-12 2019-08-16              0
+12 PPN05630154747            12 2019-08-14 2019-08-25 2019-08-16              1
+13 PPN05630154747            13 2019-09-03 2019-09-06 2019-08-16              0
+14 PPN05630154747            14 2019-09-14 2019-09-15 2019-08-16              0
+15 PPN05630154747            15 2019-09-20 2019-11-11 2019-08-16              0
+16 PPN05630154747            16 2019-12-15 2019-12-15 2019-08-16              0
+17 PPN05630154747            17 2020-01-21 2020-01-26 2019-08-16              0
+18 PPN05630154747            18 2020-02-04 2020-04-11 2019-08-16              0
+19 PPN05630154747            19 2020-12-11 2020-12-14 2019-08-16              0
+20 PPN05630154747            20 2022-01-02 2022-01-09 2019-08-16              0</code></pre>
+</div>
+</div>
+<p>Then we can create a flag to group each person’s records into before transplant and after (or including) transplant</p>
+<div class="cell">
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>apdc_icd10_desc <span class="sc">%&gt;%</span> </span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Admission sequence</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(ppn) <span class="sc">%&gt;%</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">admission_seq =</span> <span class="fu">row_number</span>(), <span class="at">.after =</span> ppn) <span class="sc">%&gt;%</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Adding transplant date</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(anzdata_transplants <span class="sc">%&gt;%</span> </span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>              <span class="fu">filter</span>(graftno <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>              <span class="fu">select</span>(ppn, transplantdate)) <span class="sc">%&gt;%</span></span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Flag transplant admissions</span></span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">transplant =</span> <span class="fu">if_else</span>(transplantdate <span class="sc">%&gt;%</span> <span class="fu">between</span>(start_date, end_date), <span class="dv">1</span>, <span class="dv">0</span>) <span class="sc">%&gt;%</span> <span class="fu">replace_na</span>(<span class="dv">0</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Flag records that include or are after the transplant</span></span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(ppn) <span class="sc">%&gt;%</span></span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">post_transplant =</span> <span class="fu">cumsum</span>(transplant)) <span class="sc">%&gt;%</span></span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Only show the variables we need to check</span></span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(ppn, admission_seq, transplant, post_transplant) <span class="sc">%&gt;%</span> </span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">20</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 20 × 4
+   ppn            admission_seq transplant post_transplant
+   &lt;chr&gt;                  &lt;int&gt;      &lt;dbl&gt;           &lt;dbl&gt;
+ 1 PPN05630154747             1          0               0
+ 2 PPN05630154747             2          0               0
+ 3 PPN05630154747             3          0               0
+ 4 PPN05630154747             4          0               0
+ 5 PPN05630154747             5          0               0
+ 6 PPN05630154747             6          0               0
+ 7 PPN05630154747             7          0               0
+ 8 PPN05630154747             8          0               0
+ 9 PPN05630154747             9          0               0
+10 PPN05630154747            10          0               0
+11 PPN05630154747            11          0               0
+12 PPN05630154747            12          1               1
+13 PPN05630154747            13          0               1
+14 PPN05630154747            14          0               1
+15 PPN05630154747            15          0               1
+16 PPN05630154747            16          0               1
+17 PPN05630154747            17          0               1
+18 PPN05630154747            18          0               1
+19 PPN05630154747            19          0               1
+20 PPN05630154747            20          0               1</code></pre>
+</div>
+</div>
+<p>And finally, we can create an index_seq to count all records that occur after the transplant</p>
+<div class="cell">
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>apdc_icd10_desc <span class="sc">%&gt;%</span> </span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Admission sequence</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(ppn) <span class="sc">%&gt;%</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">admission_seq =</span> <span class="fu">row_number</span>(), <span class="at">.after =</span> ppn) <span class="sc">%&gt;%</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Adding transplant date</span></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(anzdata_transplants <span class="sc">%&gt;%</span> </span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>              <span class="fu">filter</span>(graftno <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>              <span class="fu">select</span>(ppn, transplantdate)) <span class="sc">%&gt;%</span></span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Flag transplant admissions</span></span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">transplant =</span> <span class="fu">if_else</span>(transplantdate <span class="sc">%&gt;%</span> <span class="fu">between</span>(start_date, end_date), <span class="dv">1</span>, <span class="dv">0</span>) <span class="sc">%&gt;%</span> <span class="fu">replace_na</span>(<span class="dv">0</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Flag records that include or are after the transplant</span></span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(ppn) <span class="sc">%&gt;%</span></span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">post_transplant =</span> <span class="fu">cumsum</span>(transplant)) <span class="sc">%&gt;%</span></span>
+<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Create index_seq</span></span>
+<span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(ppn, post_transplant) <span class="sc">%&gt;%</span></span>
+<span id="cb30-18"><a href="#cb30-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">index_seq =</span> <span class="fu">if_else</span>(post_transplant <span class="sc">==</span> <span class="dv">0</span>, <span class="dv">0</span>, <span class="fu">row_number</span>())) <span class="sc">%&gt;%</span></span>
+<span id="cb30-19"><a href="#cb30-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb30-20"><a href="#cb30-20" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Only show the variables we need to check</span></span>
+<span id="cb30-21"><a href="#cb30-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(ppn, admission_seq, transplant, post_transplant, index_seq) <span class="sc">%&gt;%</span> </span>
+<span id="cb30-22"><a href="#cb30-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">20</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 20 × 5
+   ppn            admission_seq transplant post_transplant index_seq
+   &lt;chr&gt;                  &lt;int&gt;      &lt;dbl&gt;           &lt;dbl&gt;     &lt;dbl&gt;
+ 1 PPN05630154747             1          0               0         0
+ 2 PPN05630154747             2          0               0         0
+ 3 PPN05630154747             3          0               0         0
+ 4 PPN05630154747             4          0               0         0
+ 5 PPN05630154747             5          0               0         0
+ 6 PPN05630154747             6          0               0         0
+ 7 PPN05630154747             7          0               0         0
+ 8 PPN05630154747             8          0               0         0
+ 9 PPN05630154747             9          0               0         0
+10 PPN05630154747            10          0               0         0
+11 PPN05630154747            11          0               0         0
+12 PPN05630154747            12          1               1         1
+13 PPN05630154747            13          0               1         2
+14 PPN05630154747            14          0               1         3
+15 PPN05630154747            15          0               1         4
+16 PPN05630154747            16          0               1         5
+17 PPN05630154747            17          0               1         6
+18 PPN05630154747            18          0               1         7
+19 PPN05630154747            19          0               1         8
+20 PPN05630154747            20          0               1         9</code></pre>
+</div>
+</div>
+<p>Now that we’ve check this code all works, let’s put it all together and assign it to a new dataset</p>
+<div class="cell">
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>apdc_clean <span class="ot">&lt;-</span> apdc_icd10_desc <span class="sc">%&gt;%</span> </span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Admission sequence</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(ppn) <span class="sc">%&gt;%</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">admission_seq =</span> <span class="fu">row_number</span>(), <span class="at">.after =</span> ppn) <span class="sc">%&gt;%</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Adding transplant date</span></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(anzdata_transplants <span class="sc">%&gt;%</span> </span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>              <span class="fu">filter</span>(graftno <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>              <span class="fu">select</span>(ppn, transplantdate)) <span class="sc">%&gt;%</span></span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Flag transplant admissions</span></span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">transplant =</span> <span class="fu">if_else</span>(transplantdate <span class="sc">%&gt;%</span> <span class="fu">between</span>(start_date, end_date), <span class="dv">1</span>, <span class="dv">0</span>) <span class="sc">%&gt;%</span> <span class="fu">replace_na</span>(<span class="dv">0</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Flag records that include or are after the transplant</span></span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(ppn) <span class="sc">%&gt;%</span></span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">post_transplant =</span> <span class="fu">cumsum</span>(transplant)) <span class="sc">%&gt;%</span></span>
+<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Create index_seq</span></span>
+<span id="cb32-17"><a href="#cb32-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(ppn, post_transplant) <span class="sc">%&gt;%</span></span>
+<span id="cb32-18"><a href="#cb32-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">index_seq =</span> <span class="fu">if_else</span>(post_transplant <span class="sc">==</span> <span class="dv">0</span>, <span class="dv">0</span>, <span class="fu">row_number</span>())) <span class="sc">%&gt;%</span></span>
+<span id="cb32-19"><a href="#cb32-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>We can use this new index_seq to answer our original question</p>
+<div class="cell">
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>apdc_clean <span class="sc">%&gt;%</span> <span class="fu">tabyl</span>(index_seq)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code> index_seq    n      percent
+         0 3922 0.9210897135
+         1   32 0.0075152654
+         2   29 0.0068107093
+         3   28 0.0065758572
+         4   27 0.0063410052
+         5   25 0.0058713011
+         6   20 0.0046970409
+         7   19 0.0044621888
+         8   18 0.0042273368
+         9   18 0.0042273368
+        10   14 0.0032879286
+        11    9 0.0021136684
+        12    8 0.0018788163
+        13    7 0.0016439643
+        14    7 0.0016439643
+        15    6 0.0014091123
+        16    6 0.0014091123
+        17    6 0.0014091123
+        18    6 0.0014091123
+        19    3 0.0007045561
+        20    3 0.0007045561
+        21    3 0.0007045561
+        22    2 0.0004697041
+        23    2 0.0004697041
+        24    1 0.0002348520
+        25    1 0.0002348520
+        26    1 0.0002348520
+        27    1 0.0002348520
+        28    1 0.0002348520
+        29    1 0.0002348520
+        30    1 0.0002348520
+        31    1 0.0002348520
+        32    1 0.0002348520
+        33    1 0.0002348520
+        34    1 0.0002348520
+        35    1 0.0002348520
+        36    1 0.0002348520
+        37    1 0.0002348520
+        38    1 0.0002348520
+        39    1 0.0002348520
+        40    1 0.0002348520
+        41    1 0.0002348520
+        42    1 0.0002348520
+        43    1 0.0002348520
+        44    1 0.0002348520
+        45    1 0.0002348520
+        46    1 0.0002348520
+        47    1 0.0002348520
+        48    1 0.0002348520
+        49    1 0.0002348520
+        50    1 0.0002348520
+        51    1 0.0002348520
+        52    1 0.0002348520
+        53    1 0.0002348520
+        54    1 0.0002348520
+        55    1 0.0002348520
+        56    1 0.0002348520
+        57    1 0.0002348520
+        58    1 0.0002348520
+        59    1 0.0002348520
+        60    1 0.0002348520
+        61    1 0.0002348520</code></pre>
+</div>
+</div>
+<p>There are 32 records with index_seq = 1, which means 32 people in our cohort received a transplant. There are 29 records with index_seq = 2, which means only 29 of these people had a subsequent hospital admission after their transplant</p>
+<p>We can summarise the primary diagnosis code description for these 29 subsequent hospital admissions.</p>
+<div class="cell">
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>apdc_clean <span class="sc">%&gt;%</span> </span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(index_seq <span class="sc">==</span> <span class="dv">2</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tabyl</span>(diag_desc_1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>                                                    diag_desc_1 n    percent
+                     Acute kidney failure with tubular necrosis 1 0.03448276
+                   Adjustment and management of venous catheter 1 0.03448276
+                                Chronic kidney disease, stage 3 1 0.03448276
+                                Chronic kidney disease, stage 4 1 0.03448276
+                                Chronic kidney disease, stage 5 3 0.10344828
+                       Fitting and adjustment of urinary device 2 0.06896552
+       Follow-up examination after surgery for other conditions 1 0.03448276
+                                                       Headache 1 0.03448276
+                                            Health service area 1 0.03448276
+                                        Heart transplant status 1 0.03448276
+                                                  Hyperkalaemia 1 0.03448276
+                                        Hyperplasia of prostate 1 0.03448276
+                        Kidney transplant failure and rejection 1 0.03448276
+                                       Kidney transplant status 9 0.31034483
+                       Personal history of tobacco use disorder 1 0.03448276
+                  Phlebitis and thrombophlebitis of other sites 1 0.03448276
+ Type 1 diabetes mellitus with established diabetic nephropathy 1 0.03448276
+ Type 2 diabetes mellitus with established diabetic nephropathy 1 0.03448276</code></pre>
 </div>
 </div>
 
@@ -4618,47 +5203,324 @@ dbl (27): ppn, age_recode, facility_identifier_recode, episode_length_of_sta...
     }
   });
   </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> &quot;Module 2 Data wrangling&quot;</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co">    embed-resources: true</span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co">    code-overflow: wrap</span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="fu">## R coding</span></span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>See below for data wrangling content.</span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>The following packages were used for the solutions.</span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Load libraries</span></span>
-<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse) <span class="co"># for data manipulation</span></span>
-<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(skimr) <span class="co"># for skim() to summarise datasets</span></span>
-<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(labelled) <span class="co"># for generate_dictionary() to view value labels </span></span>
-<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor) <span class="co"># for tabyl() to create frequency tables</span></span>
-<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate) <span class="co"># for working with date variables</span></span>
-<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
-<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Load libraries</span></span>
-<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse) <span class="co"># for data manipulation</span></span>
-<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(skimr) <span class="co"># for skim() to summarise datasets</span></span>
-<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(labelled) <span class="co"># for generate_dictionary() to view value labels </span></span>
-<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor) <span class="co"># for tabyl() to create frequency tables</span></span>
-<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate) <span class="co"># for working with date variables</span></span>
-<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a>We import the data as below.</span>
-<span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-40"><a href="#cb11-40" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb11-41"><a href="#cb11-41" aria-hidden="true" tabindex="-1"></a><span class="co"># Import data from Github ----</span></span>
-<span id="cb11-42"><a href="#cb11-42" aria-hidden="true" tabindex="-1"></a><span class="do">## Read in csv file</span></span>
-<span id="cb11-43"><a href="#cb11-43" aria-hidden="true" tabindex="-1"></a>ppn_subset_2000 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/NicoleDeLaMata/LinkedData/refs/heads/main/ppn_subset_2000.csv&quot;</span>)</span>
-<span id="cb11-44"><a href="#cb11-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-45"><a href="#cb11-45" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb37" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> &quot;Module 2 Data wrangling example&quot;</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="co">    embed-resources: true</span></span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a><span class="co">    code-overflow: wrap</span></span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a><span class="co">    page-layout: article</span></span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, echo=FALSE}</span></span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(</span>
+<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">message =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">warning =</span> <span class="cn">FALSE</span></span>
+<span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb37-15"><a href="#cb37-15" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb37-16"><a href="#cb37-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-17"><a href="#cb37-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-18"><a href="#cb37-18" aria-hidden="true" tabindex="-1"></a>We have three datasets for this example:</span>
+<span id="cb37-19"><a href="#cb37-19" aria-hidden="true" tabindex="-1"></a>anzdata_transplants.csv</span>
+<span id="cb37-20"><a href="#cb37-20" aria-hidden="true" tabindex="-1"></a>apdc_subset_2010_2024.csv</span>
+<span id="cb37-21"><a href="#cb37-21" aria-hidden="true" tabindex="-1"></a>icd10_descriptions.csv</span>
+<span id="cb37-22"><a href="#cb37-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-23"><a href="#cb37-23" aria-hidden="true" tabindex="-1"></a>Our goal is to summarise the primary reasons for hospital admissions immediately following kidney transplant</span>
+<span id="cb37-24"><a href="#cb37-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-25"><a href="#cb37-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-26"><a href="#cb37-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-27"><a href="#cb37-27" aria-hidden="true" tabindex="-1"></a><span class="fu"># Libraries</span></span>
+<span id="cb37-30"><a href="#cb37-30" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb37-31"><a href="#cb37-31" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb37-32"><a href="#cb37-32" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb37-33"><a href="#cb37-33" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
+<span id="cb37-34"><a href="#cb37-34" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb37-35"><a href="#cb37-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-36"><a href="#cb37-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-37"><a href="#cb37-37" aria-hidden="true" tabindex="-1"></a><span class="fu"># Set folder directories</span></span>
+<span id="cb37-38"><a href="#cb37-38" aria-hidden="true" tabindex="-1"></a>You may choose to read in the raw data via your folder directory. As below:</span>
+<span id="cb37-39"><a href="#cb37-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-40"><a href="#cb37-40" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb37-41"><a href="#cb37-41" aria-hidden="true" tabindex="-1"></a>main_dir <span class="ot">&lt;-</span> <span class="st">&quot;G:/My Drive/Linked data course/Module 2 example&quot;</span></span>
+<span id="cb37-42"><a href="#cb37-42" aria-hidden="true" tabindex="-1"></a>data_dir <span class="ot">&lt;-</span> <span class="fu">file.path</span>(main_dir, <span class="st">&quot;Data&quot;</span>)</span>
+<span id="cb37-43"><a href="#cb37-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-44"><a href="#cb37-44" aria-hidden="true" tabindex="-1"></a>anzdata_transplants <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">file.path</span>(data_dir, <span class="fu">paste0</span>(<span class="st">&quot;anzdata_transplants&quot;</span>, <span class="st">&quot;.csv&quot;</span>)))</span>
+<span id="cb37-45"><a href="#cb37-45" aria-hidden="true" tabindex="-1"></a>apdc_subset_2010_2024 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">file.path</span>(data_dir, <span class="fu">paste0</span>(<span class="st">&quot;apdc_subset_2010_2024&quot;</span>, <span class="st">&quot;.csv&quot;</span>)))</span>
+<span id="cb37-46"><a href="#cb37-46" aria-hidden="true" tabindex="-1"></a>icd10_descriptions <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">file.path</span>(data_dir, <span class="fu">paste0</span>(<span class="st">&quot;icd10_descriptions&quot;</span>, <span class="st">&quot;.csv&quot;</span>)))</span>
+<span id="cb37-47"><a href="#cb37-47" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb37-48"><a href="#cb37-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-49"><a href="#cb37-49" aria-hidden="true" tabindex="-1"></a><span class="fu"># Read in raw data</span></span>
+<span id="cb37-50"><a href="#cb37-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-51"><a href="#cb37-51" aria-hidden="true" tabindex="-1"></a>We will be using github to read in our data.</span>
+<span id="cb37-52"><a href="#cb37-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-55"><a href="#cb37-55" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb37-56"><a href="#cb37-56" aria-hidden="true" tabindex="-1"></a>anzdata_transplants <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/NicoleDeLaMata/LinkedData/refs/heads/main/anzdata_transplants.csv&quot;</span>)</span>
+<span id="cb37-57"><a href="#cb37-57" aria-hidden="true" tabindex="-1"></a>apdc_subset_2010_2024 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/NicoleDeLaMata/LinkedData/refs/heads/main/apdc_subset_2010_2024.csv&quot;</span>)</span>
+<span id="cb37-58"><a href="#cb37-58" aria-hidden="true" tabindex="-1"></a>icd10_descriptions <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/NicoleDeLaMata/LinkedData/refs/heads/main/icd10_descriptions.csv&quot;</span>)</span>
+<span id="cb37-59"><a href="#cb37-59" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb37-60"><a href="#cb37-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-61"><a href="#cb37-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-62"><a href="#cb37-62" aria-hidden="true" tabindex="-1"></a>Let&#39;s have a quick look to check they have been read in correctly.</span>
+<span id="cb37-63"><a href="#cb37-63" aria-hidden="true" tabindex="-1"></a>How many rows and columns? What are the variable names and data types? What does each row represent?</span>
+<span id="cb37-66"><a href="#cb37-66" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb37-67"><a href="#cb37-67" aria-hidden="true" tabindex="-1"></a>anzdata_transplants</span>
+<span id="cb37-68"><a href="#cb37-68" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb37-69"><a href="#cb37-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-72"><a href="#cb37-72" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb37-73"><a href="#cb37-73" aria-hidden="true" tabindex="-1"></a>apdc_subset_2010_2024</span>
+<span id="cb37-74"><a href="#cb37-74" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb37-75"><a href="#cb37-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-78"><a href="#cb37-78" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb37-79"><a href="#cb37-79" aria-hidden="true" tabindex="-1"></a>icd10_descriptions</span>
+<span id="cb37-80"><a href="#cb37-80" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb37-81"><a href="#cb37-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-82"><a href="#cb37-82" aria-hidden="true" tabindex="-1"></a>Let&#39;s check that icd10_descriptions has exactly one row per person, since this will help us decide how to work with it.</span>
+<span id="cb37-85"><a href="#cb37-85" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb37-86"><a href="#cb37-86" aria-hidden="true" tabindex="-1"></a>icd10_descriptions <span class="sc">%&gt;%</span> <span class="fu">distinct</span>(icd10_code)</span>
+<span id="cb37-87"><a href="#cb37-87" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb37-88"><a href="#cb37-88" aria-hidden="true" tabindex="-1"></a>There are the same number of rows in the original dataset as there are unique values icd10_code.</span>
+<span id="cb37-89"><a href="#cb37-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-90"><a href="#cb37-90" aria-hidden="true" tabindex="-1"></a>Therefore, each icd10_code must appear once only. </span>
+<span id="cb37-91"><a href="#cb37-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-92"><a href="#cb37-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-93"><a href="#cb37-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-94"><a href="#cb37-94" aria-hidden="true" tabindex="-1"></a><span class="fu"># Add ICD10 descriptions to APDC data</span></span>
+<span id="cb37-95"><a href="#cb37-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-96"><a href="#cb37-96" aria-hidden="true" tabindex="-1"></a>Our APDC dataset is one row per person per hospital admission, with 51 columns for the 51 possible diagnosis codes for each admission</span>
+<span id="cb37-97"><a href="#cb37-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-98"><a href="#cb37-98" aria-hidden="true" tabindex="-1"></a>We also have a dataset of ICD descriptions, which has one row per ICD10 code</span>
+<span id="cb37-99"><a href="#cb37-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-100"><a href="#cb37-100" aria-hidden="true" tabindex="-1"></a>We need to reshape our APDC dataset to make it easier to merge on the diagnosis code descriptions.</span>
+<span id="cb37-101"><a href="#cb37-101" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-102"><a href="#cb37-102" aria-hidden="true" tabindex="-1"></a>Our data is currently in wide format, with many columns for the different diagnosis codes. </span>
+<span id="cb37-103"><a href="#cb37-103" aria-hidden="true" tabindex="-1"></a>We need to transform this to long format, with many rows (one for each diagnosis code)</span>
+<span id="cb37-104"><a href="#cb37-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-105"><a href="#cb37-105" aria-hidden="true" tabindex="-1"></a>The function we use is therefore pivot_longer().</span>
+<span id="cb37-106"><a href="#cb37-106" aria-hidden="true" tabindex="-1"></a>The columns we want to pivot longer is everything starting with &quot;diag&quot;</span>
+<span id="cb37-107"><a href="#cb37-107" aria-hidden="true" tabindex="-1"></a>In the transformed dataset, we want a create new variable called &quot;diag_seq&quot;, where the original column names will be stored.</span>
+<span id="cb37-108"><a href="#cb37-108" aria-hidden="true" tabindex="-1"></a>We also want to create a new variable called &quot;diag_code&quot; where the actual diagnosis code values will be stored.</span>
+<span id="cb37-111"><a href="#cb37-111" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb37-112"><a href="#cb37-112" aria-hidden="true" tabindex="-1"></a>apdc_subset_2010_2024 <span class="sc">%&gt;%</span></span>
+<span id="cb37-113"><a href="#cb37-113" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">&quot;diag&quot;</span>),</span>
+<span id="cb37-114"><a href="#cb37-114" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">&quot;diag_seq&quot;</span>,</span>
+<span id="cb37-115"><a href="#cb37-115" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">&quot;diag_code&quot;</span>)</span>
+<span id="cb37-116"><a href="#cb37-116" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb37-117"><a href="#cb37-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-118"><a href="#cb37-118" aria-hidden="true" tabindex="-1"></a>Each hospital admission (i.e. each row) has been copied 51 times, once for each diagnosis code.</span>
+<span id="cb37-119"><a href="#cb37-119" aria-hidden="true" tabindex="-1"></a>Some of these copies are redundant, since not every admission has all 51 diagnosis codes entered. </span>
+<span id="cb37-120"><a href="#cb37-120" aria-hidden="true" tabindex="-1"></a>So we can remove the records where diag_code is NA</span>
+<span id="cb37-121"><a href="#cb37-121" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-124"><a href="#cb37-124" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb37-125"><a href="#cb37-125" aria-hidden="true" tabindex="-1"></a>apdc_subset_2010_2024 <span class="sc">%&gt;%</span></span>
+<span id="cb37-126"><a href="#cb37-126" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">&quot;diag&quot;</span>),</span>
+<span id="cb37-127"><a href="#cb37-127" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">&quot;diag_seq&quot;</span>,</span>
+<span id="cb37-128"><a href="#cb37-128" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">&quot;diag_code&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb37-129"><a href="#cb37-129" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(diag_code))</span>
+<span id="cb37-130"><a href="#cb37-130" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb37-131"><a href="#cb37-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-132"><a href="#cb37-132" aria-hidden="true" tabindex="-1"></a>We can also remove the &quot;diag&quot; part of each diag_seq, since all we need is the number</span>
+<span id="cb37-135"><a href="#cb37-135" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb37-136"><a href="#cb37-136" aria-hidden="true" tabindex="-1"></a>apdc_subset_2010_2024 <span class="sc">%&gt;%</span></span>
+<span id="cb37-137"><a href="#cb37-137" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">&quot;diag&quot;</span>),</span>
+<span id="cb37-138"><a href="#cb37-138" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">&quot;diag_seq&quot;</span>,</span>
+<span id="cb37-139"><a href="#cb37-139" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">&quot;diag_code&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb37-140"><a href="#cb37-140" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(diag_code)) <span class="sc">%&gt;%</span></span>
+<span id="cb37-141"><a href="#cb37-141" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">diag_seq =</span> <span class="fu">str_remove</span>(diag_seq, <span class="st">&quot;diag&quot;</span>))</span>
+<span id="cb37-142"><a href="#cb37-142" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb37-143"><a href="#cb37-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-144"><a href="#cb37-144" aria-hidden="true" tabindex="-1"></a>Now we can merge on the ICD10 descriptions, and call this new column &quot;diag_desc&quot;</span>
+<span id="cb37-147"><a href="#cb37-147" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb37-148"><a href="#cb37-148" aria-hidden="true" tabindex="-1"></a>apdc_icd10_desc <span class="ot">&lt;-</span> apdc_subset_2010_2024 <span class="sc">%&gt;%</span></span>
+<span id="cb37-149"><a href="#cb37-149" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">&quot;diag&quot;</span>),</span>
+<span id="cb37-150"><a href="#cb37-150" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">&quot;diag_seq&quot;</span>,</span>
+<span id="cb37-151"><a href="#cb37-151" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">&quot;diag_code&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb37-152"><a href="#cb37-152" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(diag_code)) <span class="sc">%&gt;%</span></span>
+<span id="cb37-153"><a href="#cb37-153" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">diag_seq =</span> <span class="fu">str_remove</span>(diag_seq, <span class="st">&quot;diag&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb37-154"><a href="#cb37-154" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(icd10_descriptions, <span class="at">by =</span> <span class="fu">join_by</span>(<span class="st">&quot;diag_code&quot;</span> <span class="sc">==</span> <span class="st">&quot;icd10_code&quot;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb37-155"><a href="#cb37-155" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">diag_desc =</span> icd10_desc)</span>
+<span id="cb37-156"><a href="#cb37-156" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb37-157"><a href="#cb37-157" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-158"><a href="#cb37-158" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-159"><a href="#cb37-159" aria-hidden="true" tabindex="-1"></a>And finally, now that the descriptions have been added on, we can reshape back to the original wide format.</span>
+<span id="cb37-160"><a href="#cb37-160" aria-hidden="true" tabindex="-1"></a>We want to keep the original columns ppn, hosp_id, start_date, and end_date</span>
+<span id="cb37-161"><a href="#cb37-161" aria-hidden="true" tabindex="-1"></a>We want to create new columns, using the values currently stored in the column &quot;diag_seq&quot; to create new column names</span>
+<span id="cb37-162"><a href="#cb37-162" aria-hidden="true" tabindex="-1"></a>We want to create two sets of new columns, one set for diagnosis code &quot;diag_code&quot;, and one set for the descriptions &quot;diag_desc&quot;</span>
+<span id="cb37-163"><a href="#cb37-163" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-166"><a href="#cb37-166" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb37-167"><a href="#cb37-167" aria-hidden="true" tabindex="-1"></a>apdc_subset_2010_2024 <span class="sc">%&gt;%</span></span>
+<span id="cb37-168"><a href="#cb37-168" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">&quot;diag&quot;</span>),</span>
+<span id="cb37-169"><a href="#cb37-169" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">&quot;diag_seq&quot;</span>,</span>
+<span id="cb37-170"><a href="#cb37-170" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">&quot;diag_code&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb37-171"><a href="#cb37-171" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(diag_code)) <span class="sc">%&gt;%</span></span>
+<span id="cb37-172"><a href="#cb37-172" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(icd10_descriptions, <span class="at">by =</span> <span class="fu">join_by</span>(<span class="st">&quot;diag_code&quot;</span> <span class="sc">==</span> <span class="st">&quot;icd10_code&quot;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb37-173"><a href="#cb37-173" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">diag_desc =</span> icd10_desc) <span class="sc">%&gt;%</span></span>
+<span id="cb37-174"><a href="#cb37-174" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">diag_seq =</span> <span class="fu">str_remove</span>(diag_seq, <span class="st">&quot;diag&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb37-175"><a href="#cb37-175" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">id_cols =</span> <span class="fu">c</span>(ppn, hosp_id, start_date, end_date),</span>
+<span id="cb37-176"><a href="#cb37-176" aria-hidden="true" tabindex="-1"></a>              <span class="at">names_from =</span> diag_seq,</span>
+<span id="cb37-177"><a href="#cb37-177" aria-hidden="true" tabindex="-1"></a>              <span class="at">values_from =</span> <span class="fu">c</span>(diag_code, diag_desc)) <span class="sc">%&gt;%</span></span>
+<span id="cb37-178"><a href="#cb37-178" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Only show a few columns to check</span></span>
+<span id="cb37-179"><a href="#cb37-179" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(ppn, start_date, end_date, diag_code_1, diag_desc_1, diag_code_2, <span class="fu">everything</span>())</span>
+<span id="cb37-180"><a href="#cb37-180" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-181"><a href="#cb37-181" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb37-182"><a href="#cb37-182" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-183"><a href="#cb37-183" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-184"><a href="#cb37-184" aria-hidden="true" tabindex="-1"></a>Now that we&#39;re happy with this, let&#39;s assign it to a new dataset</span>
+<span id="cb37-187"><a href="#cb37-187" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb37-188"><a href="#cb37-188" aria-hidden="true" tabindex="-1"></a>apdc_icd10_desc <span class="ot">&lt;-</span> apdc_subset_2010_2024 <span class="sc">%&gt;%</span></span>
+<span id="cb37-189"><a href="#cb37-189" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">&quot;diag&quot;</span>),</span>
+<span id="cb37-190"><a href="#cb37-190" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">&quot;diag_seq&quot;</span>,</span>
+<span id="cb37-191"><a href="#cb37-191" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">&quot;diag_code&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb37-192"><a href="#cb37-192" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(diag_code)) <span class="sc">%&gt;%</span></span>
+<span id="cb37-193"><a href="#cb37-193" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(icd10_descriptions, <span class="at">by =</span> <span class="fu">join_by</span>(<span class="st">&quot;diag_code&quot;</span> <span class="sc">==</span> <span class="st">&quot;icd10_code&quot;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb37-194"><a href="#cb37-194" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">diag_desc =</span> icd10_desc) <span class="sc">%&gt;%</span></span>
+<span id="cb37-195"><a href="#cb37-195" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">diag_seq =</span> <span class="fu">str_remove</span>(diag_seq, <span class="st">&quot;diag&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb37-196"><a href="#cb37-196" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">id_cols =</span> <span class="fu">c</span>(ppn, hosp_id, start_date, end_date),</span>
+<span id="cb37-197"><a href="#cb37-197" aria-hidden="true" tabindex="-1"></a>              <span class="at">names_from =</span> diag_seq,</span>
+<span id="cb37-198"><a href="#cb37-198" aria-hidden="true" tabindex="-1"></a>              <span class="at">values_from =</span> <span class="fu">c</span>(diag_code, diag_desc))</span>
+<span id="cb37-199"><a href="#cb37-199" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb37-200"><a href="#cb37-200" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-201"><a href="#cb37-201" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-202"><a href="#cb37-202" aria-hidden="true" tabindex="-1"></a><span class="fu"># Create sequence variables</span></span>
+<span id="cb37-203"><a href="#cb37-203" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-204"><a href="#cb37-204" aria-hidden="true" tabindex="-1"></a>Now we can create sequence variables to help organise our data</span>
+<span id="cb37-205"><a href="#cb37-205" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-206"><a href="#cb37-206" aria-hidden="true" tabindex="-1"></a>First we&#39;ll create a variable to help count the admissions for each person, called &quot;admission_seq&quot;. </span>
+<span id="cb37-207"><a href="#cb37-207" aria-hidden="true" tabindex="-1"></a>We&#39;ll put this new variable immediately after ppn </span>
+<span id="cb37-210"><a href="#cb37-210" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb37-211"><a href="#cb37-211" aria-hidden="true" tabindex="-1"></a>apdc_icd10_desc <span class="sc">%&gt;%</span> </span>
+<span id="cb37-212"><a href="#cb37-212" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Admission sequence</span></span>
+<span id="cb37-213"><a href="#cb37-213" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(ppn) <span class="sc">%&gt;%</span></span>
+<span id="cb37-214"><a href="#cb37-214" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">admission_seq =</span> <span class="fu">row_number</span>(), <span class="at">.after =</span> ppn) <span class="sc">%&gt;%</span></span>
+<span id="cb37-215"><a href="#cb37-215" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb37-216"><a href="#cb37-216" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb37-217"><a href="#cb37-217" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-218"><a href="#cb37-218" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-219"><a href="#cb37-219" aria-hidden="true" tabindex="-1"></a>Now we can create our index sequence.</span>
+<span id="cb37-220"><a href="#cb37-220" aria-hidden="true" tabindex="-1"></a>The index admission for each person is the hospital admission where their first kidney transplant was performed</span>
+<span id="cb37-221"><a href="#cb37-221" aria-hidden="true" tabindex="-1"></a>To identify this, first we need to look up the first transplant date for each person</span>
+<span id="cb37-224"><a href="#cb37-224" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb37-225"><a href="#cb37-225" aria-hidden="true" tabindex="-1"></a>apdc_icd10_desc <span class="sc">%&gt;%</span> </span>
+<span id="cb37-226"><a href="#cb37-226" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Admission sequence</span></span>
+<span id="cb37-227"><a href="#cb37-227" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(ppn) <span class="sc">%&gt;%</span></span>
+<span id="cb37-228"><a href="#cb37-228" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">admission_seq =</span> <span class="fu">row_number</span>(), <span class="at">.after =</span> ppn) <span class="sc">%&gt;%</span></span>
+<span id="cb37-229"><a href="#cb37-229" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb37-230"><a href="#cb37-230" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Adding transplant date</span></span>
+<span id="cb37-231"><a href="#cb37-231" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(anzdata_transplants <span class="sc">%&gt;%</span> </span>
+<span id="cb37-232"><a href="#cb37-232" aria-hidden="true" tabindex="-1"></a>              <span class="fu">filter</span>(graftno <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb37-233"><a href="#cb37-233" aria-hidden="true" tabindex="-1"></a>              <span class="fu">select</span>(ppn, transplantdate)) <span class="sc">%&gt;%</span></span>
+<span id="cb37-234"><a href="#cb37-234" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Only show the variables we need to check</span></span>
+<span id="cb37-235"><a href="#cb37-235" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(ppn, admission_seq, start_date, end_date, transplantdate) <span class="sc">%&gt;%</span> </span>
+<span id="cb37-236"><a href="#cb37-236" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">20</span>)</span>
+<span id="cb37-237"><a href="#cb37-237" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb37-238"><a href="#cb37-238" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-239"><a href="#cb37-239" aria-hidden="true" tabindex="-1"></a>Now we need to flag the hospital admissions where this transplant was performed. </span>
+<span id="cb37-240"><a href="#cb37-240" aria-hidden="true" tabindex="-1"></a>To do this, we&#39;ll check if the transplant date is between the admission start and end date (being careful to set the flag to 0 if someone didn&#39;t have a transplant)</span>
+<span id="cb37-243"><a href="#cb37-243" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb37-244"><a href="#cb37-244" aria-hidden="true" tabindex="-1"></a>apdc_icd10_desc <span class="sc">%&gt;%</span> </span>
+<span id="cb37-245"><a href="#cb37-245" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Admission sequence</span></span>
+<span id="cb37-246"><a href="#cb37-246" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(ppn) <span class="sc">%&gt;%</span></span>
+<span id="cb37-247"><a href="#cb37-247" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">admission_seq =</span> <span class="fu">row_number</span>(), <span class="at">.after =</span> ppn) <span class="sc">%&gt;%</span></span>
+<span id="cb37-248"><a href="#cb37-248" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb37-249"><a href="#cb37-249" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Adding transplant date</span></span>
+<span id="cb37-250"><a href="#cb37-250" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(anzdata_transplants <span class="sc">%&gt;%</span> </span>
+<span id="cb37-251"><a href="#cb37-251" aria-hidden="true" tabindex="-1"></a>              <span class="fu">filter</span>(graftno <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb37-252"><a href="#cb37-252" aria-hidden="true" tabindex="-1"></a>              <span class="fu">select</span>(ppn, transplantdate)) <span class="sc">%&gt;%</span></span>
+<span id="cb37-253"><a href="#cb37-253" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Flag transplant admissions</span></span>
+<span id="cb37-254"><a href="#cb37-254" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">transplant =</span> <span class="fu">if_else</span>(transplantdate <span class="sc">%&gt;%</span> <span class="fu">between</span>(start_date, end_date), <span class="dv">1</span>, <span class="dv">0</span>) <span class="sc">%&gt;%</span> <span class="fu">replace_na</span>(<span class="dv">0</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb37-255"><a href="#cb37-255" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Only show the variables we need to check</span></span>
+<span id="cb37-256"><a href="#cb37-256" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(ppn, admission_seq, start_date, end_date, transplantdate, transplant) <span class="sc">%&gt;%</span> </span>
+<span id="cb37-257"><a href="#cb37-257" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">20</span>)</span>
+<span id="cb37-258"><a href="#cb37-258" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb37-259"><a href="#cb37-259" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-260"><a href="#cb37-260" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-261"><a href="#cb37-261" aria-hidden="true" tabindex="-1"></a>Then we can create a flag to group each person&#39;s records into before transplant and after (or including) transplant</span>
+<span id="cb37-264"><a href="#cb37-264" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb37-265"><a href="#cb37-265" aria-hidden="true" tabindex="-1"></a>apdc_icd10_desc <span class="sc">%&gt;%</span> </span>
+<span id="cb37-266"><a href="#cb37-266" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Admission sequence</span></span>
+<span id="cb37-267"><a href="#cb37-267" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(ppn) <span class="sc">%&gt;%</span></span>
+<span id="cb37-268"><a href="#cb37-268" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">admission_seq =</span> <span class="fu">row_number</span>(), <span class="at">.after =</span> ppn) <span class="sc">%&gt;%</span></span>
+<span id="cb37-269"><a href="#cb37-269" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb37-270"><a href="#cb37-270" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Adding transplant date</span></span>
+<span id="cb37-271"><a href="#cb37-271" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(anzdata_transplants <span class="sc">%&gt;%</span> </span>
+<span id="cb37-272"><a href="#cb37-272" aria-hidden="true" tabindex="-1"></a>              <span class="fu">filter</span>(graftno <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb37-273"><a href="#cb37-273" aria-hidden="true" tabindex="-1"></a>              <span class="fu">select</span>(ppn, transplantdate)) <span class="sc">%&gt;%</span></span>
+<span id="cb37-274"><a href="#cb37-274" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Flag transplant admissions</span></span>
+<span id="cb37-275"><a href="#cb37-275" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">transplant =</span> <span class="fu">if_else</span>(transplantdate <span class="sc">%&gt;%</span> <span class="fu">between</span>(start_date, end_date), <span class="dv">1</span>, <span class="dv">0</span>) <span class="sc">%&gt;%</span> <span class="fu">replace_na</span>(<span class="dv">0</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb37-276"><a href="#cb37-276" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Flag records that include or are after the transplant</span></span>
+<span id="cb37-277"><a href="#cb37-277" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(ppn) <span class="sc">%&gt;%</span></span>
+<span id="cb37-278"><a href="#cb37-278" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">post_transplant =</span> <span class="fu">cumsum</span>(transplant)) <span class="sc">%&gt;%</span></span>
+<span id="cb37-279"><a href="#cb37-279" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb37-280"><a href="#cb37-280" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Only show the variables we need to check</span></span>
+<span id="cb37-281"><a href="#cb37-281" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(ppn, admission_seq, transplant, post_transplant) <span class="sc">%&gt;%</span> </span>
+<span id="cb37-282"><a href="#cb37-282" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">20</span>)</span>
+<span id="cb37-283"><a href="#cb37-283" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb37-284"><a href="#cb37-284" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-285"><a href="#cb37-285" aria-hidden="true" tabindex="-1"></a>And finally, we can create an index_seq to count all records that occur after the transplant</span>
+<span id="cb37-288"><a href="#cb37-288" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb37-289"><a href="#cb37-289" aria-hidden="true" tabindex="-1"></a>apdc_icd10_desc <span class="sc">%&gt;%</span> </span>
+<span id="cb37-290"><a href="#cb37-290" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Admission sequence</span></span>
+<span id="cb37-291"><a href="#cb37-291" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(ppn) <span class="sc">%&gt;%</span></span>
+<span id="cb37-292"><a href="#cb37-292" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">admission_seq =</span> <span class="fu">row_number</span>(), <span class="at">.after =</span> ppn) <span class="sc">%&gt;%</span></span>
+<span id="cb37-293"><a href="#cb37-293" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb37-294"><a href="#cb37-294" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Adding transplant date</span></span>
+<span id="cb37-295"><a href="#cb37-295" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(anzdata_transplants <span class="sc">%&gt;%</span> </span>
+<span id="cb37-296"><a href="#cb37-296" aria-hidden="true" tabindex="-1"></a>              <span class="fu">filter</span>(graftno <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb37-297"><a href="#cb37-297" aria-hidden="true" tabindex="-1"></a>              <span class="fu">select</span>(ppn, transplantdate)) <span class="sc">%&gt;%</span></span>
+<span id="cb37-298"><a href="#cb37-298" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Flag transplant admissions</span></span>
+<span id="cb37-299"><a href="#cb37-299" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">transplant =</span> <span class="fu">if_else</span>(transplantdate <span class="sc">%&gt;%</span> <span class="fu">between</span>(start_date, end_date), <span class="dv">1</span>, <span class="dv">0</span>) <span class="sc">%&gt;%</span> <span class="fu">replace_na</span>(<span class="dv">0</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb37-300"><a href="#cb37-300" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Flag records that include or are after the transplant</span></span>
+<span id="cb37-301"><a href="#cb37-301" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(ppn) <span class="sc">%&gt;%</span></span>
+<span id="cb37-302"><a href="#cb37-302" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">post_transplant =</span> <span class="fu">cumsum</span>(transplant)) <span class="sc">%&gt;%</span></span>
+<span id="cb37-303"><a href="#cb37-303" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb37-304"><a href="#cb37-304" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Create index_seq</span></span>
+<span id="cb37-305"><a href="#cb37-305" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(ppn, post_transplant) <span class="sc">%&gt;%</span></span>
+<span id="cb37-306"><a href="#cb37-306" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">index_seq =</span> <span class="fu">if_else</span>(post_transplant <span class="sc">==</span> <span class="dv">0</span>, <span class="dv">0</span>, <span class="fu">row_number</span>())) <span class="sc">%&gt;%</span></span>
+<span id="cb37-307"><a href="#cb37-307" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb37-308"><a href="#cb37-308" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Only show the variables we need to check</span></span>
+<span id="cb37-309"><a href="#cb37-309" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(ppn, admission_seq, transplant, post_transplant, index_seq) <span class="sc">%&gt;%</span> </span>
+<span id="cb37-310"><a href="#cb37-310" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">20</span>)</span>
+<span id="cb37-311"><a href="#cb37-311" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb37-312"><a href="#cb37-312" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb37-313"><a href="#cb37-313" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb37-314"><a href="#cb37-314" aria-hidden="true" tabindex="-1"></a>Now that we&#39;ve check this code all works, let&#39;s put it all together and assign it to a new dataset</span>
+<span id="cb37-317"><a href="#cb37-317" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb37-318"><a href="#cb37-318" aria-hidden="true" tabindex="-1"></a>apdc_clean <span class="ot">&lt;-</span> apdc_icd10_desc <span class="sc">%&gt;%</span> </span>
+<span id="cb37-319"><a href="#cb37-319" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Admission sequence</span></span>
+<span id="cb37-320"><a href="#cb37-320" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(ppn) <span class="sc">%&gt;%</span></span>
+<span id="cb37-321"><a href="#cb37-321" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">admission_seq =</span> <span class="fu">row_number</span>(), <span class="at">.after =</span> ppn) <span class="sc">%&gt;%</span></span>
+<span id="cb37-322"><a href="#cb37-322" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb37-323"><a href="#cb37-323" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Adding transplant date</span></span>
+<span id="cb37-324"><a href="#cb37-324" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(anzdata_transplants <span class="sc">%&gt;%</span> </span>
+<span id="cb37-325"><a href="#cb37-325" aria-hidden="true" tabindex="-1"></a>              <span class="fu">filter</span>(graftno <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb37-326"><a href="#cb37-326" aria-hidden="true" tabindex="-1"></a>              <span class="fu">select</span>(ppn, transplantdate)) <span class="sc">%&gt;%</span></span>
+<span id="cb37-327"><a href="#cb37-327" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Flag transplant admissions</span></span>
+<span id="cb37-328"><a href="#cb37-328" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">transplant =</span> <span class="fu">if_else</span>(transplantdate <span class="sc">%&gt;%</span> <span class="fu">between</span>(start_date, end_date), <span class="dv">1</span>, <span class="dv">0</span>) <span class="sc">%&gt;%</span> <span class="fu">replace_na</span>(<span class="dv">0</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb37-329"><a href="#cb37-329" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Flag records that include or are after the transplant</span></span>
+<span id="cb37-330"><a href="#cb37-330" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(ppn) <span class="sc">%&gt;%</span></span>
+<span id="cb37-331"><a href="#cb37-331" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">post_transplant =</span> <span class="fu">cumsum</span>(transplant)) <span class="sc">%&gt;%</span></span>
+<span id="cb37-332"><a href="#cb37-332" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb37-333"><a href="#cb37-333" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Create index_seq</span></span>
+<span id="cb37-334"><a href="#cb37-334" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(ppn, post_transplant) <span class="sc">%&gt;%</span></span>
+<span id="cb37-335"><a href="#cb37-335" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">index_seq =</span> <span class="fu">if_else</span>(post_transplant <span class="sc">==</span> <span class="dv">0</span>, <span class="dv">0</span>, <span class="fu">row_number</span>())) <span class="sc">%&gt;%</span></span>
+<span id="cb37-336"><a href="#cb37-336" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb37-337"><a href="#cb37-337" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb37-338"><a href="#cb37-338" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-339"><a href="#cb37-339" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-340"><a href="#cb37-340" aria-hidden="true" tabindex="-1"></a>We can use this new index_seq to answer our original question</span>
+<span id="cb37-343"><a href="#cb37-343" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb37-344"><a href="#cb37-344" aria-hidden="true" tabindex="-1"></a>apdc_clean <span class="sc">%&gt;%</span> <span class="fu">tabyl</span>(index_seq)</span>
+<span id="cb37-345"><a href="#cb37-345" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb37-346"><a href="#cb37-346" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-347"><a href="#cb37-347" aria-hidden="true" tabindex="-1"></a>There are 32 records with index_seq = 1, which means 32 people in our cohort received a transplant.</span>
+<span id="cb37-348"><a href="#cb37-348" aria-hidden="true" tabindex="-1"></a>There are 29 records with index_seq = 2, which means only 29 of these people had a subsequent hospital admission after their transplant</span>
+<span id="cb37-349"><a href="#cb37-349" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-350"><a href="#cb37-350" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-351"><a href="#cb37-351" aria-hidden="true" tabindex="-1"></a>We can summarise the primary diagnosis code description for these 29 subsequent hospital admissions. </span>
+<span id="cb37-354"><a href="#cb37-354" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb37-355"><a href="#cb37-355" aria-hidden="true" tabindex="-1"></a>apdc_clean <span class="sc">%&gt;%</span> </span>
+<span id="cb37-356"><a href="#cb37-356" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(index_seq <span class="sc">==</span> <span class="dv">2</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb37-357"><a href="#cb37-357" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tabyl</span>(diag_desc_1)</span>
+<span id="cb37-358"><a href="#cb37-358" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 </code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
