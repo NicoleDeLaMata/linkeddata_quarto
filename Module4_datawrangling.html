@@ -4066,7 +4066,7 @@ vertical-align: -.125em;
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#r-coding" id="toc-r-coding" class="nav-link active" data-scroll-target="#r-coding">R coding</a></li>
+  <li><a href="#learnr-tutorial" id="toc-learnr-tutorial" class="nav-link active" data-scroll-target="#learnr-tutorial">Learnr Tutorial</a></li>
   </ul>
 </nav>
     </div>
@@ -4075,7 +4075,7 @@ vertical-align: -.125em;
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Module4_datawrangling.html">Module 4</a></li><li class="breadcrumb-item"><a href="./Module4_datawrangling.html">Module 4 Data wrangling</a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">Module 4 Data wrangling</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+<div class="quarto-title-block"><div><h1 class="title">Module 4 Data wrangling</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -4092,74 +4092,9 @@ vertical-align: -.125em;
 </header>
 
 
-<section id="r-coding" class="level2">
-<h2 class="anchored" data-anchor-id="r-coding">R coding</h2>
-<p>See below for data wrangling content.</p>
-<p>The following packages were used for the solutions.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Load libraries</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse) <span class="co"># for data manipulation</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(skimr) <span class="co"># for skim() to summarise datasets</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(labelled) <span class="co"># for generate_dictionary() to view value labels </span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor) <span class="co"># for tabyl() to create frequency tables</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate) <span class="co"># for working with date variables</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell">
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package &#39;tidyverse&#39; was built under R version 4.4.3</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package &#39;lubridate&#39; was built under R version 4.4.3</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-✔ dplyr     1.1.4     ✔ readr     2.1.5
-✔ forcats   1.0.0     ✔ stringr   1.5.1
-✔ ggplot2   3.5.1     ✔ tibble    3.2.1
-✔ lubridate 1.9.4     ✔ tidyr     1.3.1
-✔ purrr     1.0.2     
-── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-✖ dplyr::filter() masks stats::filter()
-✖ dplyr::lag()    masks stats::lag()
-ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package &#39;skimr&#39; was built under R version 4.4.3</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package &#39;labelled&#39; was built under R version 4.4.3</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package &#39;janitor&#39; was built under R version 4.4.3</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-Attaching package: &#39;janitor&#39;
-
-The following objects are masked from &#39;package:stats&#39;:
-
-    chisq.test, fisher.test</code></pre>
-</div>
-</div>
-<p>We import the data as below.</p>
-<div class="cell">
-<details open class="code-fold">
-<summary>Show R code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import data from Github ----</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Read in csv file</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>ppn_subset_2000 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/NicoleDeLaMata/LinkedData/refs/heads/main/ppn_subset_2000.csv&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output cell-output-stderr">
-<pre><code>Rows: 80512 Columns: 49
-── Column specification ────────────────────────────────────────────────────────
-Delimiter: &quot;,&quot;
-chr (22): episode_start_date, episode_end_date, diagnosis_codeP, diagnosis_c...
-dbl (27): ppn, age_recode, facility_identifier_recode, episode_length_of_sta...
-
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-</div>
-</div>
+<section id="learnr-tutorial" class="level2">
+<h2 class="anchored" data-anchor-id="learnr-tutorial">Learnr Tutorial</h2>
+<p>Please refer to the interactive LearnR tutorial for <a href="https://nicoledelamata.shinyapps.io/Module4_datawrangling/">Module 4 Data Wrangling available here</a>.</p>
 
 
 <!-- -->
@@ -4618,48 +4553,17 @@ dbl (27): ppn, age_recode, facility_identifier_recode, episode_length_of_sta...
     }
   });
   </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> &quot;Module 4 Data wrangling&quot;</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co">    embed-resources: true</span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co">    code-overflow: wrap</span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="fu">## R coding</span></span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>See below for data wrangling content.</span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>The following packages were used for the solutions.</span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Load libraries</span></span>
-<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse) <span class="co"># for data manipulation</span></span>
-<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(skimr) <span class="co"># for skim() to summarise datasets</span></span>
-<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(labelled) <span class="co"># for generate_dictionary() to view value labels </span></span>
-<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor) <span class="co"># for tabyl() to create frequency tables</span></span>
-<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate) <span class="co"># for working with date variables</span></span>
-<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
-<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Load libraries</span></span>
-<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse) <span class="co"># for data manipulation</span></span>
-<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(skimr) <span class="co"># for skim() to summarise datasets</span></span>
-<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(labelled) <span class="co"># for generate_dictionary() to view value labels </span></span>
-<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor) <span class="co"># for tabyl() to create frequency tables</span></span>
-<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate) <span class="co"># for working with date variables</span></span>
-<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a>We import the data as below.</span>
-<span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-40"><a href="#cb11-40" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb11-41"><a href="#cb11-41" aria-hidden="true" tabindex="-1"></a><span class="co"># Import data from Github ----</span></span>
-<span id="cb11-42"><a href="#cb11-42" aria-hidden="true" tabindex="-1"></a><span class="do">## Read in csv file</span></span>
-<span id="cb11-43"><a href="#cb11-43" aria-hidden="true" tabindex="-1"></a>ppn_subset_2000 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/NicoleDeLaMata/LinkedData/refs/heads/main/ppn_subset_2000.csv&quot;</span>)</span>
-<span id="cb11-44"><a href="#cb11-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-45"><a href="#cb11-45" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-</code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> &quot;Module 4 Data wrangling&quot;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span><span class="co"> </span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">    embed-resources: true</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">    code-overflow: wrap</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">## Learnr Tutorial</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>Please refer to the interactive LearnR tutorial for <span class="co">[</span><span class="ot">Module 4 Data Wrangling available here</span><span class="co">](https://nicoledelamata.shinyapps.io/Module4_datawrangling/)</span>.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
