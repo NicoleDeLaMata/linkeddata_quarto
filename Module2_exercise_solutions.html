@@ -4323,14 +4323,14 @@ vertical-align: -.125em;
 <span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
 <span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="co">#Reshape</span></span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>canc_reg_long <span class="ot">&lt;-</span> canc_reg <span class="sc">|&gt;</span> <span class="fu">pivot_wider</span>(</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>canc_reg_wide <span class="ot">&lt;-</span> canc_reg <span class="sc">|&gt;</span> <span class="fu">pivot_wider</span>(</span>
 <span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">id_cols=</span>ppn,</span>
 <span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">names_from =</span> seq_id, </span>
 <span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">values_from =</span> <span class="fu">c</span>(age_in_years, diag_date, bod_canc, year_bod, month_bod)</span>
 <span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a><span class="co">#Compare the different years of birth - discrepancies</span></span>
-<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>canc_reg_long <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">flag_year =</span> <span class="fu">case_when</span>(</span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>canc_reg_wide <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">flag_year =</span> <span class="fu">case_when</span>(</span>
 <span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">is.na</span>(year_bod_2) <span class="sc">~</span> <span class="dv">0</span>,</span>
 <span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>                        year_bod_1 <span class="sc">!=</span> year_bod_2 <span class="sc">&amp;</span> <span class="fu">is.na</span>(year_bod_3) <span class="sc">~</span> <span class="dv">1</span>,</span>
 <span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>                        year_bod_1 <span class="sc">!=</span> year_bod_2 <span class="sc">|</span> year_bod_1 <span class="sc">!=</span> year_bod_3 <span class="sc">~</span> <span class="dv">1</span>,</span>
@@ -4347,7 +4347,7 @@ vertical-align: -.125em;
 <details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Compare the different months of birth - discrepancies</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>canc_reg_long <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">flag_month =</span> <span class="fu">case_when</span>(</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>canc_reg_wide <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">flag_month =</span> <span class="fu">case_when</span>(</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">is.na</span>(month_bod_2) <span class="sc">~</span> <span class="dv">0</span>,</span>
 <span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>                        month_bod_1 <span class="sc">!=</span> month_bod_2 <span class="sc">&amp;</span> <span class="fu">is.na</span>(month_bod_3) <span class="sc">~</span> <span class="dv">1</span>,</span>
 <span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>                        month_bod_1 <span class="sc">!=</span> month_bod_2 <span class="sc">|</span> month_bod_1 <span class="sc">!=</span> month_bod_3  <span class="sc">~</span> <span class="dv">1</span>,</span>
@@ -4369,7 +4369,7 @@ vertical-align: -.125em;
 <details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Collate cancer registry data</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>canc_reg_red <span class="ot">&lt;-</span> canc_reg_long <span class="sc">%&gt;%</span> <span class="fu">select</span>(ppn, <span class="at">year_bod_canc =</span> year_bod_1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>canc_reg_red <span class="ot">&lt;-</span> canc_reg_wide <span class="sc">%&gt;%</span> <span class="fu">select</span>(ppn, <span class="at">year_bod_canc =</span> year_bod_1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <p><span style="color:red;">We see no discrepancies between the years of the different approximate date of births. However, we do see discrepancies for the months of the approximately date of births. This would be somewhat expected if we are back-calculating from the age in years. We do not have a decimal for age in years to indicate how far along in the age of year the individual is, that is someone who has had their birthday in May being 34 years would be the same age in years even until the following April. This would not be the case if we had a decimal for the age in years.</span><br>
@@ -4843,7 +4843,7 @@ vertical-align: -.125em;
 <br>
 </li>
 </ol>
-<p><span style="color:red;">46 patients had at least one kidney transplant following their first living kidney transplant.</span><br>
+<p><span style="color:red;">48 patients had at least one kidney transplant following their first living kidney transplant.</span><br>
 </p>
 </section>
 <section id="question-3-1" class="level2">
@@ -5585,28 +5585,28 @@ vertical-align: -.125em;
 <span id="cb63-157"><a href="#cb63-157" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
 <span id="cb63-158"><a href="#cb63-158" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb63-159"><a href="#cb63-159" aria-hidden="true" tabindex="-1"></a><span class="co">#Reshape</span></span>
-<span id="cb63-160"><a href="#cb63-160" aria-hidden="true" tabindex="-1"></a>canc_reg_long <span class="ot">&lt;-</span> canc_reg <span class="sc">|&gt;</span> <span class="fu">pivot_wider</span>(</span>
+<span id="cb63-160"><a href="#cb63-160" aria-hidden="true" tabindex="-1"></a>canc_reg_wide <span class="ot">&lt;-</span> canc_reg <span class="sc">|&gt;</span> <span class="fu">pivot_wider</span>(</span>
 <span id="cb63-161"><a href="#cb63-161" aria-hidden="true" tabindex="-1"></a>  <span class="at">id_cols=</span>ppn,</span>
 <span id="cb63-162"><a href="#cb63-162" aria-hidden="true" tabindex="-1"></a>  <span class="at">names_from =</span> seq_id, </span>
 <span id="cb63-163"><a href="#cb63-163" aria-hidden="true" tabindex="-1"></a>  <span class="at">values_from =</span> <span class="fu">c</span>(age_in_years, diag_date, bod_canc, year_bod, month_bod)</span>
 <span id="cb63-164"><a href="#cb63-164" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb63-165"><a href="#cb63-165" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb63-166"><a href="#cb63-166" aria-hidden="true" tabindex="-1"></a><span class="co">#Compare the different years of birth - discrepancies</span></span>
-<span id="cb63-167"><a href="#cb63-167" aria-hidden="true" tabindex="-1"></a>canc_reg_long <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">flag_year =</span> <span class="fu">case_when</span>(</span>
+<span id="cb63-167"><a href="#cb63-167" aria-hidden="true" tabindex="-1"></a>canc_reg_wide <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">flag_year =</span> <span class="fu">case_when</span>(</span>
 <span id="cb63-168"><a href="#cb63-168" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">is.na</span>(year_bod_2) <span class="sc">~</span> <span class="dv">0</span>,</span>
 <span id="cb63-169"><a href="#cb63-169" aria-hidden="true" tabindex="-1"></a>                        year_bod_1 <span class="sc">!=</span> year_bod_2 <span class="sc">&amp;</span> <span class="fu">is.na</span>(year_bod_3) <span class="sc">~</span> <span class="dv">1</span>,</span>
 <span id="cb63-170"><a href="#cb63-170" aria-hidden="true" tabindex="-1"></a>                        year_bod_1 <span class="sc">!=</span> year_bod_2 <span class="sc">|</span> year_bod_1 <span class="sc">!=</span> year_bod_3 <span class="sc">~</span> <span class="dv">1</span>,</span>
 <span id="cb63-171"><a href="#cb63-171" aria-hidden="true" tabindex="-1"></a>                        <span class="cn">TRUE</span> <span class="sc">~</span> <span class="dv">0</span>)) <span class="sc">%&gt;%</span> <span class="fu">filter</span>(flag_year<span class="sc">==</span><span class="dv">1</span>) <span class="sc">%&gt;%</span> <span class="fu">print</span>()</span>
 <span id="cb63-172"><a href="#cb63-172" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb63-173"><a href="#cb63-173" aria-hidden="true" tabindex="-1"></a><span class="co">#Compare the different months of birth - discrepancies</span></span>
-<span id="cb63-174"><a href="#cb63-174" aria-hidden="true" tabindex="-1"></a>canc_reg_long <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">flag_month =</span> <span class="fu">case_when</span>(</span>
+<span id="cb63-174"><a href="#cb63-174" aria-hidden="true" tabindex="-1"></a>canc_reg_wide <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">flag_month =</span> <span class="fu">case_when</span>(</span>
 <span id="cb63-175"><a href="#cb63-175" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">is.na</span>(month_bod_2) <span class="sc">~</span> <span class="dv">0</span>,</span>
 <span id="cb63-176"><a href="#cb63-176" aria-hidden="true" tabindex="-1"></a>                        month_bod_1 <span class="sc">!=</span> month_bod_2 <span class="sc">&amp;</span> <span class="fu">is.na</span>(month_bod_3) <span class="sc">~</span> <span class="dv">1</span>,</span>
 <span id="cb63-177"><a href="#cb63-177" aria-hidden="true" tabindex="-1"></a>                        month_bod_1 <span class="sc">!=</span> month_bod_2 <span class="sc">|</span> month_bod_1 <span class="sc">!=</span> month_bod_3  <span class="sc">~</span> <span class="dv">1</span>,</span>
 <span id="cb63-178"><a href="#cb63-178" aria-hidden="true" tabindex="-1"></a>                        <span class="cn">TRUE</span> <span class="sc">~</span> <span class="dv">0</span>)) <span class="sc">%&gt;%</span> <span class="fu">filter</span>(flag_month<span class="sc">==</span><span class="dv">1</span>) <span class="sc">%&gt;%</span> <span class="fu">print</span>()</span>
 <span id="cb63-179"><a href="#cb63-179" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb63-180"><a href="#cb63-180" aria-hidden="true" tabindex="-1"></a><span class="co">#Collate cancer registry data</span></span>
-<span id="cb63-181"><a href="#cb63-181" aria-hidden="true" tabindex="-1"></a>canc_reg_red <span class="ot">&lt;-</span> canc_reg_long <span class="sc">%&gt;%</span> <span class="fu">select</span>(ppn, <span class="at">year_bod_canc =</span> year_bod_1)</span>
+<span id="cb63-181"><a href="#cb63-181" aria-hidden="true" tabindex="-1"></a>canc_reg_red <span class="ot">&lt;-</span> canc_reg_wide <span class="sc">%&gt;%</span> <span class="fu">select</span>(ppn, <span class="at">year_bod_canc =</span> year_bod_1)</span>
 <span id="cb63-182"><a href="#cb63-182" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb63-183"><a href="#cb63-183" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb63-184"><a href="#cb63-184" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">We see no discrepancies between the years of the different approximate date of births. However, we do see discrepancies for the months of the approximately date of births. This would be somewhat expected if we are back-calculating from the age in years. We do not have a decimal for age in years to indicate how far along in the age of year the individual is, that is someone who has had their birthday in May being 34 years would be the same age in years even until the following April. This would not be the case if we had a decimal for the age in years.</span><span class="co">]</span>{style=&quot;color:red;&quot;}\</span>
@@ -5941,7 +5941,7 @@ vertical-align: -.125em;
 <span id="cb63-545"><a href="#cb63-545" aria-hidden="true" tabindex="-1"></a>B.  How many patients with a living kidney donor transplant had at least one subsequent kidney transplant?\</span>
 <span id="cb63-546"><a href="#cb63-546" aria-hidden="true" tabindex="-1"></a>    \</span>
 <span id="cb63-547"><a href="#cb63-547" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb63-548"><a href="#cb63-548" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">46 patients had at least one kidney transplant following their first living kidney transplant.</span><span class="co">]</span>{style=&quot;color:red;&quot;}\</span>
+<span id="cb63-548"><a href="#cb63-548" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">48 patients had at least one kidney transplant following their first living kidney transplant.</span><span class="co">]</span>{style=&quot;color:red;&quot;}\</span>
 <span id="cb63-549"><a href="#cb63-549" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb63-550"><a href="#cb63-550" aria-hidden="true" tabindex="-1"></a><span class="fu">## Question 3</span></span>
 <span id="cb63-551"><a href="#cb63-551" aria-hidden="true" tabindex="-1"></a></span>
