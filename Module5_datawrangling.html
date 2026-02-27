@@ -4066,7 +4066,13 @@ vertical-align: -.125em;
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#r-coding" id="toc-r-coding" class="nav-link active" data-scroll-target="#r-coding">R coding</a></li>
+  <li><a href="#libraries" id="toc-libraries" class="nav-link active" data-scroll-target="#libraries">Libraries</a></li>
+  <li><a href="#set-directories" id="toc-set-directories" class="nav-link" data-scroll-target="#set-directories">Set directories</a></li>
+  <li><a href="#read-in-raw-data" id="toc-read-in-raw-data" class="nav-link" data-scroll-target="#read-in-raw-data">Read in raw data</a></li>
+  <li><a href="#restrict-hospital-admissions-to-the-lookback-period-only" id="toc-restrict-hospital-admissions-to-the-lookback-period-only" class="nav-link" data-scroll-target="#restrict-hospital-admissions-to-the-lookback-period-only">Restrict hospital admissions to the lookback period only</a></li>
+  <li><a href="#calculate-adjusted-charlson-comorbidity-index" id="toc-calculate-adjusted-charlson-comorbidity-index" class="nav-link" data-scroll-target="#calculate-adjusted-charlson-comorbidity-index">Calculate adjusted Charlson comorbidity index</a></li>
+  <li><a href="#determine-remoteness-of-each-sa2" id="toc-determine-remoteness-of-each-sa2" class="nav-link" data-scroll-target="#determine-remoteness-of-each-sa2">Determine remoteness of each SA2</a></li>
+  <li><a href="#final-analysis" id="toc-final-analysis" class="nav-link" data-scroll-target="#final-analysis">Final analysis</a></li>
   </ul>
 </nav>
     </div>
@@ -4092,30 +4098,35 @@ vertical-align: -.125em;
 </header>
 
 
-<section id="r-coding" class="level2">
-<h2 class="anchored" data-anchor-id="r-coding">R coding</h2>
-<p>See below for data wrangling content.</p>
-<p>The following packages were used for the solutions.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Load libraries</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse) <span class="co"># for data manipulation</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(skimr) <span class="co"># for skim() to summarise datasets</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(labelled) <span class="co"># for generate_dictionary() to view value labels </span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor) <span class="co"># for tabyl() to create frequency tables</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate) <span class="co"># for working with date variables</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>We have three datasets to work with:</p>
+<p><a href="https://raw.githubusercontent.com/NicoleDeLaMata/LinkedData/refs/heads/main/anzdata_patients_Mod5.csv">anzdata_patients.csv</a></p>
+<p><a href="https://raw.githubusercontent.com/NicoleDeLaMata/LinkedData/refs/heads/main/apdc_2010_2024_Mod5.csv">apdc_2010_2024.csv</a></p>
+<p><a href="https://raw.githubusercontent.com/NicoleDeLaMata/LinkedData/refs/heads/main/cci_weights_Mod5.csv">cci_weights.csv</a></p>
+<p>Our goal is to compare the comorbidity burden of people with kidney failure, by remoteness. To do this we’ll look at their hospital admissions in the 2 years prior to kidney failure.</p>
+<section id="libraries" class="level1">
+<h1>Libraries</h1>
 <div class="cell">
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: package &#39;tidyverse&#39; was built under R version 4.4.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package &#39;ggplot2&#39; was built under R version 4.4.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package &#39;dplyr&#39; was built under R version 4.4.3</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: package &#39;lubridate&#39; was built under R version 4.4.3</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ dplyr     1.2.0     ✔ readr     2.1.5
 ✔ forcats   1.0.0     ✔ stringr   1.5.1
-✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+✔ ggplot2   4.0.2     ✔ tibble    3.2.1
 ✔ lubridate 1.9.4     ✔ tidyr     1.3.1
 ✔ purrr     1.0.2     
 ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
@@ -4123,12 +4134,11 @@ vertical-align: -.125em;
 ✖ dplyr::lag()    masks stats::lag()
 ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
 </div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package &#39;skimr&#39; was built under R version 4.4.3</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package &#39;labelled&#39; was built under R version 4.4.3</code></pre>
-</div>
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: package &#39;janitor&#39; was built under R version 4.4.3</code></pre>
 </div>
@@ -4140,24 +4150,755 @@ The following objects are masked from &#39;package:stats&#39;:
 
     chisq.test, fisher.test</code></pre>
 </div>
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(skimr)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package &#39;skimr&#39; was built under R version 4.4.3</code></pre>
 </div>
-<p>We import the data as below.</p>
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(devtools)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package &#39;devtools&#39; was built under R version 4.4.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: usethis</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package &#39;usethis&#39; was built under R version 4.4.3</code></pre>
+</div>
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">install_github</span>(<span class="st">&quot;james-hedley/charlson&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>WARNING: Rtools is required to build R packages, but is not currently installed.
+
+Please download and install Rtools 4.4 from https://cran.r-project.org/bin/windows/Rtools/.
+Using GitHub PAT from the git credential store.
+Skipping install of &#39;charlson&#39; from a github remote, the SHA1 (38f3ace5) has not changed since last install.
+  Use `force = TRUE` to force installation</code></pre>
+</div>
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(charlson)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="set-directories" class="level1">
+<h1>Set directories</h1>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>main_dir <span class="ot">&lt;-</span> <span class="st">&quot;G:/My Drive/Linked data course/Module 5&quot;</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>data_dir <span class="ot">&lt;-</span> <span class="fu">file.path</span>(main_dir, <span class="st">&quot;Data&quot;</span>)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="read-in-raw-data" class="level1">
+<h1>Read in raw data</h1>
+<p>If using local directory:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>anzdata_patients <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">file.path</span>(data_dir, <span class="fu">paste0</span>(<span class="st">&quot;anzdata_patients&quot;</span>, <span class="st">&quot;.csv&quot;</span>)))</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>apdc_2010_2024 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">file.path</span>(data_dir, <span class="fu">paste0</span>(<span class="st">&quot;apdc_2010_2024&quot;</span>, <span class="st">&quot;.csv&quot;</span>)))</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>cci_weights <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">file.path</span>(data_dir, <span class="fu">paste0</span>(<span class="st">&quot;cci_weights&quot;</span>, <span class="st">&quot;.csv&quot;</span>)))</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Otherwise, we need to load directly from Github for this interactive page</p>
 <div class="cell">
 <details open class="code-fold">
 <summary>Show R code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import data from Github ----</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Read in csv file</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>ppn_subset_2000 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/NicoleDeLaMata/LinkedData/refs/heads/main/ppn_subset_2000.csv&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>anzdata_patients <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/NicoleDeLaMata/LinkedData/refs/heads/main/anzdata_patients_Mod5.csv&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stderr">
-<pre><code>Rows: 80512 Columns: 49
+<pre><code>Rows: 4019 Columns: 5
 ── Column specification ────────────────────────────────────────────────────────
 Delimiter: &quot;,&quot;
-chr (22): episode_start_date, episode_end_date, diagnosis_codeP, diagnosis_c...
-dbl (27): ppn, age_recode, facility_identifier_recode, episode_length_of_sta...
+chr  (2): ppn, sex
+dbl  (2): age, sa2_2016
+date (1): krtstart
 
 ℹ Use `spec()` to retrieve the full column specification for this data.
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>apdc_2010_2024 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/NicoleDeLaMata/LinkedData/refs/heads/main/apdc_2010_2024_Mod5.csv&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: One or more parsing issues, call `problems()` on your data frame for details,
+e.g.:
+  dat &lt;- vroom(...)
+  problems(dat)</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 101981 Columns: 56
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: &quot;,&quot;
+chr  (46): ppn, hosp_id, diag1, diag2, diag3, diag4, diag5, diag6, diag7, di...
+dbl   (1): admission_seq
+lgl   (7): diag45, diag46, diag47, diag48, diag49, diag50, diag51
+date  (2): start_date, end_date
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>cci_weights <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/NicoleDeLaMata/LinkedData/main/cci_weights_Mod5.csv&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 17 Columns: 2
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: &quot;,&quot;
+chr (1): comorbidity
+dbl (1): weight
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+</div>
+<div class="cell">
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>anzdata_patients</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4,019 × 5
+   ppn              age sex    krtstart    sa2_2016
+   &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt;  &lt;date&gt;         &lt;dbl&gt;
+ 1 PPN03679207370    66 Male   2015-01-01 118021348
+ 2 PPN04073448788    74 Male   2015-01-01 119041378
+ 3 PPN03357869151    27 Male   2015-01-02 116011306
+ 4 PPN03598304071    59 Male   2015-01-04 124031462
+ 5 PPN02566094533    57 Female 2015-01-05 119011361
+ 6 PPN00439204329    70 Male   2015-01-06 121041414
+ 7 PPN02899298367    68 Male   2015-01-06 116031315
+ 8 PPN09384292284    88 Male   2015-01-06 119031369
+ 9 PPN09430192247    24 Female 2015-01-06 107041549
+10 PPN02699774932    47 Male   2015-01-07 102011032
+# ℹ 4,009 more rows</code></pre>
+</div>
+</div>
+<div class="cell">
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>apdc_2010_2024</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 101,981 × 56
+   ppn       admission_seq hosp_id start_date end_date   diag1 diag2 diag3 diag4
+   &lt;chr&gt;             &lt;dbl&gt; &lt;chr&gt;   &lt;date&gt;     &lt;date&gt;     &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;
+ 1 PPN05101…             1 H0008   2015-08-03 2015-08-09 N18.4 E83.4 D64.9 Z91.1
+ 2 PPN05101…             2 H0131   2018-01-09 2018-01-09 N02.8 Z53.8 N18.5 &lt;NA&gt; 
+ 3 PPN05101…             3 H0252   2018-04-13 2018-04-13 Z86.3 Z87.4 Z99.2 H25.1
+ 4 PPN05101…             4 H0131   2019-04-23 2019-05-05 K91.3 Y92.… N18.5 K59.0
+ 5 PPN05101…             5 H0131   2019-05-16 2019-05-26 Z94.0 T81.… B95.7 K59.0
+ 6 PPN05101…             6 H0131   2019-07-07 2019-07-07 Z46.6 Z94.0 N18.4 &lt;NA&gt; 
+ 7 PPN05101…             7 H0129   2019-10-11 2019-10-17 B25.8 B27.0 N18.3 K63.8
+ 8 PPN05101…             8 H0129   2019-10-25 2019-11-01 E87.7 N18.3 N17.9 Z06.…
+ 9 PPN05101…             9 H0008   2020-10-04 2020-10-20 U82.3 A09.9 N18.3 Z94.0
+10 PPN05101…            10 H0252   2021-07-10 2021-07-10 U82.3 U86.4 U87.1 H26.9
+# ℹ 101,971 more rows
+# ℹ 47 more variables: diag5 &lt;chr&gt;, diag6 &lt;chr&gt;, diag7 &lt;chr&gt;, diag8 &lt;chr&gt;,
+#   diag9 &lt;chr&gt;, diag10 &lt;chr&gt;, diag11 &lt;chr&gt;, diag12 &lt;chr&gt;, diag13 &lt;chr&gt;,
+#   diag14 &lt;chr&gt;, diag15 &lt;chr&gt;, diag16 &lt;chr&gt;, diag17 &lt;chr&gt;, diag18 &lt;chr&gt;,
+#   diag19 &lt;chr&gt;, diag20 &lt;chr&gt;, diag21 &lt;chr&gt;, diag22 &lt;chr&gt;, diag23 &lt;chr&gt;,
+#   diag24 &lt;chr&gt;, diag25 &lt;chr&gt;, diag26 &lt;chr&gt;, diag27 &lt;chr&gt;, diag28 &lt;chr&gt;,
+#   diag29 &lt;chr&gt;, diag30 &lt;chr&gt;, diag31 &lt;chr&gt;, diag32 &lt;chr&gt;, diag33 &lt;chr&gt;, …</code></pre>
+</div>
+</div>
+<div class="cell">
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>cci_weights</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 17 × 2
+   comorbidity            weight
+   &lt;chr&gt;                   &lt;dbl&gt;
+ 1 ami                         1
+ 2 chf                         1
+ 3 pvd                         1
+ 4 cva                         1
+ 5 dementia                    1
+ 6 pulmonary_disease           1
+ 7 ctd                         1
+ 8 peptic_ulcer                1
+ 9 liver_disease               1
+10 diabetes                    1
+11 diabetes_complications      2
+12 paraplegia                  2
+13 renal_disease               2
+14 cancer                      2
+15 metastatic_cancer           6
+16 severe_liver_disease        3
+17 hiv                         6</code></pre>
+</div>
+</div>
+</section>
+<section id="restrict-hospital-admissions-to-the-lookback-period-only" class="level1">
+<h1>Restrict hospital admissions to the lookback period only</h1>
+<p>First, we need to restrict our APDC data to only include the hospital admissions in our lookback period.</p>
+<p>We’ll ensure all diagnosis codes have been converted to character strings, and all NA values are replaced with empty quotes “”</p>
+<div class="cell">
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>apdc_2yrpreKRT <span class="ot">&lt;-</span> apdc_2010_2024 <span class="sc">%&gt;%</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">&quot;diag&quot;</span>), <span class="sc">~</span> .x <span class="sc">%&gt;%</span> <span class="fu">as.character</span>() <span class="sc">%&gt;%</span> <span class="fu">replace_na</span>(<span class="st">&quot;&quot;</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>Then we’ll look up each person’s kidney failure start date in anzdata_patients</p>
+<div class="cell">
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>apdc_2yrpreKRT <span class="ot">&lt;-</span> apdc_2yrpreKRT <span class="sc">%&gt;%</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(anzdata_patients <span class="sc">%&gt;%</span> <span class="fu">select</span>(ppn, krtstart))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Joining with `by = join_by(ppn)`</code></pre>
+</div>
+</div>
+<p>And then we’ll restrict our dataset to hospital admissions that started before kidney failure, AND ended after our lookback period begins (i.e. 2 years prior to kidney failure)</p>
+<div class="cell">
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>apdc_2yrpreKRT <span class="ot">&lt;-</span> apdc_2yrpreKRT <span class="sc">%&gt;%</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(start_date <span class="sc">&lt;</span> krtstart <span class="sc">&amp;</span> end_date <span class="sc">&gt;</span> krtstart <span class="sc">%m-%</span> <span class="fu">years</span>(<span class="dv">2</span>))</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>apdc_2yrpreKRT</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 15,379 × 57
+   ppn       admission_seq hosp_id start_date end_date   diag1 diag2 diag3 diag4
+   &lt;chr&gt;             &lt;dbl&gt; &lt;chr&gt;   &lt;date&gt;     &lt;date&gt;     &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;
+ 1 PPN05101…             1 H0008   2015-08-03 2015-08-09 N18.4 &quot;E83… &quot;D64… &quot;Z91…
+ 2 PPN04991…             1 H0148   2016-02-04 2016-02-05 Z72.0 &quot;Q61… &quot;N18… &quot;&quot;   
+ 3 PPN05886…             1 H0252   2017-01-26 2017-01-26 K63.… &quot;K21… &quot;&quot;    &quot;&quot;   
+ 4 PPN05886…             2 H0131   2017-03-16 2017-03-16 D64.9 &quot;&quot;    &quot;&quot;    &quot;&quot;   
+ 5 PPN08058…             1 H0131   2016-04-29 2016-05-11 I10   &quot;N99… &quot;Y92… &quot;D62&quot;
+ 6 PPN08058…             2 H0131   2016-05-22 2016-05-22 D62   &quot;T81… &quot;Z48… &quot;Y92…
+ 7 PPN08058…             3 H0131   2016-05-26 2016-06-11 Z95.1 &quot;E88… &quot;C90… &quot;N17…
+ 8 PPN05028…             2 H0151   2015-09-28 2015-09-28 K40.… &quot;Z53… &quot;&quot;    &quot;&quot;   
+ 9 PPN05028…             3 H0151   2015-10-05 2015-10-07 K40.… &quot;&quot;    &quot;&quot;    &quot;&quot;   
+10 PPN05028…             4 H0151   2015-12-01 2015-12-08 D63.8 &quot;N18… &quot;Z90… &quot;I50…
+# ℹ 15,369 more rows
+# ℹ 48 more variables: diag5 &lt;chr&gt;, diag6 &lt;chr&gt;, diag7 &lt;chr&gt;, diag8 &lt;chr&gt;,
+#   diag9 &lt;chr&gt;, diag10 &lt;chr&gt;, diag11 &lt;chr&gt;, diag12 &lt;chr&gt;, diag13 &lt;chr&gt;,
+#   diag14 &lt;chr&gt;, diag15 &lt;chr&gt;, diag16 &lt;chr&gt;, diag17 &lt;chr&gt;, diag18 &lt;chr&gt;,
+#   diag19 &lt;chr&gt;, diag20 &lt;chr&gt;, diag21 &lt;chr&gt;, diag22 &lt;chr&gt;, diag23 &lt;chr&gt;,
+#   diag24 &lt;chr&gt;, diag25 &lt;chr&gt;, diag26 &lt;chr&gt;, diag27 &lt;chr&gt;, diag28 &lt;chr&gt;,
+#   diag29 &lt;chr&gt;, diag30 &lt;chr&gt;, diag31 &lt;chr&gt;, diag32 &lt;chr&gt;, diag33 &lt;chr&gt;, …</code></pre>
+</div>
+</div>
+</section>
+<section id="calculate-adjusted-charlson-comorbidity-index" class="level1">
+<h1>Calculate adjusted Charlson comorbidity index</h1>
+<p>Now we can use these hospital admissions to calculate the Charlson comorbidity index (CCI)</p>
+<p>First we use the charlson() function to create flags for each comorbidity used in the CCI, by checking all the diagnosis code variables from diag1-diag51</p>
+<div class="cell">
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>cci_adj <span class="ot">&lt;-</span> apdc_2yrpreKRT <span class="sc">%&gt;%</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">charlson</span>(<span class="at">diagnosis_code_vars =</span> <span class="fu">paste0</span>(<span class="st">&quot;diag&quot;</span>, <span class="fu">seq</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">51</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>For each comorbidity, we can check whether it was EVER flagged in any hospital admission. To do this, we collapse our dataset down to one row per person (PPN), and replace each flag with its maximum value (within each person). It will be easier if we first create a character vector with the names of all the comorbidity flags</p>
+<div class="cell">
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>comorb_vars <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;ami&quot;</span>, <span class="st">&quot;chf&quot;</span>, <span class="st">&quot;pvd&quot;</span>, <span class="st">&quot;cva&quot;</span>, <span class="st">&quot;dementia&quot;</span>, <span class="st">&quot;pulmonary_disease&quot;</span>,</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>                 <span class="st">&quot;ctd&quot;</span>, <span class="st">&quot;peptic_ulcer&quot;</span>, <span class="st">&quot;liver_disease&quot;</span>, <span class="st">&quot;severe_liver_disease&quot;</span>,</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>                 <span class="st">&quot;diabetes&quot;</span>, <span class="st">&quot;diabetes_complications&quot;</span>, <span class="st">&quot;paraplegia&quot;</span>, </span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>                 <span class="st">&quot;renal_disease&quot;</span>, <span class="st">&quot;cancer&quot;</span>, <span class="st">&quot;metastatic_cancer&quot;</span>, <span class="st">&quot;hiv&quot;</span>)</span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>cci_adj <span class="ot">&lt;-</span> cci_adj <span class="sc">%&gt;%</span></span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(ppn) <span class="sc">%&gt;%</span></span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(comorb_vars, <span class="sc">~</span> <span class="fu">max</span>(.x)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: There was 1 warning in `summarise()`.
+ℹ In argument: `across(comorb_vars, ~max(.x))`.
+Caused by warning:
+! Using an external vector in selections was deprecated in tidyselect 1.1.0.
+ℹ Please use `all_of()` or `any_of()` instead.
+  # Was:
+  data %&gt;% select(comorb_vars)
+
+  # Now:
+  data %&gt;% select(all_of(comorb_vars))
+
+See &lt;https://tidyselect.r-lib.org/reference/faq-external-vector.html&gt;.</code></pre>
+</div>
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>cci_adj</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3,664 × 18
+   ppn       ami   chf   pvd   cva dementia pulmonary_disease   ctd peptic_ulcer
+   &lt;chr&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;             &lt;int&gt; &lt;int&gt;        &lt;int&gt;
+ 1 PPN000…     0     0     0     0        0                 0     0            0
+ 2 PPN000…     1     1     0     0        0                 1     0            0
+ 3 PPN000…     0     0     0     0        0                 0     0            0
+ 4 PPN000…     0     1     0     0        0                 0     0            0
+ 5 PPN000…     0     0     0     0        0                 0     1            0
+ 6 PPN000…     0     0     0     0        0                 0     0            0
+ 7 PPN000…     0     0     0     0        0                 0     0            0
+ 8 PPN000…     0     0     0     0        0                 0     0            0
+ 9 PPN000…     0     1     0     0        0                 0     0            0
+10 PPN000…     0     0     0     0        0                 0     0            0
+# ℹ 3,654 more rows
+# ℹ 9 more variables: liver_disease &lt;int&gt;, severe_liver_disease &lt;int&gt;,
+#   diabetes &lt;int&gt;, diabetes_complications &lt;int&gt;, paraplegia &lt;int&gt;,
+#   renal_disease &lt;int&gt;, cancer &lt;int&gt;, metastatic_cancer &lt;int&gt;, hiv &lt;int&gt;</code></pre>
+</div>
+</div>
+<p>We need to make sure no comorbidities have been double counted. For comorbidities with two severity levels, only the most severe flag should be used to avoid double counting.</p>
+<div class="cell">
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>cci_adj <span class="ot">&lt;-</span> cci_adj <span class="sc">%&gt;%</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">liver_disease =</span> <span class="fu">if_else</span>(severe_liver_disease <span class="sc">==</span> <span class="dv">1</span>, <span class="dv">0</span>, liver_disease),</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">diabetes =</span> <span class="fu">if_else</span>(diabetes_complications <span class="sc">==</span> <span class="dv">1</span>, <span class="dv">0</span>, diabetes),</span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">cancer =</span> <span class="fu">if_else</span>(metastatic_cancer <span class="sc">==</span> <span class="dv">1</span>, <span class="dv">0</span>, cancer))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>Now we can re-calculate the CCI ourselves, by multiplying each flag by the corresponding weight. Rather than manually typing out all the weights, lets reshape this dataset to long format (one row per person per comorbidity), and merge with cci_weights to look up the corresponding weight for each comorbidity.</p>
+<div class="cell">
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>cci_adj <span class="ot">&lt;-</span> cci_adj <span class="sc">%&gt;%</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">all_of</span>(comorb_vars),</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">&quot;comorbidity&quot;</span>,</span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">&quot;flag&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(cci_weights)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Joining with `by = join_by(comorbidity)`</code></pre>
+</div>
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>cci_adj</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 62,288 × 4
+   ppn            comorbidity           flag weight
+   &lt;chr&gt;          &lt;chr&gt;                &lt;dbl&gt;  &lt;dbl&gt;
+ 1 PPN00015336077 ami                      0      1
+ 2 PPN00015336077 chf                      0      1
+ 3 PPN00015336077 pvd                      0      1
+ 4 PPN00015336077 cva                      0      1
+ 5 PPN00015336077 dementia                 0      1
+ 6 PPN00015336077 pulmonary_disease        0      1
+ 7 PPN00015336077 ctd                      0      1
+ 8 PPN00015336077 peptic_ulcer             0      1
+ 9 PPN00015336077 liver_disease            0      1
+10 PPN00015336077 severe_liver_disease     0      3
+# ℹ 62,278 more rows</code></pre>
+</div>
+</div>
+<p>And finally, we can calculate CCI by multiplying each flag by its weight, and taking the sum of this for each person. We need to make one adjustment though. Since our cohort is people with kidney failure, ‘renal_disease’ is not really a CO-morbidity, its the main morbidity of interest. Since we know everyone has renal disease, lets remove this from our CCI caluclation. We can do this by setting the weight for renal disease to 0.</p>
+<div class="cell">
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>cci_adj <span class="ot">&lt;-</span> cci_adj <span class="sc">%&gt;%</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">weight =</span> <span class="fu">if_else</span>(comorbidity <span class="sc">==</span> <span class="st">&quot;renal_disease&quot;</span>, <span class="dv">0</span>, weight)) <span class="sc">%&gt;%</span></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(ppn) <span class="sc">%&gt;%</span></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">cci_adj =</span> <span class="fu">sum</span>(flag <span class="sc">*</span> weight))</span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>cci_adj</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3,664 × 2
+   ppn            cci_adj
+   &lt;chr&gt;            &lt;dbl&gt;
+ 1 PPN00015336077       0
+ 2 PPN00019179561       5
+ 3 PPN00024069512       0
+ 4 PPN00024293193       1
+ 5 PPN00025326537       3
+ 6 PPN00027205906       0
+ 7 PPN00028297922       2
+ 8 PPN00028313098       2
+ 9 PPN00033862923       3
+10 PPN00035363531       0
+# ℹ 3,654 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="determine-remoteness-of-each-sa2" class="level1">
+<h1>Determine remoteness of each SA2</h1>
+<p>Now we need to look up the remoteness classification for each person’s SA2 code in anzdata_patients. The SA2 codes provided are based on the 2016 census. Also, our cohort includes people with kidney failure from 2015-2019, so using remoteness classifications from 2016 is also appropriate (since this will be at most 3 years different from kidney failure date, and remoteness classifications don’t shift that much in only 3 years).</p>
+<p>We can find the relevant mapping between 2016 SA2 codes and 2016 remoteness areas (RA) here: https://data.gov.au/data/dataset/asgs-geographic-correspondences-2016</p>
+<p>Download the zip file, and find the relevant excel fill within it “CG_SA2_2016_RA_2016.xlsx”. You can also <a href="https://raw.githubusercontent.com/NicoleDeLaMata/LinkedData/refs/heads/main/CG_SA2_2016_RA_2016.xlsx">download it here</a>. Save this to our data_dir, so we can read it in here. Before we read it in, open this file in Excel and determine where the data we need is located. In this case it is on worksheet “Table 3”, in cells A6:F2602.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb51"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>CG_SA2_2016_RA_2016 <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="at">path =</span> <span class="fu">file.path</span>(data_dir, <span class="fu">paste0</span>(<span class="st">&quot;CG_SA2_2016_RA_2016&quot;</span>, <span class="st">&quot;.xlsx&quot;</span>)),</span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">sheet =</span> <span class="st">&quot;Table 3&quot;</span>,</span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">range =</span> <span class="st">&quot;A6:F2602&quot;</span>)</span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>For this interactive page, we have extracted Table 3 and put this into a csv file to import the data.</p>
+<div class="cell">
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>CG_SA2_2016_RA_2016 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/NicoleDeLaMata/LinkedData/refs/heads/main/CG_SA2_2016_RA_2016_Mod5_Table3.csv&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 2596 Columns: 6
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: &quot;,&quot;
+chr (2): SA2_NAME_2016, RA_NAME_2016
+dbl (4): SA2_MAINCODE_2016, RA_CODE_2016, RATIO, PERCENTAGE
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+</div>
+<p>Let’s inspect this dataset</p>
+<div class="cell">
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>CG_SA2_2016_RA_2016</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2,596 × 6
+   SA2_MAINCODE_2016 SA2_NAME_2016  RA_CODE_2016 RA_NAME_2016   RATIO PERCENTAGE
+               &lt;dbl&gt; &lt;chr&gt;                 &lt;dbl&gt; &lt;chr&gt;          &lt;dbl&gt;      &lt;dbl&gt;
+ 1                NA &lt;NA&gt;                     NA &lt;NA&gt;         NA           NA   
+ 2         101021007 Braidwood                11 Inner Regio…  0.750       75.0 
+ 3         101021007 Braidwood                12 Outer Regio…  0.250       25.0 
+ 4         101021008 Karabar                  10 Major Citie…  1          100   
+ 5         101021009 Queanbeyan               10 Major Citie…  1          100   
+ 6         101021010 Queanbeyan - …           10 Major Citie…  1          100   
+ 7         101021011 Queanbeyan Re…           10 Major Citie…  0.0484       4.84
+ 8         101021011 Queanbeyan Re…           11 Inner Regio…  0.952       95.2 
+ 9         101021012 Queanbeyan We…           10 Major Citie…  1          100   
+10         101031013 Bombala                  12 Outer Regio…  1          100   
+# ℹ 2,586 more rows</code></pre>
+</div>
+</div>
+<p>There was an empty row between the headings and the content, so we can just remove that row now</p>
+<div class="cell">
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>CG_SA2_2016_RA_2016 <span class="ot">&lt;-</span> CG_SA2_2016_RA_2016 <span class="sc">%&gt;%</span> <span class="fu">slice</span>(<span class="sc">-</span><span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>Note there are some SA2 codes that appear in multiple rows. This happens when an SA2 region lies partially in one remoteness area, and partially in another. You can investigate this yourself here: https://maps.abs.gov.au/</p>
+<p>The first SA2 in our dataset, Braidwood, is one example. It lies partially in ‘Inner Regional Australia’ and partially in ‘Outer Regional Australia’. The PERCENTAGE column shows what proportion of the population of this SA2 lives within each remoteness area.</p>
+<p>For our analysis, we need to assign a single remoteness level to each SA2, so we need to make an assumption. One option is to assume the most urban classification. Another option could be to assume the least urban classification. The option we’ll use here is to determine the median classification, i.e. for each SA2, in which remotness area does the 50th centile person live.</p>
+<p>First we need to sort the remoteness areas from most urban to least urban. We can do this using RA_CODE_2016</p>
+<div class="cell">
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>sa2_2016_remoteness <span class="ot">&lt;-</span> CG_SA2_2016_RA_2016 <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(SA2_MAINCODE_2016, RA_CODE_2016)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>Then we can calculate the cumulative PERCENTAGE of the population within each SA2, i.e. what proportion of the population lives in an area at least as urban as this?</p>
+<div class="cell">
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>sa2_2016_remoteness <span class="ot">&lt;-</span> sa2_2016_remoteness <span class="sc">%&gt;%</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(SA2_MAINCODE_2016) <span class="sc">%&gt;%</span></span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">cum_pct =</span> <span class="fu">cumsum</span>(PERCENTAGE))</span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a>sa2_2016_remoteness</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2,595 × 7
+# Groups:   SA2_MAINCODE_2016 [2,292]
+   SA2_MAINCODE_2016 SA2_NAME_2016   RA_CODE_2016 RA_NAME_2016  RATIO PERCENTAGE
+               &lt;dbl&gt; &lt;chr&gt;                  &lt;dbl&gt; &lt;chr&gt;         &lt;dbl&gt;      &lt;dbl&gt;
+ 1         101021007 Braidwood                 11 Inner Regio… 0.750       75.0 
+ 2         101021007 Braidwood                 12 Outer Regio… 0.250       25.0 
+ 3         101021008 Karabar                   10 Major Citie… 1          100   
+ 4         101021009 Queanbeyan                10 Major Citie… 1          100   
+ 5         101021010 Queanbeyan - E…           10 Major Citie… 1          100   
+ 6         101021011 Queanbeyan Reg…           10 Major Citie… 0.0484       4.84
+ 7         101021011 Queanbeyan Reg…           11 Inner Regio… 0.952       95.2 
+ 8         101021012 Queanbeyan Wes…           10 Major Citie… 1          100   
+ 9         101031013 Bombala                   12 Outer Regio… 1          100   
+10         101031014 Cooma                     11 Inner Regio… 1          100   
+# ℹ 2,585 more rows
+# ℹ 1 more variable: cum_pct &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p>We can ignore all the rows where cumulative percentage is less than 50%, since these will not contain the ‘median’ person. So we only keep the rows where cumulative percentage is greater than 50%.</p>
+<div class="cell">
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>sa2_2016_remoteness <span class="ot">&lt;-</span> sa2_2016_remoteness <span class="sc">%&gt;%</span></span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(cum_pct <span class="sc">&gt;=</span> <span class="dv">50</span>)</span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a>sa2_2016_remoteness</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2,513 × 7
+# Groups:   SA2_MAINCODE_2016 [2,292]
+   SA2_MAINCODE_2016 SA2_NAME_2016    RA_CODE_2016 RA_NAME_2016 RATIO PERCENTAGE
+               &lt;dbl&gt; &lt;chr&gt;                   &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt;      &lt;dbl&gt;
+ 1         101021007 Braidwood                  11 Inner Regio… 0.750       75.0
+ 2         101021007 Braidwood                  12 Outer Regio… 0.250       25.0
+ 3         101021008 Karabar                    10 Major Citie… 1          100  
+ 4         101021009 Queanbeyan                 10 Major Citie… 1          100  
+ 5         101021010 Queanbeyan - Ea…           10 Major Citie… 1          100  
+ 6         101021011 Queanbeyan Regi…           11 Inner Regio… 0.952       95.2
+ 7         101021012 Queanbeyan West…           10 Major Citie… 1          100  
+ 8         101031013 Bombala                    12 Outer Regio… 1          100  
+ 9         101031014 Cooma                      11 Inner Regio… 1          100  
+10         101031015 Cooma Region               11 Inner Regio… 0.572       57.2
+# ℹ 2,503 more rows
+# ℹ 1 more variable: cum_pct &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p>The median person lives in the first remoteness area where the cumulative percentage is greater than 50%. So we just need to keep the first remaining row wihtin each SA2. And don’t forget to ungroup our dataset!</p>
+<div class="cell">
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>sa2_2016_remoteness <span class="ot">&lt;-</span> sa2_2016_remoteness <span class="sc">%&gt;%</span></span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-5"><a href="#cb62-5" aria-hidden="true" tabindex="-1"></a>sa2_2016_remoteness</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2,292 × 7
+   SA2_MAINCODE_2016 SA2_NAME_2016    RA_CODE_2016 RA_NAME_2016 RATIO PERCENTAGE
+               &lt;dbl&gt; &lt;chr&gt;                   &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt;      &lt;dbl&gt;
+ 1         101021007 Braidwood                  11 Inner Regio… 0.750       75.0
+ 2         101021008 Karabar                    10 Major Citie… 1          100  
+ 3         101021009 Queanbeyan                 10 Major Citie… 1          100  
+ 4         101021010 Queanbeyan - Ea…           10 Major Citie… 1          100  
+ 5         101021011 Queanbeyan Regi…           11 Inner Regio… 0.952       95.2
+ 6         101021012 Queanbeyan West…           10 Major Citie… 1          100  
+ 7         101031013 Bombala                    12 Outer Regio… 1          100  
+ 8         101031014 Cooma                      11 Inner Regio… 1          100  
+ 9         101031015 Cooma Region               11 Inner Regio… 0.572       57.2
+10         101031016 Jindabyne - Ber…           12 Outer Regio… 1          100  
+# ℹ 2,282 more rows
+# ℹ 1 more variable: cum_pct &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p>Finally we can do some tidying up to get this dataset ready for merging on to anzdata_patients. Let’s combine remote and very/remote into a single category, and ensure variable names match anzdata_patients. And let’s make our remoteness variable a factor, so we can control the order the levels will be reported in (i.e. from mst urban to least urban, rather than the default alphabetical order)</p>
+<div class="cell">
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>sa2_2016_remoteness <span class="ot">&lt;-</span> sa2_2016_remoteness <span class="sc">%&gt;%</span></span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">remoteness =</span> <span class="fu">factor</span>(</span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">case_when</span>(</span>
+<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a>      RA_NAME_2016 <span class="sc">==</span> <span class="st">&quot;Major Cities of Australia&quot;</span> <span class="sc">~</span> <span class="st">&quot;Major cities&quot;</span>,</span>
+<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a>      RA_NAME_2016 <span class="sc">==</span> <span class="st">&quot;Inner Regional Australia&quot;</span> <span class="sc">~</span> <span class="st">&quot;Inner regional&quot;</span>,</span>
+<span id="cb64-6"><a href="#cb64-6" aria-hidden="true" tabindex="-1"></a>      RA_NAME_2016 <span class="sc">==</span> <span class="st">&quot;Outer Regional Australia&quot;</span> <span class="sc">~</span> <span class="st">&quot;Outer regional&quot;</span>,</span>
+<span id="cb64-7"><a href="#cb64-7" aria-hidden="true" tabindex="-1"></a>      RA_NAME_2016 <span class="sc">==</span> <span class="st">&quot;Remote Australia&quot;</span> <span class="sc">~</span> <span class="st">&quot;Remote/Very remote&quot;</span>,</span>
+<span id="cb64-8"><a href="#cb64-8" aria-hidden="true" tabindex="-1"></a>      RA_NAME_2016 <span class="sc">==</span> <span class="st">&quot;Very Remote Australia&quot;</span> <span class="sc">~</span> <span class="st">&quot;Remote/Very remote&quot;</span>),</span>
+<span id="cb64-9"><a href="#cb64-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;Major cities&quot;</span>, <span class="st">&quot;Inner regional&quot;</span>, <span class="st">&quot;Outer regional&quot;</span>, <span class="st">&quot;Remote/Very remote&quot;</span>)</span>
+<span id="cb64-10"><a href="#cb64-10" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span></span>
+<span id="cb64-11"><a href="#cb64-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">sa2_2016 =</span> SA2_MAINCODE_2016) <span class="sc">%&gt;%</span></span>
+<span id="cb64-12"><a href="#cb64-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(sa2_2016, remoteness)</span>
+<span id="cb64-13"><a href="#cb64-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-14"><a href="#cb64-14" aria-hidden="true" tabindex="-1"></a>sa2_2016_remoteness</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2,292 × 2
+    sa2_2016 remoteness    
+       &lt;dbl&gt; &lt;fct&gt;         
+ 1 101021007 Inner regional
+ 2 101021008 Major cities  
+ 3 101021009 Major cities  
+ 4 101021010 Major cities  
+ 5 101021011 Inner regional
+ 6 101021012 Major cities  
+ 7 101031013 Outer regional
+ 8 101031014 Inner regional
+ 9 101031015 Inner regional
+10 101031016 Outer regional
+# ℹ 2,282 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="final-analysis" class="level1">
+<h1>Final analysis</h1>
+<p>Now all the pieces are in place, we just need to put them together. We can build our analysis dataset by starting with anzdata_patients, and merging with cci_adj to look up the CCI we calculated. We need to be careful here though, because not everybody in anzdata_patients will have a CCI. Its rare, but possible that some people in our cohort simply had no hospital admissions in the 2 years prior to kidney failure. In these cases we need to make sure their CCI is set to 0.</p>
+<div class="cell">
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>analysis_data <span class="ot">&lt;-</span> anzdata_patients <span class="sc">%&gt;%</span></span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(cci_adj) <span class="sc">%&gt;%</span></span>
+<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">cci_adj =</span> <span class="fu">replace_na</span>(cci_adj, <span class="dv">0</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Joining with `by = join_by(ppn)`</code></pre>
+</div>
+</div>
+<p>And now we can merge with sa2_2016_remoteness to look up remoteness classification for each person’s SA2.</p>
+<div class="cell">
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>analysis_data <span class="ot">&lt;-</span> analysis_data <span class="sc">%&gt;%</span> <span class="fu">left_join</span>(sa2_2016_remoteness)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Joining with `by = join_by(sa2_2016)`</code></pre>
+</div>
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>analysis_data</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4,019 × 7
+   ppn              age sex    krtstart    sa2_2016 cci_adj remoteness  
+   &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt;  &lt;date&gt;         &lt;dbl&gt;   &lt;dbl&gt; &lt;fct&gt;       
+ 1 PPN03679207370    66 Male   2015-01-01 118021348       3 Major cities
+ 2 PPN04073448788    74 Male   2015-01-01 119041378       2 Major cities
+ 3 PPN03357869151    27 Male   2015-01-02 116011306       0 Major cities
+ 4 PPN03598304071    59 Male   2015-01-04 124031462       3 Major cities
+ 5 PPN02566094533    57 Female 2015-01-05 119011361       0 Major cities
+ 6 PPN00439204329    70 Male   2015-01-06 121041414       2 Major cities
+ 7 PPN02899298367    68 Male   2015-01-06 116031315       2 Major cities
+ 8 PPN09384292284    88 Male   2015-01-06 119031369       1 Major cities
+ 9 PPN09430192247    24 Female 2015-01-06 107041549       0 Major cities
+10 PPN02699774932    47 Male   2015-01-07 102011032       3 Major cities
+# ℹ 4,009 more rows</code></pre>
+</div>
+</div>
+<p>To answer out original question, we can summarise CCI by remoteness level.</p>
+<div class="cell">
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a>analysis_data <span class="sc">%&gt;%</span> </span>
+<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(remoteness) <span class="sc">%&gt;%</span> </span>
+<span id="cb72-3"><a href="#cb72-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">skim</span>(cci_adj)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Data summary</caption>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Name</td>
+<td style="text-align: left;">Piped data</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Number of rows</td>
+<td style="text-align: left;">4019</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Number of columns</td>
+<td style="text-align: left;">7</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">_______________________</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Column type frequency:</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">numeric</td>
+<td style="text-align: left;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">________________________</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Group variables</td>
+<td style="text-align: left;">remoteness</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: numeric</strong></p>
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 15%">
+<col style="width: 20%">
+<col style="width: 10%">
+<col style="width: 15%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 3%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 5%">
+<col style="width: 6%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">skim_variable</th>
+<th style="text-align: left;">remoteness</th>
+<th style="text-align: right;">n_missing</th>
+<th style="text-align: right;">complete_rate</th>
+<th style="text-align: right;">mean</th>
+<th style="text-align: right;">sd</th>
+<th style="text-align: right;">p0</th>
+<th style="text-align: right;">p25</th>
+<th style="text-align: right;">p50</th>
+<th style="text-align: right;">p75</th>
+<th style="text-align: right;">p100</th>
+<th style="text-align: left;">hist</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">cci_adj</td>
+<td style="text-align: left;">Major cities</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1.46</td>
+<td style="text-align: right;">1.63</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2.0</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: left;">▇▂▁▁▁</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">cci_adj</td>
+<td style="text-align: left;">Inner regional</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1.51</td>
+<td style="text-align: right;">1.63</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2.0</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: left;">▇▆▁▁▁</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">cci_adj</td>
+<td style="text-align: left;">Outer regional</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1.38</td>
+<td style="text-align: right;">1.55</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2.0</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: left;">▇▆▁▁▁</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">cci_adj</td>
+<td style="text-align: left;">Remote/Very remote</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2.06</td>
+<td style="text-align: right;">2.04</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">3.5</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: left;">▇▅▅▁▂</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 
@@ -4618,47 +5359,279 @@ dbl (27): ppn, age_recode, facility_identifier_recode, episode_length_of_sta...
     }
   });
   </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> &quot;Module 5 Data wrangling&quot;</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co">    embed-resources: true</span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co">    code-overflow: wrap</span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="fu">## R coding</span></span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>See below for data wrangling content.</span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>The following packages were used for the solutions.</span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Load libraries</span></span>
-<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse) <span class="co"># for data manipulation</span></span>
-<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(skimr) <span class="co"># for skim() to summarise datasets</span></span>
-<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(labelled) <span class="co"># for generate_dictionary() to view value labels </span></span>
-<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor) <span class="co"># for tabyl() to create frequency tables</span></span>
-<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate) <span class="co"># for working with date variables</span></span>
-<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
-<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Load libraries</span></span>
-<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse) <span class="co"># for data manipulation</span></span>
-<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(skimr) <span class="co"># for skim() to summarise datasets</span></span>
-<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(labelled) <span class="co"># for generate_dictionary() to view value labels </span></span>
-<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor) <span class="co"># for tabyl() to create frequency tables</span></span>
-<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate) <span class="co"># for working with date variables</span></span>
-<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a>We import the data as below.</span>
-<span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-40"><a href="#cb11-40" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb11-41"><a href="#cb11-41" aria-hidden="true" tabindex="-1"></a><span class="co"># Import data from Github ----</span></span>
-<span id="cb11-42"><a href="#cb11-42" aria-hidden="true" tabindex="-1"></a><span class="do">## Read in csv file</span></span>
-<span id="cb11-43"><a href="#cb11-43" aria-hidden="true" tabindex="-1"></a>ppn_subset_2000 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/NicoleDeLaMata/LinkedData/refs/heads/main/ppn_subset_2000.csv&quot;</span>)</span>
-<span id="cb11-44"><a href="#cb11-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-45"><a href="#cb11-45" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb73" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> &quot;Module 5 Data wrangling&quot;</span></span>
+<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
+<span id="cb73-4"><a href="#cb73-4" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
+<span id="cb73-5"><a href="#cb73-5" aria-hidden="true" tabindex="-1"></a><span class="co">    embed-resources: true</span></span>
+<span id="cb73-6"><a href="#cb73-6" aria-hidden="true" tabindex="-1"></a><span class="co">    code-overflow: wrap</span></span>
+<span id="cb73-7"><a href="#cb73-7" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb73-8"><a href="#cb73-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-9"><a href="#cb73-9" aria-hidden="true" tabindex="-1"></a>We have three datasets to work with:</span>
+<span id="cb73-10"><a href="#cb73-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-11"><a href="#cb73-11" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">anzdata_patients.csv</span><span class="co">](https://raw.githubusercontent.com/NicoleDeLaMata/LinkedData/refs/heads/main/anzdata_patients_Mod5.csv)</span></span>
+<span id="cb73-12"><a href="#cb73-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-13"><a href="#cb73-13" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">apdc_2010_2024.csv</span><span class="co">](https://raw.githubusercontent.com/NicoleDeLaMata/LinkedData/refs/heads/main/apdc_2010_2024_Mod5.csv)</span></span>
+<span id="cb73-14"><a href="#cb73-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-15"><a href="#cb73-15" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">cci_weights.csv</span><span class="co">](https://raw.githubusercontent.com/NicoleDeLaMata/LinkedData/refs/heads/main/cci_weights_Mod5.csv)</span></span>
+<span id="cb73-16"><a href="#cb73-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-17"><a href="#cb73-17" aria-hidden="true" tabindex="-1"></a>Our goal is to compare the comorbidity burden of people with kidney failure, by remoteness. To do this we&#39;ll look at their hospital admissions in the 2 years prior to kidney failure.</span>
+<span id="cb73-18"><a href="#cb73-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-19"><a href="#cb73-19" aria-hidden="true" tabindex="-1"></a><span class="fu"># Libraries</span></span>
+<span id="cb73-20"><a href="#cb73-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-23"><a href="#cb73-23" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb73-24"><a href="#cb73-24" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb73-25"><a href="#cb73-25" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb73-26"><a href="#cb73-26" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
+<span id="cb73-27"><a href="#cb73-27" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(skimr)</span>
+<span id="cb73-28"><a href="#cb73-28" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb73-29"><a href="#cb73-29" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(devtools)</span>
+<span id="cb73-30"><a href="#cb73-30" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb73-31"><a href="#cb73-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-32"><a href="#cb73-32" aria-hidden="true" tabindex="-1"></a><span class="fu">install_github</span>(<span class="st">&quot;james-hedley/charlson&quot;</span>)</span>
+<span id="cb73-33"><a href="#cb73-33" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(charlson)</span>
+<span id="cb73-34"><a href="#cb73-34" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb73-35"><a href="#cb73-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-36"><a href="#cb73-36" aria-hidden="true" tabindex="-1"></a><span class="fu"># Set directories</span></span>
+<span id="cb73-37"><a href="#cb73-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-38"><a href="#cb73-38" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb73-39"><a href="#cb73-39" aria-hidden="true" tabindex="-1"></a>main_dir <span class="ot">&lt;-</span> <span class="st">&quot;G:/My Drive/Linked data course/Module 5&quot;</span></span>
+<span id="cb73-40"><a href="#cb73-40" aria-hidden="true" tabindex="-1"></a>data_dir <span class="ot">&lt;-</span> <span class="fu">file.path</span>(main_dir, <span class="st">&quot;Data&quot;</span>)</span>
+<span id="cb73-41"><a href="#cb73-41" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb73-42"><a href="#cb73-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-43"><a href="#cb73-43" aria-hidden="true" tabindex="-1"></a><span class="fu"># Read in raw data</span></span>
+<span id="cb73-44"><a href="#cb73-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-45"><a href="#cb73-45" aria-hidden="true" tabindex="-1"></a>If using local directory:</span>
+<span id="cb73-46"><a href="#cb73-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-47"><a href="#cb73-47" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb73-48"><a href="#cb73-48" aria-hidden="true" tabindex="-1"></a>anzdata_patients <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">file.path</span>(data_dir, <span class="fu">paste0</span>(<span class="st">&quot;anzdata_patients&quot;</span>, <span class="st">&quot;.csv&quot;</span>)))</span>
+<span id="cb73-49"><a href="#cb73-49" aria-hidden="true" tabindex="-1"></a>apdc_2010_2024 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">file.path</span>(data_dir, <span class="fu">paste0</span>(<span class="st">&quot;apdc_2010_2024&quot;</span>, <span class="st">&quot;.csv&quot;</span>)))</span>
+<span id="cb73-50"><a href="#cb73-50" aria-hidden="true" tabindex="-1"></a>cci_weights <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">file.path</span>(data_dir, <span class="fu">paste0</span>(<span class="st">&quot;cci_weights&quot;</span>, <span class="st">&quot;.csv&quot;</span>)))</span>
+<span id="cb73-51"><a href="#cb73-51" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb73-52"><a href="#cb73-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-53"><a href="#cb73-53" aria-hidden="true" tabindex="-1"></a>Otherwise, we need to load directly from Github for this interactive page</span>
+<span id="cb73-54"><a href="#cb73-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-57"><a href="#cb73-57" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb73-58"><a href="#cb73-58" aria-hidden="true" tabindex="-1"></a>anzdata_patients <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/NicoleDeLaMata/LinkedData/refs/heads/main/anzdata_patients_Mod5.csv&quot;</span>)</span>
+<span id="cb73-59"><a href="#cb73-59" aria-hidden="true" tabindex="-1"></a>apdc_2010_2024 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/NicoleDeLaMata/LinkedData/refs/heads/main/apdc_2010_2024_Mod5.csv&quot;</span>)</span>
+<span id="cb73-60"><a href="#cb73-60" aria-hidden="true" tabindex="-1"></a>cci_weights <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/NicoleDeLaMata/LinkedData/main/cci_weights_Mod5.csv&quot;</span>)</span>
+<span id="cb73-61"><a href="#cb73-61" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb73-62"><a href="#cb73-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-65"><a href="#cb73-65" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb73-66"><a href="#cb73-66" aria-hidden="true" tabindex="-1"></a>anzdata_patients</span>
+<span id="cb73-67"><a href="#cb73-67" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb73-68"><a href="#cb73-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-71"><a href="#cb73-71" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb73-72"><a href="#cb73-72" aria-hidden="true" tabindex="-1"></a>apdc_2010_2024</span>
+<span id="cb73-73"><a href="#cb73-73" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb73-74"><a href="#cb73-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-77"><a href="#cb73-77" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb73-78"><a href="#cb73-78" aria-hidden="true" tabindex="-1"></a>cci_weights</span>
+<span id="cb73-79"><a href="#cb73-79" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb73-80"><a href="#cb73-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-81"><a href="#cb73-81" aria-hidden="true" tabindex="-1"></a><span class="fu"># Restrict hospital admissions to the lookback period only</span></span>
+<span id="cb73-82"><a href="#cb73-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-83"><a href="#cb73-83" aria-hidden="true" tabindex="-1"></a>First, we need to restrict our APDC data to only include the hospital admissions in our lookback period.</span>
+<span id="cb73-84"><a href="#cb73-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-85"><a href="#cb73-85" aria-hidden="true" tabindex="-1"></a>We&#39;ll ensure all diagnosis codes have been converted to character strings, and all NA values are replaced with empty quotes &quot;&quot;</span>
+<span id="cb73-86"><a href="#cb73-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-89"><a href="#cb73-89" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb73-90"><a href="#cb73-90" aria-hidden="true" tabindex="-1"></a>apdc_2yrpreKRT <span class="ot">&lt;-</span> apdc_2010_2024 <span class="sc">%&gt;%</span></span>
+<span id="cb73-91"><a href="#cb73-91" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">&quot;diag&quot;</span>), <span class="sc">~</span> .x <span class="sc">%&gt;%</span> <span class="fu">as.character</span>() <span class="sc">%&gt;%</span> <span class="fu">replace_na</span>(<span class="st">&quot;&quot;</span>)))</span>
+<span id="cb73-92"><a href="#cb73-92" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb73-93"><a href="#cb73-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-94"><a href="#cb73-94" aria-hidden="true" tabindex="-1"></a>Then we&#39;ll look up each person&#39;s kidney failure start date in anzdata_patients</span>
+<span id="cb73-95"><a href="#cb73-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-98"><a href="#cb73-98" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb73-99"><a href="#cb73-99" aria-hidden="true" tabindex="-1"></a>apdc_2yrpreKRT <span class="ot">&lt;-</span> apdc_2yrpreKRT <span class="sc">%&gt;%</span></span>
+<span id="cb73-100"><a href="#cb73-100" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(anzdata_patients <span class="sc">%&gt;%</span> <span class="fu">select</span>(ppn, krtstart))</span>
+<span id="cb73-101"><a href="#cb73-101" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb73-102"><a href="#cb73-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-103"><a href="#cb73-103" aria-hidden="true" tabindex="-1"></a>And then we&#39;ll restrict our dataset to hospital admissions that started before kidney failure, AND ended after our lookback period begins (i.e. 2 years prior to kidney failure)</span>
+<span id="cb73-104"><a href="#cb73-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-107"><a href="#cb73-107" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb73-108"><a href="#cb73-108" aria-hidden="true" tabindex="-1"></a>apdc_2yrpreKRT <span class="ot">&lt;-</span> apdc_2yrpreKRT <span class="sc">%&gt;%</span></span>
+<span id="cb73-109"><a href="#cb73-109" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(start_date <span class="sc">&lt;</span> krtstart <span class="sc">&amp;</span> end_date <span class="sc">&gt;</span> krtstart <span class="sc">%m-%</span> <span class="fu">years</span>(<span class="dv">2</span>))</span>
+<span id="cb73-110"><a href="#cb73-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-111"><a href="#cb73-111" aria-hidden="true" tabindex="-1"></a>apdc_2yrpreKRT</span>
+<span id="cb73-112"><a href="#cb73-112" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb73-113"><a href="#cb73-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-114"><a href="#cb73-114" aria-hidden="true" tabindex="-1"></a><span class="fu"># Calculate adjusted Charlson comorbidity index</span></span>
+<span id="cb73-115"><a href="#cb73-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-116"><a href="#cb73-116" aria-hidden="true" tabindex="-1"></a>Now we can use these hospital admissions to calculate the Charlson comorbidity index (CCI)</span>
+<span id="cb73-117"><a href="#cb73-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-118"><a href="#cb73-118" aria-hidden="true" tabindex="-1"></a>First we use the charlson() function to create flags for each comorbidity used in the CCI, by checking all the diagnosis code variables from diag1-diag51</span>
+<span id="cb73-119"><a href="#cb73-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-122"><a href="#cb73-122" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb73-123"><a href="#cb73-123" aria-hidden="true" tabindex="-1"></a>cci_adj <span class="ot">&lt;-</span> apdc_2yrpreKRT <span class="sc">%&gt;%</span></span>
+<span id="cb73-124"><a href="#cb73-124" aria-hidden="true" tabindex="-1"></a>  <span class="fu">charlson</span>(<span class="at">diagnosis_code_vars =</span> <span class="fu">paste0</span>(<span class="st">&quot;diag&quot;</span>, <span class="fu">seq</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">51</span>)))</span>
+<span id="cb73-125"><a href="#cb73-125" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb73-126"><a href="#cb73-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-127"><a href="#cb73-127" aria-hidden="true" tabindex="-1"></a>For each comorbidity, we can check whether it was EVER flagged in any hospital admission. To do this, we collapse our dataset down to one row per person (PPN), and replace each flag with its maximum value (within each person). It will be easier if we first create a character vector with the names of all the comorbidity flags</span>
+<span id="cb73-128"><a href="#cb73-128" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-131"><a href="#cb73-131" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb73-132"><a href="#cb73-132" aria-hidden="true" tabindex="-1"></a>comorb_vars <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;ami&quot;</span>, <span class="st">&quot;chf&quot;</span>, <span class="st">&quot;pvd&quot;</span>, <span class="st">&quot;cva&quot;</span>, <span class="st">&quot;dementia&quot;</span>, <span class="st">&quot;pulmonary_disease&quot;</span>,</span>
+<span id="cb73-133"><a href="#cb73-133" aria-hidden="true" tabindex="-1"></a>                 <span class="st">&quot;ctd&quot;</span>, <span class="st">&quot;peptic_ulcer&quot;</span>, <span class="st">&quot;liver_disease&quot;</span>, <span class="st">&quot;severe_liver_disease&quot;</span>,</span>
+<span id="cb73-134"><a href="#cb73-134" aria-hidden="true" tabindex="-1"></a>                 <span class="st">&quot;diabetes&quot;</span>, <span class="st">&quot;diabetes_complications&quot;</span>, <span class="st">&quot;paraplegia&quot;</span>, </span>
+<span id="cb73-135"><a href="#cb73-135" aria-hidden="true" tabindex="-1"></a>                 <span class="st">&quot;renal_disease&quot;</span>, <span class="st">&quot;cancer&quot;</span>, <span class="st">&quot;metastatic_cancer&quot;</span>, <span class="st">&quot;hiv&quot;</span>)</span>
+<span id="cb73-136"><a href="#cb73-136" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-137"><a href="#cb73-137" aria-hidden="true" tabindex="-1"></a>cci_adj <span class="ot">&lt;-</span> cci_adj <span class="sc">%&gt;%</span></span>
+<span id="cb73-138"><a href="#cb73-138" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(ppn) <span class="sc">%&gt;%</span></span>
+<span id="cb73-139"><a href="#cb73-139" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(comorb_vars, <span class="sc">~</span> <span class="fu">max</span>(.x)))</span>
+<span id="cb73-140"><a href="#cb73-140" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-141"><a href="#cb73-141" aria-hidden="true" tabindex="-1"></a>cci_adj</span>
+<span id="cb73-142"><a href="#cb73-142" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb73-143"><a href="#cb73-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-144"><a href="#cb73-144" aria-hidden="true" tabindex="-1"></a>We need to make sure no comorbidities have been double counted. For comorbidities with two severity levels, only the most severe flag should be used to avoid double counting.</span>
+<span id="cb73-145"><a href="#cb73-145" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-148"><a href="#cb73-148" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb73-149"><a href="#cb73-149" aria-hidden="true" tabindex="-1"></a>cci_adj <span class="ot">&lt;-</span> cci_adj <span class="sc">%&gt;%</span></span>
+<span id="cb73-150"><a href="#cb73-150" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">liver_disease =</span> <span class="fu">if_else</span>(severe_liver_disease <span class="sc">==</span> <span class="dv">1</span>, <span class="dv">0</span>, liver_disease),</span>
+<span id="cb73-151"><a href="#cb73-151" aria-hidden="true" tabindex="-1"></a>         <span class="at">diabetes =</span> <span class="fu">if_else</span>(diabetes_complications <span class="sc">==</span> <span class="dv">1</span>, <span class="dv">0</span>, diabetes),</span>
+<span id="cb73-152"><a href="#cb73-152" aria-hidden="true" tabindex="-1"></a>         <span class="at">cancer =</span> <span class="fu">if_else</span>(metastatic_cancer <span class="sc">==</span> <span class="dv">1</span>, <span class="dv">0</span>, cancer))</span>
+<span id="cb73-153"><a href="#cb73-153" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb73-154"><a href="#cb73-154" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-155"><a href="#cb73-155" aria-hidden="true" tabindex="-1"></a>Now we can re-calculate the CCI ourselves, by multiplying each flag by the corresponding weight. Rather than manually typing out all the weights, lets reshape this dataset to long format (one row per person per comorbidity), and merge with cci_weights to look up the corresponding weight for each comorbidity.</span>
+<span id="cb73-156"><a href="#cb73-156" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-159"><a href="#cb73-159" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb73-160"><a href="#cb73-160" aria-hidden="true" tabindex="-1"></a>cci_adj <span class="ot">&lt;-</span> cci_adj <span class="sc">%&gt;%</span></span>
+<span id="cb73-161"><a href="#cb73-161" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">all_of</span>(comorb_vars),</span>
+<span id="cb73-162"><a href="#cb73-162" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">&quot;comorbidity&quot;</span>,</span>
+<span id="cb73-163"><a href="#cb73-163" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">&quot;flag&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb73-164"><a href="#cb73-164" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(cci_weights)</span>
+<span id="cb73-165"><a href="#cb73-165" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-166"><a href="#cb73-166" aria-hidden="true" tabindex="-1"></a>cci_adj</span>
+<span id="cb73-167"><a href="#cb73-167" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb73-168"><a href="#cb73-168" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-169"><a href="#cb73-169" aria-hidden="true" tabindex="-1"></a>And finally, we can calculate CCI by multiplying each flag by its weight, and taking the sum of this for each person. We need to make one adjustment though. Since our cohort is people with kidney failure, &#39;renal_disease&#39; is not really a CO-morbidity, its the main morbidity of interest. Since we know everyone has renal disease, lets remove this from our CCI caluclation. We can do this by setting the weight for renal disease to 0.</span>
+<span id="cb73-170"><a href="#cb73-170" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-173"><a href="#cb73-173" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb73-174"><a href="#cb73-174" aria-hidden="true" tabindex="-1"></a>cci_adj <span class="ot">&lt;-</span> cci_adj <span class="sc">%&gt;%</span></span>
+<span id="cb73-175"><a href="#cb73-175" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">weight =</span> <span class="fu">if_else</span>(comorbidity <span class="sc">==</span> <span class="st">&quot;renal_disease&quot;</span>, <span class="dv">0</span>, weight)) <span class="sc">%&gt;%</span></span>
+<span id="cb73-176"><a href="#cb73-176" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(ppn) <span class="sc">%&gt;%</span></span>
+<span id="cb73-177"><a href="#cb73-177" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">cci_adj =</span> <span class="fu">sum</span>(flag <span class="sc">*</span> weight))</span>
+<span id="cb73-178"><a href="#cb73-178" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-179"><a href="#cb73-179" aria-hidden="true" tabindex="-1"></a>cci_adj</span>
+<span id="cb73-180"><a href="#cb73-180" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb73-181"><a href="#cb73-181" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-182"><a href="#cb73-182" aria-hidden="true" tabindex="-1"></a><span class="fu"># Determine remoteness of each SA2</span></span>
+<span id="cb73-183"><a href="#cb73-183" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-184"><a href="#cb73-184" aria-hidden="true" tabindex="-1"></a>Now we need to look up the remoteness classification for each person&#39;s SA2 code in anzdata_patients. The SA2 codes provided are based on the 2016 census. Also, our cohort includes people with kidney failure from 2015-2019, so using remoteness classifications from 2016 is also appropriate (since this will be at most 3 years different from kidney failure date, and remoteness classifications don&#39;t shift that much in only 3 years).</span>
+<span id="cb73-185"><a href="#cb73-185" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-186"><a href="#cb73-186" aria-hidden="true" tabindex="-1"></a>We can find the relevant mapping between 2016 SA2 codes and 2016 remoteness areas (RA) here: https://data.gov.au/data/dataset/asgs-geographic-correspondences-2016</span>
+<span id="cb73-187"><a href="#cb73-187" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-188"><a href="#cb73-188" aria-hidden="true" tabindex="-1"></a>Download the zip file, and find the relevant excel fill within it &quot;CG_SA2_2016_RA_2016.xlsx&quot;. You can also <span class="co">[</span><span class="ot">download it here</span><span class="co">](https://raw.githubusercontent.com/NicoleDeLaMata/LinkedData/refs/heads/main/CG_SA2_2016_RA_2016.xlsx)</span>. Save this to our data_dir, so we can read it in here. Before we read it in, open this file in Excel and determine where the data we need is located. In this case it is on worksheet &quot;Table 3&quot;, in cells A6:F2602.</span>
+<span id="cb73-189"><a href="#cb73-189" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-190"><a href="#cb73-190" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb73-191"><a href="#cb73-191" aria-hidden="true" tabindex="-1"></a>CG_SA2_2016_RA_2016 <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="at">path =</span> <span class="fu">file.path</span>(data_dir, <span class="fu">paste0</span>(<span class="st">&quot;CG_SA2_2016_RA_2016&quot;</span>, <span class="st">&quot;.xlsx&quot;</span>)),</span>
+<span id="cb73-192"><a href="#cb73-192" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">sheet =</span> <span class="st">&quot;Table 3&quot;</span>,</span>
+<span id="cb73-193"><a href="#cb73-193" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">range =</span> <span class="st">&quot;A6:F2602&quot;</span>)</span>
+<span id="cb73-194"><a href="#cb73-194" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb73-195"><a href="#cb73-195" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-196"><a href="#cb73-196" aria-hidden="true" tabindex="-1"></a>For this interactive page, we have extracted Table 3 and put this into a csv file to import the data.</span>
+<span id="cb73-197"><a href="#cb73-197" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-200"><a href="#cb73-200" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb73-201"><a href="#cb73-201" aria-hidden="true" tabindex="-1"></a>CG_SA2_2016_RA_2016 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/NicoleDeLaMata/LinkedData/refs/heads/main/CG_SA2_2016_RA_2016_Mod5_Table3.csv&quot;</span>)</span>
+<span id="cb73-202"><a href="#cb73-202" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-203"><a href="#cb73-203" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb73-204"><a href="#cb73-204" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-205"><a href="#cb73-205" aria-hidden="true" tabindex="-1"></a>Let&#39;s inspect this dataset</span>
+<span id="cb73-206"><a href="#cb73-206" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-209"><a href="#cb73-209" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb73-210"><a href="#cb73-210" aria-hidden="true" tabindex="-1"></a>CG_SA2_2016_RA_2016</span>
+<span id="cb73-211"><a href="#cb73-211" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb73-212"><a href="#cb73-212" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-213"><a href="#cb73-213" aria-hidden="true" tabindex="-1"></a>There was an empty row between the headings and the content, so we can just remove that row now</span>
+<span id="cb73-214"><a href="#cb73-214" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-217"><a href="#cb73-217" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb73-218"><a href="#cb73-218" aria-hidden="true" tabindex="-1"></a>CG_SA2_2016_RA_2016 <span class="ot">&lt;-</span> CG_SA2_2016_RA_2016 <span class="sc">%&gt;%</span> <span class="fu">slice</span>(<span class="sc">-</span><span class="dv">1</span>)</span>
+<span id="cb73-219"><a href="#cb73-219" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb73-220"><a href="#cb73-220" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-221"><a href="#cb73-221" aria-hidden="true" tabindex="-1"></a>Note there are some SA2 codes that appear in multiple rows. This happens when an SA2 region lies partially in one remoteness area, and partially in another. You can investigate this yourself here: https://maps.abs.gov.au/</span>
+<span id="cb73-222"><a href="#cb73-222" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-223"><a href="#cb73-223" aria-hidden="true" tabindex="-1"></a>The first SA2 in our dataset, Braidwood, is one example. It lies partially in &#39;Inner Regional Australia&#39; and partially in &#39;Outer Regional Australia&#39;. The PERCENTAGE column shows what proportion of the population of this SA2 lives within each remoteness area.</span>
+<span id="cb73-224"><a href="#cb73-224" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-225"><a href="#cb73-225" aria-hidden="true" tabindex="-1"></a>For our analysis, we need to assign a single remoteness level to each SA2, so we need to make an assumption. One option is to assume the most urban classification. Another option could be to assume the least urban classification. The option we&#39;ll use here is to determine the median classification, i.e. for each SA2, in which remotness area does the 50th centile person live.</span>
+<span id="cb73-226"><a href="#cb73-226" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-227"><a href="#cb73-227" aria-hidden="true" tabindex="-1"></a>First we need to sort the remoteness areas from most urban to least urban. We can do this using RA_CODE_2016</span>
+<span id="cb73-228"><a href="#cb73-228" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-231"><a href="#cb73-231" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb73-232"><a href="#cb73-232" aria-hidden="true" tabindex="-1"></a>sa2_2016_remoteness <span class="ot">&lt;-</span> CG_SA2_2016_RA_2016 <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(SA2_MAINCODE_2016, RA_CODE_2016)</span>
+<span id="cb73-233"><a href="#cb73-233" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb73-234"><a href="#cb73-234" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-235"><a href="#cb73-235" aria-hidden="true" tabindex="-1"></a>Then we can calculate the cumulative PERCENTAGE of the population within each SA2, i.e. what proportion of the population lives in an area at least as urban as this?</span>
+<span id="cb73-236"><a href="#cb73-236" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-239"><a href="#cb73-239" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb73-240"><a href="#cb73-240" aria-hidden="true" tabindex="-1"></a>sa2_2016_remoteness <span class="ot">&lt;-</span> sa2_2016_remoteness <span class="sc">%&gt;%</span></span>
+<span id="cb73-241"><a href="#cb73-241" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(SA2_MAINCODE_2016) <span class="sc">%&gt;%</span></span>
+<span id="cb73-242"><a href="#cb73-242" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">cum_pct =</span> <span class="fu">cumsum</span>(PERCENTAGE))</span>
+<span id="cb73-243"><a href="#cb73-243" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-244"><a href="#cb73-244" aria-hidden="true" tabindex="-1"></a>sa2_2016_remoteness</span>
+<span id="cb73-245"><a href="#cb73-245" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb73-246"><a href="#cb73-246" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-247"><a href="#cb73-247" aria-hidden="true" tabindex="-1"></a>We can ignore all the rows where cumulative percentage is less than 50%, since these will not contain the &#39;median&#39; person. So we only keep the rows where cumulative percentage is greater than 50%.</span>
+<span id="cb73-248"><a href="#cb73-248" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-251"><a href="#cb73-251" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb73-252"><a href="#cb73-252" aria-hidden="true" tabindex="-1"></a>sa2_2016_remoteness <span class="ot">&lt;-</span> sa2_2016_remoteness <span class="sc">%&gt;%</span></span>
+<span id="cb73-253"><a href="#cb73-253" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(cum_pct <span class="sc">&gt;=</span> <span class="dv">50</span>)</span>
+<span id="cb73-254"><a href="#cb73-254" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-255"><a href="#cb73-255" aria-hidden="true" tabindex="-1"></a>sa2_2016_remoteness</span>
+<span id="cb73-256"><a href="#cb73-256" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb73-257"><a href="#cb73-257" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-258"><a href="#cb73-258" aria-hidden="true" tabindex="-1"></a>The median person lives in the first remoteness area where the cumulative percentage is greater than 50%. So we just need to keep the first remaining row wihtin each SA2. And don&#39;t forget to ungroup our dataset!</span>
+<span id="cb73-259"><a href="#cb73-259" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-262"><a href="#cb73-262" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb73-263"><a href="#cb73-263" aria-hidden="true" tabindex="-1"></a>sa2_2016_remoteness <span class="ot">&lt;-</span> sa2_2016_remoteness <span class="sc">%&gt;%</span></span>
+<span id="cb73-264"><a href="#cb73-264" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb73-265"><a href="#cb73-265" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb73-266"><a href="#cb73-266" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-267"><a href="#cb73-267" aria-hidden="true" tabindex="-1"></a>sa2_2016_remoteness</span>
+<span id="cb73-268"><a href="#cb73-268" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb73-269"><a href="#cb73-269" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-270"><a href="#cb73-270" aria-hidden="true" tabindex="-1"></a>Finally we can do some tidying up to get this dataset ready for merging on to anzdata_patients. Let&#39;s combine remote and very/remote into a single category, and ensure variable names match anzdata_patients. And let&#39;s make our remoteness variable a factor, so we can control the order the levels will be reported in (i.e. from mst urban to least urban, rather than the default alphabetical order)</span>
+<span id="cb73-271"><a href="#cb73-271" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-274"><a href="#cb73-274" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb73-275"><a href="#cb73-275" aria-hidden="true" tabindex="-1"></a>sa2_2016_remoteness <span class="ot">&lt;-</span> sa2_2016_remoteness <span class="sc">%&gt;%</span></span>
+<span id="cb73-276"><a href="#cb73-276" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">remoteness =</span> <span class="fu">factor</span>(</span>
+<span id="cb73-277"><a href="#cb73-277" aria-hidden="true" tabindex="-1"></a>    <span class="fu">case_when</span>(</span>
+<span id="cb73-278"><a href="#cb73-278" aria-hidden="true" tabindex="-1"></a>      RA_NAME_2016 <span class="sc">==</span> <span class="st">&quot;Major Cities of Australia&quot;</span> <span class="sc">~</span> <span class="st">&quot;Major cities&quot;</span>,</span>
+<span id="cb73-279"><a href="#cb73-279" aria-hidden="true" tabindex="-1"></a>      RA_NAME_2016 <span class="sc">==</span> <span class="st">&quot;Inner Regional Australia&quot;</span> <span class="sc">~</span> <span class="st">&quot;Inner regional&quot;</span>,</span>
+<span id="cb73-280"><a href="#cb73-280" aria-hidden="true" tabindex="-1"></a>      RA_NAME_2016 <span class="sc">==</span> <span class="st">&quot;Outer Regional Australia&quot;</span> <span class="sc">~</span> <span class="st">&quot;Outer regional&quot;</span>,</span>
+<span id="cb73-281"><a href="#cb73-281" aria-hidden="true" tabindex="-1"></a>      RA_NAME_2016 <span class="sc">==</span> <span class="st">&quot;Remote Australia&quot;</span> <span class="sc">~</span> <span class="st">&quot;Remote/Very remote&quot;</span>,</span>
+<span id="cb73-282"><a href="#cb73-282" aria-hidden="true" tabindex="-1"></a>      RA_NAME_2016 <span class="sc">==</span> <span class="st">&quot;Very Remote Australia&quot;</span> <span class="sc">~</span> <span class="st">&quot;Remote/Very remote&quot;</span>),</span>
+<span id="cb73-283"><a href="#cb73-283" aria-hidden="true" tabindex="-1"></a>    <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;Major cities&quot;</span>, <span class="st">&quot;Inner regional&quot;</span>, <span class="st">&quot;Outer regional&quot;</span>, <span class="st">&quot;Remote/Very remote&quot;</span>)</span>
+<span id="cb73-284"><a href="#cb73-284" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span></span>
+<span id="cb73-285"><a href="#cb73-285" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">sa2_2016 =</span> SA2_MAINCODE_2016) <span class="sc">%&gt;%</span></span>
+<span id="cb73-286"><a href="#cb73-286" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(sa2_2016, remoteness)</span>
+<span id="cb73-287"><a href="#cb73-287" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-288"><a href="#cb73-288" aria-hidden="true" tabindex="-1"></a>sa2_2016_remoteness</span>
+<span id="cb73-289"><a href="#cb73-289" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb73-290"><a href="#cb73-290" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-291"><a href="#cb73-291" aria-hidden="true" tabindex="-1"></a><span class="fu"># Final analysis</span></span>
+<span id="cb73-292"><a href="#cb73-292" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-293"><a href="#cb73-293" aria-hidden="true" tabindex="-1"></a>Now all the pieces are in place, we just need to put them together. We can build our analysis dataset by starting with anzdata_patients, and merging with cci_adj to look up the CCI we calculated. We need to be careful here though, because not everybody in anzdata_patients will have a CCI. Its rare, but possible that some people in our cohort simply had no hospital admissions in the 2 years prior to kidney failure. In these cases we need to make sure their CCI is set to 0.</span>
+<span id="cb73-294"><a href="#cb73-294" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-297"><a href="#cb73-297" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb73-298"><a href="#cb73-298" aria-hidden="true" tabindex="-1"></a>analysis_data <span class="ot">&lt;-</span> anzdata_patients <span class="sc">%&gt;%</span></span>
+<span id="cb73-299"><a href="#cb73-299" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(cci_adj) <span class="sc">%&gt;%</span></span>
+<span id="cb73-300"><a href="#cb73-300" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">cci_adj =</span> <span class="fu">replace_na</span>(cci_adj, <span class="dv">0</span>))</span>
+<span id="cb73-301"><a href="#cb73-301" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb73-302"><a href="#cb73-302" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-303"><a href="#cb73-303" aria-hidden="true" tabindex="-1"></a>And now we can merge with sa2_2016_remoteness to look up remoteness classification for each person&#39;s SA2.</span>
+<span id="cb73-304"><a href="#cb73-304" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-307"><a href="#cb73-307" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb73-308"><a href="#cb73-308" aria-hidden="true" tabindex="-1"></a>analysis_data <span class="ot">&lt;-</span> analysis_data <span class="sc">%&gt;%</span> <span class="fu">left_join</span>(sa2_2016_remoteness)</span>
+<span id="cb73-309"><a href="#cb73-309" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-310"><a href="#cb73-310" aria-hidden="true" tabindex="-1"></a>analysis_data</span>
+<span id="cb73-311"><a href="#cb73-311" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb73-312"><a href="#cb73-312" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-313"><a href="#cb73-313" aria-hidden="true" tabindex="-1"></a>To answer out original question, we can summarise CCI by remoteness level.</span>
+<span id="cb73-314"><a href="#cb73-314" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-317"><a href="#cb73-317" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb73-318"><a href="#cb73-318" aria-hidden="true" tabindex="-1"></a>analysis_data <span class="sc">%&gt;%</span> </span>
+<span id="cb73-319"><a href="#cb73-319" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(remoteness) <span class="sc">%&gt;%</span> </span>
+<span id="cb73-320"><a href="#cb73-320" aria-hidden="true" tabindex="-1"></a>  <span class="fu">skim</span>(cci_adj)</span>
+<span id="cb73-321"><a href="#cb73-321" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 </code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
