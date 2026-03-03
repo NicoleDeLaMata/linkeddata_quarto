@@ -6250,9 +6250,13 @@ vertical-align: -.125em;
 <div class="cell">
 <details open class="code-fold">
 <summary>Show R code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Mean LOS provided</span></span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>analysis_ktx_data <span class="sc">%&gt;%</span></span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">skim</span>(episode_length_of_stay)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Amend episode length of stay for minimum of 1 day</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>analysis_ktx_data <span class="ot">&lt;-</span> analysis_ktx_data <span class="sc">%&gt;%</span> </span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">episode_length_of_stay =</span> <span class="fu">ifelse</span>(episode_length_of_stay<span class="sc">==</span><span class="dv">0</span>, <span class="dv">1</span>, episode_length_of_stay))</span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Mean LOS provided</span></span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>analysis_ktx_data <span class="sc">%&gt;%</span></span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">skim</span>(episode_length_of_stay)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
@@ -6327,10 +6331,10 @@ vertical-align: -.125em;
 <td style="text-align: left;">episode_length_of_stay</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">3.47</td>
-<td style="text-align: right;">6.17</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
+<td style="text-align: right;">3.76</td>
+<td style="text-align: right;">6.02</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">2</td>
 <td style="text-align: right;">4</td>
 <td style="text-align: right;">92</td>
@@ -6340,7 +6344,7 @@ vertical-align: -.125em;
 </table>
 </div>
 </div>
-<p><span style="color:red;">Using provided episode_length_of_stay and counting each episode of care: Mean = 3.47 days</span><br>
+<p><span style="color:red;">Using provided episode_length_of_stay and counting each episode of care: Mean = 3.76 days</span><br>
 <br>
 </p>
 
@@ -7155,196 +7159,199 @@ vertical-align: -.125em;
 <span id="cb47-376"><a href="#cb47-376" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb47-377"><a href="#cb47-377" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">- #1 and #2 ends with a transfer, so #1 and #2 are both part of the same admission.</span><span class="co">]</span>{style=&quot;color:red;&quot;}</span>
 <span id="cb47-378"><a href="#cb47-378" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-379"><a href="#cb47-379" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">- #3 ends with a discharge, so #1, #2 and #3 are all part of the same admission.</span><span class="co">]</span>{style=&quot;color:red;&quot;}</span>
-<span id="cb47-380"><a href="#cb47-380" aria-hidden="true" tabindex="-1"></a>\</span>
-<span id="cb47-381"><a href="#cb47-381" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-382"><a href="#cb47-382" aria-hidden="true" tabindex="-1"></a>C.  Looking at observations relating to ppn &quot;XxhXRhIWyyH&quot; and year of separation = 2010. Which episodes of care have overlapping dates and how many total hospital admissions did this person have?</span>
-<span id="cb47-383"><a href="#cb47-383" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-386"><a href="#cb47-386" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb47-387"><a href="#cb47-387" aria-hidden="true" tabindex="-1"></a><span class="do">## Observations for ppn &quot;XxhXRhIWyyH&quot; and year of separation 2010</span></span>
-<span id="cb47-388"><a href="#cb47-388" aria-hidden="true" tabindex="-1"></a>apdc_subset <span class="sc">%&gt;%</span>   </span>
-<span id="cb47-389"><a href="#cb47-389" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(ppn <span class="sc">==</span> <span class="st">&quot;XxhXRhIWyyH&quot;</span> <span class="sc">&amp;</span> year_sep<span class="sc">==</span><span class="dv">2010</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb47-390"><a href="#cb47-390" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(ppn, episode_start_date, episode_end_date, mode_of_separation_recode) <span class="sc">%&gt;%</span> </span>
-<span id="cb47-391"><a href="#cb47-391" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span>
-<span id="cb47-392"><a href="#cb47-392" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-393"><a href="#cb47-393" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb47-394"><a href="#cb47-394" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-395"><a href="#cb47-395" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">PPN XxhXRhIWyyH (2010) = 7 episodes, 6 admissions</span><span class="co">]</span>{style=&quot;color:red;&quot;}</span>
-<span id="cb47-396"><a href="#cb47-396" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-397"><a href="#cb47-397" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">- #3, #4, and #5 overlap (#3 end = #4 start, #4 end = #5 start)</span><span class="co">]</span>{style=&quot;color:red;&quot;}</span>
-<span id="cb47-398"><a href="#cb47-398" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-399"><a href="#cb47-399" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">- #3 ends with a transfer, so #3 and #4 are part of the same admission</span><span class="co">]</span>{style=&quot;color:red;&quot;}</span>
-<span id="cb47-400"><a href="#cb47-400" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-401"><a href="#cb47-401" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">- #4 ends with a discharge, so #4 and #5 are different admissions</span><span class="co">]</span>{style=&quot;color:red;&quot;}</span>
-<span id="cb47-402"><a href="#cb47-402" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-403"><a href="#cb47-403" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">- #2 ends with a transfer, but none of the other records have dates that align, so this possibly an interstate transfer, or an error</span><span class="co">]</span>{style=&quot;color:red;&quot;}\</span>
-<span id="cb47-404"><a href="#cb47-404" aria-hidden="true" tabindex="-1"></a>\</span>
-<span id="cb47-405"><a href="#cb47-405" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-406"><a href="#cb47-406" aria-hidden="true" tabindex="-1"></a>D.  Looking at observations relating to ppn &quot;XnTXoT3KSp1&quot; and year of separation = 2019. Which episodes of care have overlapping dates and how many total hospital admissions did this person have?</span>
-<span id="cb47-407"><a href="#cb47-407" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-410"><a href="#cb47-410" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb47-411"><a href="#cb47-411" aria-hidden="true" tabindex="-1"></a><span class="do">## Observations for ppn &quot;XnTXoT3KSp1 and year of separation 2019</span></span>
-<span id="cb47-412"><a href="#cb47-412" aria-hidden="true" tabindex="-1"></a>apdc_subset <span class="sc">%&gt;%</span>   </span>
-<span id="cb47-413"><a href="#cb47-413" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(ppn <span class="sc">==</span> <span class="st">&quot;XnTXoT3KSp1&quot;</span> <span class="sc">&amp;</span> year_sep<span class="sc">==</span><span class="dv">2019</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb47-414"><a href="#cb47-414" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(ppn, episode_start_date, episode_end_date, mode_of_separation_recode) <span class="sc">%&gt;%</span> </span>
-<span id="cb47-415"><a href="#cb47-415" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span>
-<span id="cb47-416"><a href="#cb47-416" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-417"><a href="#cb47-417" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb47-418"><a href="#cb47-418" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-419"><a href="#cb47-419" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">PPN XnTXoT3KSp1 (2019) = 8 episodes, 3 admissions</span><span class="co">]</span>{style=&quot;color:red;&quot;}</span>
-<span id="cb47-420"><a href="#cb47-420" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-421"><a href="#cb47-421" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">- #5, #6, #7, and #8 all overlap (#5 end = #6 start, #6 end = #7 start, and #8 starts and ends in between #7 start and end)</span><span class="co">]</span>{style=&quot;color:red;&quot;}</span>
-<span id="cb47-422"><a href="#cb47-422" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-423"><a href="#cb47-423" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">- #5 ends with a transfer, so #5 and #6 are part of the same admission</span><span class="co">]</span>{style=&quot;color:red;&quot;}</span>
-<span id="cb47-424"><a href="#cb47-424" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-425"><a href="#cb47-425" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">- #6 ends with a transfer, so #6 and #7 are part of the same admission</span><span class="co">]</span>{style=&quot;color:red;&quot;}</span>
-<span id="cb47-426"><a href="#cb47-426" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-427"><a href="#cb47-427" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">- #8 ends with a transfer, so #8 is entirely within #7 (i.e. a nested transfer)</span><span class="co">]</span>{style=&quot;color:red;&quot;}\</span>
-<span id="cb47-428"><a href="#cb47-428" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-429"><a href="#cb47-429" aria-hidden="true" tabindex="-1"></a>\</span>
-<span id="cb47-430"><a href="#cb47-430" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-431"><a href="#cb47-431" aria-hidden="true" tabindex="-1"></a>E.  What further information would be helpful in deciding which transfers align to the same hospital admission?</span>
-<span id="cb47-432"><a href="#cb47-432" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-433"><a href="#cb47-433" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">It would be helpful to know:</span><span class="co">]</span>{style=&quot;color:red;&quot;}</span>
-<span id="cb47-434"><a href="#cb47-434" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-435"><a href="#cb47-435" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">- The time of day of each episode start and end, to decide whether episodes of care on the same day that end in discharge are genuinely separate admissions or if this is an error and they should be part of the same admission.</span><span class="co">]</span>{style=&quot;color:red;&quot;}</span>
-<span id="cb47-436"><a href="#cb47-436" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-437"><a href="#cb47-437" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">- How each episode started (‘mode of admission’) to determine if the patient was transferred from elsewhere or was a new admission.</span><span class="co">]</span>{style=&quot;color:red;&quot;}</span>
-<span id="cb47-438"><a href="#cb47-438" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-439"><a href="#cb47-439" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">- The hospital where each episode of care took place, and the hospital that the patient was transferred from and to.</span><span class="co">]</span>{style=&quot;color:red;&quot;}\</span>
-<span id="cb47-440"><a href="#cb47-440" aria-hidden="true" tabindex="-1"></a>\</span>
-<span id="cb47-441"><a href="#cb47-441" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-442"><a href="#cb47-442" aria-hidden="true" tabindex="-1"></a><span class="fu">## Question 9</span></span>
-<span id="cb47-443"><a href="#cb47-443" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-444"><a href="#cb47-444" aria-hidden="true" tabindex="-1"></a>Define the data processing steps that would be necessary to identify and group together the episodes of care to reflect the same hospitalisation admission.\</span>
-<span id="cb47-445"><a href="#cb47-445" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-446"><a href="#cb47-446" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">If an episode of care is nested within another episode of care, it must be part of the same admission. We would take the earliest episode start date and latest episode end date to define the admission</span><span class="co">]</span>{style=&quot;color:red;&quot;}</span>
-<span id="cb47-447"><a href="#cb47-447" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-448"><a href="#cb47-448" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">If an episode starts on the same day that another ends, we would need to check the mode of separation, as well as the facility code, facility transferred from, and facility transferred to. Then we can determine which episode end date would be most appropriate</span><span class="co">]</span>{style=&quot;color:red;&quot;}</span>
-<span id="cb47-449"><a href="#cb47-449" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-450"><a href="#cb47-450" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">If an episode of care does not have overlapping dates with another episode of care, they are two separate admissions and each episode start date and end date can be used respectively.</span><span class="co">]</span>{style=&quot;color:red;&quot;}\</span>
-<span id="cb47-451"><a href="#cb47-451" aria-hidden="true" tabindex="-1"></a>\</span>
-<span id="cb47-452"><a href="#cb47-452" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-453"><a href="#cb47-453" aria-hidden="true" tabindex="-1"></a><span class="fu">## Question 10</span></span>
-<span id="cb47-454"><a href="#cb47-454" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-455"><a href="#cb47-455" aria-hidden="true" tabindex="-1"></a>Apply the provided transfers code *transfers()* to add variables to your dataset to identify which episodes of care belong to the same hospital admission. Identify the number of transfers (including type changes):</span>
-<span id="cb47-456"><a href="#cb47-456" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-459"><a href="#cb47-459" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb47-460"><a href="#cb47-460" aria-hidden="true" tabindex="-1"></a><span class="do">## Load transfers package</span></span>
-<span id="cb47-461"><a href="#cb47-461" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(devtools)</span>
-<span id="cb47-462"><a href="#cb47-462" aria-hidden="true" tabindex="-1"></a><span class="fu">install_github</span>(<span class="st">&quot;james-hedley/transfers&quot;</span>)</span>
-<span id="cb47-463"><a href="#cb47-463" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(transfers)</span>
-<span id="cb47-464"><a href="#cb47-464" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-465"><a href="#cb47-465" aria-hidden="true" tabindex="-1"></a><span class="co">#Remove labels from mode of separation</span></span>
-<span id="cb47-466"><a href="#cb47-466" aria-hidden="true" tabindex="-1"></a>apdc_subset<span class="sc">$</span>mode_of_separation_recode <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>)[<span class="fu">as.integer</span>(apdc_subset<span class="sc">$</span>mode_of_separation_recode)]</span>
-<span id="cb47-467"><a href="#cb47-467" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-468"><a href="#cb47-468" aria-hidden="true" tabindex="-1"></a><span class="do">## Identify transfers in the analysis dataset</span></span>
-<span id="cb47-469"><a href="#cb47-469" aria-hidden="true" tabindex="-1"></a>apdc_subset <span class="ot">&lt;-</span> apdc_subset <span class="sc">%&gt;%</span></span>
-<span id="cb47-470"><a href="#cb47-470" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transfers</span>(<span class="at">id =</span> <span class="st">&quot;ppn&quot;</span>,</span>
-<span id="cb47-471"><a href="#cb47-471" aria-hidden="true" tabindex="-1"></a>                <span class="at">admdate =</span> <span class="st">&quot;episode_start_date&quot;</span>,</span>
-<span id="cb47-472"><a href="#cb47-472" aria-hidden="true" tabindex="-1"></a>                <span class="at">sepdate =</span> <span class="st">&quot;episode_end_date&quot;</span>,</span>
-<span id="cb47-473"><a href="#cb47-473" aria-hidden="true" tabindex="-1"></a>                <span class="at">mode =</span> <span class="st">&quot;mode_of_separation_recode&quot;</span>)</span>
-<span id="cb47-474"><a href="#cb47-474" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-475"><a href="#cb47-475" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb47-476"><a href="#cb47-476" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-379"><a href="#cb47-379" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">- #3 ends with a discharge, so #1, #2 and #3 are all part of the same admission.</span><span class="co">]</span>{style=&quot;color:red;&quot;}\</span>
+<span id="cb47-380"><a href="#cb47-380" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-381"><a href="#cb47-381" aria-hidden="true" tabindex="-1"></a>C.  Looking at observations relating to ppn &quot;XxhXRhIWyyH&quot; and year of separation = 2010. Which episodes of care have overlapping dates and how many total hospital admissions did this person have?</span>
+<span id="cb47-382"><a href="#cb47-382" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-385"><a href="#cb47-385" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb47-386"><a href="#cb47-386" aria-hidden="true" tabindex="-1"></a><span class="do">## Observations for ppn &quot;XxhXRhIWyyH&quot; and year of separation 2010</span></span>
+<span id="cb47-387"><a href="#cb47-387" aria-hidden="true" tabindex="-1"></a>apdc_subset <span class="sc">%&gt;%</span>   </span>
+<span id="cb47-388"><a href="#cb47-388" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(ppn <span class="sc">==</span> <span class="st">&quot;XxhXRhIWyyH&quot;</span> <span class="sc">&amp;</span> year_sep<span class="sc">==</span><span class="dv">2010</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb47-389"><a href="#cb47-389" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(ppn, episode_start_date, episode_end_date, mode_of_separation_recode) <span class="sc">%&gt;%</span> </span>
+<span id="cb47-390"><a href="#cb47-390" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span>
+<span id="cb47-391"><a href="#cb47-391" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-392"><a href="#cb47-392" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb47-393"><a href="#cb47-393" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-394"><a href="#cb47-394" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">PPN XxhXRhIWyyH (2010) = 7 episodes, 6 admissions</span><span class="co">]</span>{style=&quot;color:red;&quot;}</span>
+<span id="cb47-395"><a href="#cb47-395" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-396"><a href="#cb47-396" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">- #3, #4, and #5 overlap (#3 end = #4 start, #4 end = #5 start)</span><span class="co">]</span>{style=&quot;color:red;&quot;}</span>
+<span id="cb47-397"><a href="#cb47-397" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-398"><a href="#cb47-398" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">- #3 ends with a transfer, so #3 and #4 are part of the same admission</span><span class="co">]</span>{style=&quot;color:red;&quot;}</span>
+<span id="cb47-399"><a href="#cb47-399" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-400"><a href="#cb47-400" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">- #4 ends with a discharge, so #4 and #5 are different admissions</span><span class="co">]</span>{style=&quot;color:red;&quot;}</span>
+<span id="cb47-401"><a href="#cb47-401" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-402"><a href="#cb47-402" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">- #2 ends with a transfer, but none of the other records have dates that align, so this possibly an interstate transfer, or an error</span><span class="co">]</span>{style=&quot;color:red;&quot;}\</span>
+<span id="cb47-403"><a href="#cb47-403" aria-hidden="true" tabindex="-1"></a>\</span>
+<span id="cb47-404"><a href="#cb47-404" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-405"><a href="#cb47-405" aria-hidden="true" tabindex="-1"></a>D.  Looking at observations relating to ppn &quot;XnTXoT3KSp1&quot; and year of separation = 2019. Which episodes of care have overlapping dates and how many total hospital admissions did this person have?</span>
+<span id="cb47-406"><a href="#cb47-406" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-409"><a href="#cb47-409" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb47-410"><a href="#cb47-410" aria-hidden="true" tabindex="-1"></a><span class="do">## Observations for ppn &quot;XnTXoT3KSp1 and year of separation 2019</span></span>
+<span id="cb47-411"><a href="#cb47-411" aria-hidden="true" tabindex="-1"></a>apdc_subset <span class="sc">%&gt;%</span>   </span>
+<span id="cb47-412"><a href="#cb47-412" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(ppn <span class="sc">==</span> <span class="st">&quot;XnTXoT3KSp1&quot;</span> <span class="sc">&amp;</span> year_sep<span class="sc">==</span><span class="dv">2019</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb47-413"><a href="#cb47-413" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(ppn, episode_start_date, episode_end_date, mode_of_separation_recode) <span class="sc">%&gt;%</span> </span>
+<span id="cb47-414"><a href="#cb47-414" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span>
+<span id="cb47-415"><a href="#cb47-415" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-416"><a href="#cb47-416" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb47-417"><a href="#cb47-417" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-418"><a href="#cb47-418" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">PPN XnTXoT3KSp1 (2019) = 8 episodes, 3 admissions</span><span class="co">]</span>{style=&quot;color:red;&quot;}</span>
+<span id="cb47-419"><a href="#cb47-419" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-420"><a href="#cb47-420" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">- #5, #6, #7, and #8 all overlap (#5 end = #6 start, #6 end = #7 start, and #8 starts and ends in between #7 start and end)</span><span class="co">]</span>{style=&quot;color:red;&quot;}</span>
+<span id="cb47-421"><a href="#cb47-421" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-422"><a href="#cb47-422" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">- #5 ends with a transfer, so #5 and #6 are part of the same admission</span><span class="co">]</span>{style=&quot;color:red;&quot;}</span>
+<span id="cb47-423"><a href="#cb47-423" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-424"><a href="#cb47-424" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">- #6 ends with a transfer, so #6 and #7 are part of the same admission</span><span class="co">]</span>{style=&quot;color:red;&quot;}</span>
+<span id="cb47-425"><a href="#cb47-425" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-426"><a href="#cb47-426" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">- #8 ends with a transfer, so #8 is entirely within #7 (i.e. a nested transfer)</span><span class="co">]</span>{style=&quot;color:red;&quot;}\</span>
+<span id="cb47-427"><a href="#cb47-427" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-428"><a href="#cb47-428" aria-hidden="true" tabindex="-1"></a>\</span>
+<span id="cb47-429"><a href="#cb47-429" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-430"><a href="#cb47-430" aria-hidden="true" tabindex="-1"></a>E.  What further information would be helpful in deciding which transfers align to the same hospital admission?</span>
+<span id="cb47-431"><a href="#cb47-431" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-432"><a href="#cb47-432" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">It would be helpful to know:</span><span class="co">]</span>{style=&quot;color:red;&quot;}</span>
+<span id="cb47-433"><a href="#cb47-433" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-434"><a href="#cb47-434" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">- The time of day of each episode start and end, to decide whether episodes of care on the same day that end in discharge are genuinely separate admissions or if this is an error and they should be part of the same admission.</span><span class="co">]</span>{style=&quot;color:red;&quot;}</span>
+<span id="cb47-435"><a href="#cb47-435" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-436"><a href="#cb47-436" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">- How each episode started (‘mode of admission’) to determine if the patient was transferred from elsewhere or was a new admission.</span><span class="co">]</span>{style=&quot;color:red;&quot;}</span>
+<span id="cb47-437"><a href="#cb47-437" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-438"><a href="#cb47-438" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">- The hospital where each episode of care took place, and the hospital that the patient was transferred from and to.</span><span class="co">]</span>{style=&quot;color:red;&quot;}\</span>
+<span id="cb47-439"><a href="#cb47-439" aria-hidden="true" tabindex="-1"></a>\</span>
+<span id="cb47-440"><a href="#cb47-440" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-441"><a href="#cb47-441" aria-hidden="true" tabindex="-1"></a><span class="fu">## Question 9</span></span>
+<span id="cb47-442"><a href="#cb47-442" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-443"><a href="#cb47-443" aria-hidden="true" tabindex="-1"></a>Define the data processing steps that would be necessary to identify and group together the episodes of care to reflect the same hospitalisation admission.\</span>
+<span id="cb47-444"><a href="#cb47-444" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-445"><a href="#cb47-445" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">If an episode of care is nested within another episode of care, it must be part of the same admission. We would take the earliest episode start date and latest episode end date to define the admission</span><span class="co">]</span>{style=&quot;color:red;&quot;}</span>
+<span id="cb47-446"><a href="#cb47-446" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-447"><a href="#cb47-447" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">If an episode starts on the same day that another ends, we would need to check the mode of separation, as well as the facility code, facility transferred from, and facility transferred to. Then we can determine which episode end date would be most appropriate</span><span class="co">]</span>{style=&quot;color:red;&quot;}</span>
+<span id="cb47-448"><a href="#cb47-448" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-449"><a href="#cb47-449" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">If an episode of care does not have overlapping dates with another episode of care, they are two separate admissions and each episode start date and end date can be used respectively.</span><span class="co">]</span>{style=&quot;color:red;&quot;}\</span>
+<span id="cb47-450"><a href="#cb47-450" aria-hidden="true" tabindex="-1"></a>\</span>
+<span id="cb47-451"><a href="#cb47-451" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-452"><a href="#cb47-452" aria-hidden="true" tabindex="-1"></a><span class="fu">## Question 10</span></span>
+<span id="cb47-453"><a href="#cb47-453" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-454"><a href="#cb47-454" aria-hidden="true" tabindex="-1"></a>Apply the provided transfers code *transfers()* to add variables to your dataset to identify which episodes of care belong to the same hospital admission. Identify the number of transfers (including type changes):</span>
+<span id="cb47-455"><a href="#cb47-455" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-458"><a href="#cb47-458" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb47-459"><a href="#cb47-459" aria-hidden="true" tabindex="-1"></a><span class="do">## Load transfers package</span></span>
+<span id="cb47-460"><a href="#cb47-460" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(devtools)</span>
+<span id="cb47-461"><a href="#cb47-461" aria-hidden="true" tabindex="-1"></a><span class="fu">install_github</span>(<span class="st">&quot;james-hedley/transfers&quot;</span>)</span>
+<span id="cb47-462"><a href="#cb47-462" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(transfers)</span>
+<span id="cb47-463"><a href="#cb47-463" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-464"><a href="#cb47-464" aria-hidden="true" tabindex="-1"></a><span class="co">#Remove labels from mode of separation</span></span>
+<span id="cb47-465"><a href="#cb47-465" aria-hidden="true" tabindex="-1"></a>apdc_subset<span class="sc">$</span>mode_of_separation_recode <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>)[<span class="fu">as.integer</span>(apdc_subset<span class="sc">$</span>mode_of_separation_recode)]</span>
+<span id="cb47-466"><a href="#cb47-466" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-467"><a href="#cb47-467" aria-hidden="true" tabindex="-1"></a><span class="do">## Identify transfers in the analysis dataset</span></span>
+<span id="cb47-468"><a href="#cb47-468" aria-hidden="true" tabindex="-1"></a>apdc_subset <span class="ot">&lt;-</span> apdc_subset <span class="sc">%&gt;%</span></span>
+<span id="cb47-469"><a href="#cb47-469" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transfers</span>(<span class="at">id =</span> <span class="st">&quot;ppn&quot;</span>,</span>
+<span id="cb47-470"><a href="#cb47-470" aria-hidden="true" tabindex="-1"></a>                <span class="at">admdate =</span> <span class="st">&quot;episode_start_date&quot;</span>,</span>
+<span id="cb47-471"><a href="#cb47-471" aria-hidden="true" tabindex="-1"></a>                <span class="at">sepdate =</span> <span class="st">&quot;episode_end_date&quot;</span>,</span>
+<span id="cb47-472"><a href="#cb47-472" aria-hidden="true" tabindex="-1"></a>                <span class="at">mode =</span> <span class="st">&quot;mode_of_separation_recode&quot;</span>)</span>
+<span id="cb47-473"><a href="#cb47-473" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-474"><a href="#cb47-474" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb47-475"><a href="#cb47-475" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-476"><a href="#cb47-476" aria-hidden="true" tabindex="-1"></a>\</span>
 <span id="cb47-477"><a href="#cb47-477" aria-hidden="true" tabindex="-1"></a>\</span>
-<span id="cb47-478"><a href="#cb47-478" aria-hidden="true" tabindex="-1"></a>\</span>
-<span id="cb47-479"><a href="#cb47-479" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-480"><a href="#cb47-480" aria-hidden="true" tabindex="-1"></a>A.  How many periods of stay contained one or more transfers? What is the maximum number of transfers?</span>
-<span id="cb47-481"><a href="#cb47-481" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-484"><a href="#cb47-484" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb47-485"><a href="#cb47-485" aria-hidden="true" tabindex="-1"></a><span class="do">## Check transseq</span></span>
-<span id="cb47-486"><a href="#cb47-486" aria-hidden="true" tabindex="-1"></a>apdc_subset <span class="sc">%&gt;%</span> <span class="fu">tabyl</span>(transseq)</span>
-<span id="cb47-487"><a href="#cb47-487" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb47-488"><a href="#cb47-488" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-489"><a href="#cb47-489" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">There should be 6,739 *transseq* values of 0. 336 admissions (periods of stay) contained 1 or more transfers (transseq = 1). The maximum number of transfers within any admission was 11.</span><span class="co">]</span>{style=&quot;color:red;&quot;}\</span>
-<span id="cb47-490"><a href="#cb47-490" aria-hidden="true" tabindex="-1"></a>\</span>
-<span id="cb47-491"><a href="#cb47-491" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-492"><a href="#cb47-492" aria-hidden="true" tabindex="-1"></a>B.  Examine a portion of the dataset to check that you have identified transfers correctly.</span>
-<span id="cb47-493"><a href="#cb47-493" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-496"><a href="#cb47-496" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb47-497"><a href="#cb47-497" aria-hidden="true" tabindex="-1"></a><span class="do">## Check PPN &quot;XxhXRhIWyyH&quot; as an example</span></span>
-<span id="cb47-498"><a href="#cb47-498" aria-hidden="true" tabindex="-1"></a>apdc_subset <span class="sc">%&gt;%</span></span>
-<span id="cb47-499"><a href="#cb47-499" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(ppn <span class="sc">==</span> <span class="st">&quot;XxhXRhIWyyH&quot;</span> <span class="sc">&amp;</span> <span class="fu">year</span>(episode_end_date)<span class="sc">==</span><span class="dv">2010</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb47-500"><a href="#cb47-500" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(ppn, episode_start_date, episode_end_date, mode_of_separation_recode, stayseq, transseq, totlos) <span class="sc">%&gt;%</span></span>
-<span id="cb47-501"><a href="#cb47-501" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span>
-<span id="cb47-502"><a href="#cb47-502" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb47-503"><a href="#cb47-503" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-504"><a href="#cb47-504" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">We checked PPN &quot;XxhXRhIWyyH&quot; during year of separation = 2010 as an example.</span><span class="co">]</span>{style=&quot;color:red;&quot;}\</span>
-<span id="cb47-505"><a href="#cb47-505" aria-hidden="true" tabindex="-1"></a>\</span>
-<span id="cb47-506"><a href="#cb47-506" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-507"><a href="#cb47-507" aria-hidden="true" tabindex="-1"></a><span class="fu">## Question 11</span></span>
-<span id="cb47-508"><a href="#cb47-508" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-509"><a href="#cb47-509" aria-hidden="true" tabindex="-1"></a>Using all the available data in the data set, create a data set containing only records relating to kidney transplant.</span>
-<span id="cb47-510"><a href="#cb47-510" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-513"><a href="#cb47-513" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb47-514"><a href="#cb47-514" aria-hidden="true" tabindex="-1"></a><span class="do">## Create a flag for patients with any admissions related to kidney transplant</span></span>
-<span id="cb47-515"><a href="#cb47-515" aria-hidden="true" tabindex="-1"></a>diag_vars <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">&quot;diagnosis_code&quot;</span>, <span class="fu">c</span>(<span class="st">&quot;P&quot;</span>, <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">19</span>)))</span>
-<span id="cb47-516"><a href="#cb47-516" aria-hidden="true" tabindex="-1"></a>diag_vars</span>
-<span id="cb47-517"><a href="#cb47-517" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-518"><a href="#cb47-518" aria-hidden="true" tabindex="-1"></a>ktx_codes <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Z94&quot;</span>)</span>
-<span id="cb47-519"><a href="#cb47-519" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-520"><a href="#cb47-520" aria-hidden="true" tabindex="-1"></a>apdc_subset <span class="ot">&lt;-</span> apdc_subset <span class="sc">%&gt;%</span> </span>
-<span id="cb47-521"><a href="#cb47-521" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ktx =</span> <span class="dv">1</span> <span class="sc">*</span> <span class="fu">if_any</span>(<span class="fu">all_of</span>(diag_vars), <span class="sc">~</span> <span class="fu">str_sub</span>(.x, <span class="dv">1</span>, <span class="dv">3</span>) <span class="sc">%in%</span> ktx_codes))</span>
+<span id="cb47-478"><a href="#cb47-478" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-479"><a href="#cb47-479" aria-hidden="true" tabindex="-1"></a>A.  How many periods of stay contained one or more transfers? What is the maximum number of transfers?</span>
+<span id="cb47-480"><a href="#cb47-480" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-483"><a href="#cb47-483" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb47-484"><a href="#cb47-484" aria-hidden="true" tabindex="-1"></a><span class="do">## Check transseq</span></span>
+<span id="cb47-485"><a href="#cb47-485" aria-hidden="true" tabindex="-1"></a>apdc_subset <span class="sc">%&gt;%</span> <span class="fu">tabyl</span>(transseq)</span>
+<span id="cb47-486"><a href="#cb47-486" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb47-487"><a href="#cb47-487" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-488"><a href="#cb47-488" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">There should be 6,739 *transseq* values of 0. 336 admissions (periods of stay) contained 1 or more transfers (transseq = 1). The maximum number of transfers within any admission was 11.</span><span class="co">]</span>{style=&quot;color:red;&quot;}\</span>
+<span id="cb47-489"><a href="#cb47-489" aria-hidden="true" tabindex="-1"></a>\</span>
+<span id="cb47-490"><a href="#cb47-490" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-491"><a href="#cb47-491" aria-hidden="true" tabindex="-1"></a>B.  Examine a portion of the dataset to check that you have identified transfers correctly.</span>
+<span id="cb47-492"><a href="#cb47-492" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-495"><a href="#cb47-495" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb47-496"><a href="#cb47-496" aria-hidden="true" tabindex="-1"></a><span class="do">## Check PPN &quot;XxhXRhIWyyH&quot; as an example</span></span>
+<span id="cb47-497"><a href="#cb47-497" aria-hidden="true" tabindex="-1"></a>apdc_subset <span class="sc">%&gt;%</span></span>
+<span id="cb47-498"><a href="#cb47-498" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(ppn <span class="sc">==</span> <span class="st">&quot;XxhXRhIWyyH&quot;</span> <span class="sc">&amp;</span> <span class="fu">year</span>(episode_end_date)<span class="sc">==</span><span class="dv">2010</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb47-499"><a href="#cb47-499" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(ppn, episode_start_date, episode_end_date, mode_of_separation_recode, stayseq, transseq, totlos) <span class="sc">%&gt;%</span></span>
+<span id="cb47-500"><a href="#cb47-500" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span>
+<span id="cb47-501"><a href="#cb47-501" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb47-502"><a href="#cb47-502" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-503"><a href="#cb47-503" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">We checked PPN &quot;XxhXRhIWyyH&quot; during year of separation = 2010 as an example.</span><span class="co">]</span>{style=&quot;color:red;&quot;}\</span>
+<span id="cb47-504"><a href="#cb47-504" aria-hidden="true" tabindex="-1"></a>\</span>
+<span id="cb47-505"><a href="#cb47-505" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-506"><a href="#cb47-506" aria-hidden="true" tabindex="-1"></a><span class="fu">## Question 11</span></span>
+<span id="cb47-507"><a href="#cb47-507" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-508"><a href="#cb47-508" aria-hidden="true" tabindex="-1"></a>Using all the available data in the data set, create a data set containing only records relating to kidney transplant.</span>
+<span id="cb47-509"><a href="#cb47-509" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-512"><a href="#cb47-512" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb47-513"><a href="#cb47-513" aria-hidden="true" tabindex="-1"></a><span class="do">## Create a flag for patients with any admissions related to kidney transplant</span></span>
+<span id="cb47-514"><a href="#cb47-514" aria-hidden="true" tabindex="-1"></a>diag_vars <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">&quot;diagnosis_code&quot;</span>, <span class="fu">c</span>(<span class="st">&quot;P&quot;</span>, <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">19</span>)))</span>
+<span id="cb47-515"><a href="#cb47-515" aria-hidden="true" tabindex="-1"></a>diag_vars</span>
+<span id="cb47-516"><a href="#cb47-516" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-517"><a href="#cb47-517" aria-hidden="true" tabindex="-1"></a>ktx_codes <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Z94&quot;</span>)</span>
+<span id="cb47-518"><a href="#cb47-518" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-519"><a href="#cb47-519" aria-hidden="true" tabindex="-1"></a>apdc_subset <span class="ot">&lt;-</span> apdc_subset <span class="sc">%&gt;%</span> </span>
+<span id="cb47-520"><a href="#cb47-520" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ktx =</span> <span class="dv">1</span> <span class="sc">*</span> <span class="fu">if_any</span>(<span class="fu">all_of</span>(diag_vars), <span class="sc">~</span> <span class="fu">str_sub</span>(.x, <span class="dv">1</span>, <span class="dv">3</span>) <span class="sc">%in%</span> ktx_codes))</span>
+<span id="cb47-521"><a href="#cb47-521" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb47-522"><a href="#cb47-522" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-523"><a href="#cb47-523" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-524"><a href="#cb47-524" aria-hidden="true" tabindex="-1"></a><span class="do">## Create analysis dataset restricted to episodes of care related to kidney transplant</span></span>
-<span id="cb47-525"><a href="#cb47-525" aria-hidden="true" tabindex="-1"></a>analysis_ktx_data <span class="ot">&lt;-</span> apdc_subset <span class="sc">%&gt;%</span></span>
-<span id="cb47-526"><a href="#cb47-526" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(ktx <span class="sc">==</span> <span class="dv">1</span>)</span>
-<span id="cb47-527"><a href="#cb47-527" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-528"><a href="#cb47-528" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb47-529"><a href="#cb47-529" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-523"><a href="#cb47-523" aria-hidden="true" tabindex="-1"></a><span class="do">## Create analysis dataset restricted to episodes of care related to kidney transplant</span></span>
+<span id="cb47-524"><a href="#cb47-524" aria-hidden="true" tabindex="-1"></a>analysis_ktx_data <span class="ot">&lt;-</span> apdc_subset <span class="sc">%&gt;%</span></span>
+<span id="cb47-525"><a href="#cb47-525" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(ktx <span class="sc">==</span> <span class="dv">1</span>)</span>
+<span id="cb47-526"><a href="#cb47-526" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-527"><a href="#cb47-527" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb47-528"><a href="#cb47-528" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-529"><a href="#cb47-529" aria-hidden="true" tabindex="-1"></a>\</span>
 <span id="cb47-530"><a href="#cb47-530" aria-hidden="true" tabindex="-1"></a>\</span>
-<span id="cb47-531"><a href="#cb47-531" aria-hidden="true" tabindex="-1"></a>\</span>
-<span id="cb47-532"><a href="#cb47-532" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-533"><a href="#cb47-533" aria-hidden="true" tabindex="-1"></a><span class="fu">## Question 12</span></span>
-<span id="cb47-534"><a href="#cb47-534" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-535"><a href="#cb47-535" aria-hidden="true" tabindex="-1"></a>Calculate the mean length of stay by:</span>
-<span id="cb47-536"><a href="#cb47-536" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-537"><a href="#cb47-537" aria-hidden="true" tabindex="-1"></a>A.  ignoring transfers (i.e., assume each episode of care is a separate hospital admission, with transfers representing a ‘new’ admission).</span>
-<span id="cb47-538"><a href="#cb47-538" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-541"><a href="#cb47-541" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb47-542"><a href="#cb47-542" aria-hidden="true" tabindex="-1"></a><span class="do">## Mean LOS ignoring transfers</span></span>
-<span id="cb47-543"><a href="#cb47-543" aria-hidden="true" tabindex="-1"></a>analysis_ktx_data <span class="sc">%&gt;%</span> </span>
-<span id="cb47-544"><a href="#cb47-544" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">los =</span> <span class="fu">as.numeric</span>(episode_end_date <span class="sc">-</span> episode_start_date)) <span class="sc">%&gt;%</span> </span>
-<span id="cb47-545"><a href="#cb47-545" aria-hidden="true" tabindex="-1"></a>  <span class="fu">skim</span>(los)</span>
-<span id="cb47-546"><a href="#cb47-546" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb47-547"><a href="#cb47-547" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-548"><a href="#cb47-548" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Ignoring transfers and counting each episode of care: Mean = 3.52 days</span><span class="co">]</span>{style=&quot;color:red;&quot;}\</span>
-<span id="cb47-549"><a href="#cb47-549" aria-hidden="true" tabindex="-1"></a>\</span>
-<span id="cb47-550"><a href="#cb47-550" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-551"><a href="#cb47-551" aria-hidden="true" tabindex="-1"></a>B.  accounting for transfers (i.e., where all episodes of care for a single hospital admission have been linked)</span>
-<span id="cb47-552"><a href="#cb47-552" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-555"><a href="#cb47-555" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb47-556"><a href="#cb47-556" aria-hidden="true" tabindex="-1"></a><span class="do">## Mean LOS accounting for transfers (count each admission once)</span></span>
-<span id="cb47-557"><a href="#cb47-557" aria-hidden="true" tabindex="-1"></a>analysis_ktx_data <span class="sc">%&gt;%</span></span>
-<span id="cb47-558"><a href="#cb47-558" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(ppn, stayseq) <span class="sc">%&gt;%</span></span>
-<span id="cb47-559"><a href="#cb47-559" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb47-560"><a href="#cb47-560" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb47-561"><a href="#cb47-561" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">los =</span> <span class="fu">as.numeric</span>(totlos)) <span class="sc">%&gt;%</span></span>
-<span id="cb47-562"><a href="#cb47-562" aria-hidden="true" tabindex="-1"></a>  <span class="fu">skim</span>(los)</span>
-<span id="cb47-563"><a href="#cb47-563" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-564"><a href="#cb47-564" aria-hidden="true" tabindex="-1"></a><span class="do">## Mean LOS accounting for transfers (count each episode of care)</span></span>
-<span id="cb47-565"><a href="#cb47-565" aria-hidden="true" tabindex="-1"></a>analysis_ktx_data <span class="sc">%&gt;%</span></span>
-<span id="cb47-566"><a href="#cb47-566" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">los =</span> <span class="fu">as.numeric</span>(totlos)) <span class="sc">%&gt;%</span></span>
-<span id="cb47-567"><a href="#cb47-567" aria-hidden="true" tabindex="-1"></a>  <span class="fu">skim</span>(los)</span>
-<span id="cb47-568"><a href="#cb47-568" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb47-569"><a href="#cb47-569" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-570"><a href="#cb47-570" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Accounting for transfers and counting each admission only once: Mean = 4.41 days</span><span class="co">]</span>{style=&quot;color:red;&quot;}</span>
-<span id="cb47-571"><a href="#cb47-571" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-572"><a href="#cb47-572" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Accounting for transfers and counting each episode of care: Mean = 5.12 days</span><span class="co">]</span>{style=&quot;color:red;&quot;}\</span>
-<span id="cb47-573"><a href="#cb47-573" aria-hidden="true" tabindex="-1"></a>\</span>
-<span id="cb47-574"><a href="#cb47-574" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-575"><a href="#cb47-575" aria-hidden="true" tabindex="-1"></a>C.  compare these with the mean of the existing APDC variable *episode_length_of_stay*.</span>
-<span id="cb47-576"><a href="#cb47-576" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-579"><a href="#cb47-579" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb47-580"><a href="#cb47-580" aria-hidden="true" tabindex="-1"></a><span class="do">## Mean LOS provided</span></span>
-<span id="cb47-581"><a href="#cb47-581" aria-hidden="true" tabindex="-1"></a>analysis_ktx_data <span class="sc">%&gt;%</span></span>
-<span id="cb47-582"><a href="#cb47-582" aria-hidden="true" tabindex="-1"></a>  <span class="fu">skim</span>(episode_length_of_stay)</span>
-<span id="cb47-583"><a href="#cb47-583" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb47-584"><a href="#cb47-584" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-585"><a href="#cb47-585" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Using provided episode_length_of_stay and counting each episode of care: Mean = 3.47 days</span><span class="co">]</span>{style=&quot;color:red;&quot;}\</span>
-<span id="cb47-586"><a href="#cb47-586" aria-hidden="true" tabindex="-1"></a>\</span>
+<span id="cb47-531"><a href="#cb47-531" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-532"><a href="#cb47-532" aria-hidden="true" tabindex="-1"></a><span class="fu">## Question 12</span></span>
+<span id="cb47-533"><a href="#cb47-533" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-534"><a href="#cb47-534" aria-hidden="true" tabindex="-1"></a>Calculate the mean length of stay by:</span>
+<span id="cb47-535"><a href="#cb47-535" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-536"><a href="#cb47-536" aria-hidden="true" tabindex="-1"></a>A.  ignoring transfers (i.e., assume each episode of care is a separate hospital admission, with transfers representing a ‘new’ admission).</span>
+<span id="cb47-537"><a href="#cb47-537" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-540"><a href="#cb47-540" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb47-541"><a href="#cb47-541" aria-hidden="true" tabindex="-1"></a><span class="do">## Mean LOS ignoring transfers</span></span>
+<span id="cb47-542"><a href="#cb47-542" aria-hidden="true" tabindex="-1"></a>analysis_ktx_data <span class="sc">%&gt;%</span> </span>
+<span id="cb47-543"><a href="#cb47-543" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">los =</span> <span class="fu">as.numeric</span>(episode_end_date <span class="sc">-</span> episode_start_date)) <span class="sc">%&gt;%</span> </span>
+<span id="cb47-544"><a href="#cb47-544" aria-hidden="true" tabindex="-1"></a>  <span class="fu">skim</span>(los)</span>
+<span id="cb47-545"><a href="#cb47-545" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb47-546"><a href="#cb47-546" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-547"><a href="#cb47-547" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Ignoring transfers and counting each episode of care: Mean = 3.52 days</span><span class="co">]</span>{style=&quot;color:red;&quot;}\</span>
+<span id="cb47-548"><a href="#cb47-548" aria-hidden="true" tabindex="-1"></a>\</span>
+<span id="cb47-549"><a href="#cb47-549" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-550"><a href="#cb47-550" aria-hidden="true" tabindex="-1"></a>B.  accounting for transfers (i.e., where all episodes of care for a single hospital admission have been linked)</span>
+<span id="cb47-551"><a href="#cb47-551" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-554"><a href="#cb47-554" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb47-555"><a href="#cb47-555" aria-hidden="true" tabindex="-1"></a><span class="do">## Mean LOS accounting for transfers (count each admission once)</span></span>
+<span id="cb47-556"><a href="#cb47-556" aria-hidden="true" tabindex="-1"></a>analysis_ktx_data <span class="sc">%&gt;%</span></span>
+<span id="cb47-557"><a href="#cb47-557" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(ppn, stayseq) <span class="sc">%&gt;%</span></span>
+<span id="cb47-558"><a href="#cb47-558" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb47-559"><a href="#cb47-559" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb47-560"><a href="#cb47-560" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">los =</span> <span class="fu">as.numeric</span>(totlos)) <span class="sc">%&gt;%</span></span>
+<span id="cb47-561"><a href="#cb47-561" aria-hidden="true" tabindex="-1"></a>  <span class="fu">skim</span>(los)</span>
+<span id="cb47-562"><a href="#cb47-562" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-563"><a href="#cb47-563" aria-hidden="true" tabindex="-1"></a><span class="do">## Mean LOS accounting for transfers (count each episode of care)</span></span>
+<span id="cb47-564"><a href="#cb47-564" aria-hidden="true" tabindex="-1"></a>analysis_ktx_data <span class="sc">%&gt;%</span></span>
+<span id="cb47-565"><a href="#cb47-565" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">los =</span> <span class="fu">as.numeric</span>(totlos)) <span class="sc">%&gt;%</span></span>
+<span id="cb47-566"><a href="#cb47-566" aria-hidden="true" tabindex="-1"></a>  <span class="fu">skim</span>(los)</span>
+<span id="cb47-567"><a href="#cb47-567" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb47-568"><a href="#cb47-568" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-569"><a href="#cb47-569" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Accounting for transfers and counting each admission only once: Mean = 4.41 days</span><span class="co">]</span>{style=&quot;color:red;&quot;}</span>
+<span id="cb47-570"><a href="#cb47-570" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-571"><a href="#cb47-571" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Accounting for transfers and counting each episode of care: Mean = 5.12 days</span><span class="co">]</span>{style=&quot;color:red;&quot;}\</span>
+<span id="cb47-572"><a href="#cb47-572" aria-hidden="true" tabindex="-1"></a>\</span>
+<span id="cb47-573"><a href="#cb47-573" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-574"><a href="#cb47-574" aria-hidden="true" tabindex="-1"></a>C.  compare these with the mean of the existing APDC variable *episode_length_of_stay*.</span>
+<span id="cb47-575"><a href="#cb47-575" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-578"><a href="#cb47-578" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb47-579"><a href="#cb47-579" aria-hidden="true" tabindex="-1"></a><span class="do">## Amend episode length of stay for minimum of 1 day</span></span>
+<span id="cb47-580"><a href="#cb47-580" aria-hidden="true" tabindex="-1"></a>analysis_ktx_data <span class="ot">&lt;-</span> analysis_ktx_data <span class="sc">%&gt;%</span> </span>
+<span id="cb47-581"><a href="#cb47-581" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">episode_length_of_stay =</span> <span class="fu">ifelse</span>(episode_length_of_stay<span class="sc">==</span><span class="dv">0</span>, <span class="dv">1</span>, episode_length_of_stay))</span>
+<span id="cb47-582"><a href="#cb47-582" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-583"><a href="#cb47-583" aria-hidden="true" tabindex="-1"></a><span class="do">## Mean LOS provided</span></span>
+<span id="cb47-584"><a href="#cb47-584" aria-hidden="true" tabindex="-1"></a>analysis_ktx_data <span class="sc">%&gt;%</span></span>
+<span id="cb47-585"><a href="#cb47-585" aria-hidden="true" tabindex="-1"></a>  <span class="fu">skim</span>(episode_length_of_stay)</span>
+<span id="cb47-586"><a href="#cb47-586" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb47-587"><a href="#cb47-587" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-588"><a href="#cb47-588" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Using provided episode_length_of_stay and counting each episode of care: Mean = 3.76 days</span><span class="co">]</span>{style=&quot;color:red;&quot;}\</span>
+<span id="cb47-589"><a href="#cb47-589" aria-hidden="true" tabindex="-1"></a>\</span>
 </code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
