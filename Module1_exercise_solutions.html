@@ -4066,7 +4066,14 @@ vertical-align: -.125em;
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#to-be-released-soon" id="toc-to-be-released-soon" class="nav-link active" data-scroll-target="#to-be-released-soon">To be released soon</a></li>
+  <li><a href="#data-set-up" id="toc-data-set-up" class="nav-link active" data-scroll-target="#data-set-up">Data set-up</a></li>
+  <li><a href="#question-1" id="toc-question-1" class="nav-link" data-scroll-target="#question-1">Question 1</a></li>
+  <li><a href="#question-2" id="toc-question-2" class="nav-link" data-scroll-target="#question-2">Question 2</a></li>
+  <li><a href="#question-3" id="toc-question-3" class="nav-link" data-scroll-target="#question-3">Question 3</a></li>
+  <li><a href="#question-4" id="toc-question-4" class="nav-link" data-scroll-target="#question-4">Question 4</a></li>
+  <li><a href="#question-5" id="toc-question-5" class="nav-link" data-scroll-target="#question-5">Question 5</a></li>
+  <li><a href="#question-6" id="toc-question-6" class="nav-link" data-scroll-target="#question-6">Question 6</a></li>
+  <li><a href="#question-7" id="toc-question-7" class="nav-link" data-scroll-target="#question-7">Question 7</a></li>
   </ul>
 </nav>
     </div>
@@ -4075,7 +4082,7 @@ vertical-align: -.125em;
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Module1_datawrangling.html">Module 1</a></li><li class="breadcrumb-item"><a href="./Module1_exercise_solutions.html">Module 1 Solutions</a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">Module 1 Solutions</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title">Module 1 Solutions</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
 </div>
 
 
@@ -4092,8 +4099,1924 @@ vertical-align: -.125em;
 </header>
 
 
-<section id="to-be-released-soon" class="level2">
-<h2 class="anchored" data-anchor-id="to-be-released-soon">To be released soon</h2>
+<section id="data-set-up" class="level2">
+<h2 class="anchored" data-anchor-id="data-set-up">Data set-up</h2>
+<p>We use the following packages for our recommended solutions, however you may take a different approach and get the same results.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Load libraries</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse) <span class="co"># for data manipulation</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(skimr) <span class="co"># for skim() to summarise datasets</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(labelled) <span class="co"># for generate_dictionary() to view value labels </span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor) <span class="co"># for tabyl() to create frequency tables</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate) <span class="co"># for working with date variables</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>We have uploaded our file to Github, so you’ll be able to import this file as below.</p>
+<div class="cell">
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import data from Github ----</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Read in csv file</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>tx_apdc_subset <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/NicoleDeLaMata/LinkedData/refs/heads/main/tx_apdc_subset.csv&quot;</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>dth_subset <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/NicoleDeLaMata/LinkedData/refs/heads/main/dth_subset.csv&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>Alternatively, if you choose to download the file into your local computer. Depending on whether you use Mac or Windows, we recommend you set the folder path directory and import the file as below. You will need to change the folder locations from “//shared.sydney.edu.au/research-data/PRJ-Linked_data_course” for Windows or “/Volumes/PRJ-Linked_data_course” for Mac to your own file path.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Define directories (folders)</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>rds <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(<span class="fu">Sys.info</span>()[<span class="st">&quot;sysname&quot;</span>]<span class="sc">==</span><span class="st">&quot;Windows&quot;</span>, <span class="co"># Determine if using Windows or Mac</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>              <span class="st">&quot;//shared.sydney.edu.au/research-data/PRJ-Linked_data_course&quot;</span>, <span class="co"># Windows</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>              <span class="st">&quot;/Volumes/PRJ-Linked_data_course&quot;</span>) <span class="co"># Mac</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>exceldataloc <span class="ot">&lt;-</span> <span class="fu">file.path</span>(rds, <span class="st">&quot;Orig_data_READ_ONLY/Excel files&quot;</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Import data ----</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>tx_apdc_subset <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="at">file =</span> <span class="fu">file.path</span>(exceldataloc, <span class="fu">paste0</span>(<span class="st">&quot;tx_apdc_subset&quot;</span>, <span class="st">&quot;.csv&quot;</span>)))</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>dth_subset <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="at">file =</span> <span class="fu">file.path</span>(exceldataloc, <span class="fu">paste0</span>(<span class="st">&quot;dth_subset&quot;</span>, <span class="st">&quot;.csv&quot;</span>)))</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="question-1" class="level2">
+<h2 class="anchored" data-anchor-id="question-1">Question 1</h2>
+<p>Contents for the APDC hospitalisations data (<strong>tx_apdc_subset</strong>).</p>
+<p>Using the following R code:</p>
+<div class="cell">
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="do">## tx_apdc_subset</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="do">### Print the dataset to screen </span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="do">### (by default, a tibble will show the first 10 rows and however many columns fit on screen)</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>tx_apdc_subset</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 145 × 49
+   ppn     age_recode episode_start_date episode_end_date facility_identifier_…¹
+   &lt;chr&gt;        &lt;dbl&gt; &lt;chr&gt;              &lt;chr&gt;                             &lt;dbl&gt;
+ 1 W4UT/a…         18 22jan2013          29jan2013                          3260
+ 2 avp0qS…         47 09nov2003          14nov2003                          4011
+ 3 4B65Dw…         52 07jun1994          17jun1994                          5811
+ 4 egTPz0…         37 30oct2001          10nov2001                          5811
+ 5 xJY1Dp…          9 26jul1993          08aug1993                          3239
+ 6 O8LnyR…         40 25oct1993          05dec1993                          5811
+ 7 K03Evo…         53 05may1988          04jun1988                          5811
+ 8 89Mrbo…         19 19aug1988          11oct1988                          5811
+ 9 S6OFz.…         60 20jan2014          27jan2014                          4011
+10 0p2R/y…         37 15jun1997          27jun1997                          4011
+# ℹ 135 more rows
+# ℹ abbreviated name: ¹​facility_identifier_recode
+# ℹ 44 more variables: episode_length_of_stay &lt;dbl&gt;,
+#   mode_of_separation_recode &lt;dbl&gt;, sa2_2016_code &lt;dbl&gt;, sex &lt;dbl&gt;,
+#   diagnosis_codeP &lt;chr&gt;, diagnosis_code1 &lt;chr&gt;, diagnosis_code2 &lt;chr&gt;,
+#   diagnosis_code3 &lt;chr&gt;, diagnosis_code4 &lt;chr&gt;, diagnosis_code5 &lt;chr&gt;,
+#   diagnosis_code6 &lt;chr&gt;, diagnosis_code7 &lt;chr&gt;, diagnosis_code8 &lt;chr&gt;, …</code></pre>
+</div>
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="do">### View full dataset in a separate tab</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(tx_apdc_subset)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="do">### Summary of each variable</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">skim</span>(tx_apdc_subset)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Data summary</caption>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Name</td>
+<td style="text-align: left;">tx_apdc_subset</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Number of rows</td>
+<td style="text-align: left;">145</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Number of columns</td>
+<td style="text-align: left;">49</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">_______________________</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Column type frequency:</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">character</td>
+<td style="text-align: left;">23</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">numeric</td>
+<td style="text-align: left;">26</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">________________________</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Group variables</td>
+<td style="text-align: left;">None</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: character</strong></p>
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 24%">
+<col style="width: 12%">
+<col style="width: 18%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 7%">
+<col style="width: 11%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">skim_variable</th>
+<th style="text-align: right;">n_missing</th>
+<th style="text-align: right;">complete_rate</th>
+<th style="text-align: right;">min</th>
+<th style="text-align: right;">max</th>
+<th style="text-align: right;">empty</th>
+<th style="text-align: right;">n_unique</th>
+<th style="text-align: right;">whitespace</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">ppn</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">145</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">episode_start_date</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">141</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">episode_end_date</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">142</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">diagnosis_codeP</td>
+<td style="text-align: right;">73</td>
+<td style="text-align: right;">0.50</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">diagnosis_code1</td>
+<td style="text-align: right;">73</td>
+<td style="text-align: right;">0.50</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">diagnosis_code2</td>
+<td style="text-align: right;">77</td>
+<td style="text-align: right;">0.47</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">46</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">diagnosis_code3</td>
+<td style="text-align: right;">82</td>
+<td style="text-align: right;">0.43</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">41</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">diagnosis_code4</td>
+<td style="text-align: right;">93</td>
+<td style="text-align: right;">0.36</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">43</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">diagnosis_code5</td>
+<td style="text-align: right;">101</td>
+<td style="text-align: right;">0.30</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">36</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">diagnosis_code6</td>
+<td style="text-align: right;">102</td>
+<td style="text-align: right;">0.30</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">37</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">diagnosis_code7</td>
+<td style="text-align: right;">109</td>
+<td style="text-align: right;">0.25</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">34</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">diagnosis_code8</td>
+<td style="text-align: right;">114</td>
+<td style="text-align: right;">0.21</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">26</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">diagnosis_code9</td>
+<td style="text-align: right;">125</td>
+<td style="text-align: right;">0.14</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">diagnosis_code10</td>
+<td style="text-align: right;">131</td>
+<td style="text-align: right;">0.10</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">diagnosis_code11</td>
+<td style="text-align: right;">134</td>
+<td style="text-align: right;">0.08</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">diagnosis_code12</td>
+<td style="text-align: right;">135</td>
+<td style="text-align: right;">0.07</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">diagnosis_code13</td>
+<td style="text-align: right;">137</td>
+<td style="text-align: right;">0.06</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">diagnosis_code14</td>
+<td style="text-align: right;">138</td>
+<td style="text-align: right;">0.05</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">diagnosis_code15</td>
+<td style="text-align: right;">140</td>
+<td style="text-align: right;">0.03</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">diagnosis_code16</td>
+<td style="text-align: right;">141</td>
+<td style="text-align: right;">0.03</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">diagnosis_code17</td>
+<td style="text-align: right;">142</td>
+<td style="text-align: right;">0.02</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">diagnosis_code18</td>
+<td style="text-align: right;">143</td>
+<td style="text-align: right;">0.01</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">diagnosis_code19</td>
+<td style="text-align: right;">143</td>
+<td style="text-align: right;">0.01</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: numeric</strong></p>
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 7%">
+<col style="width: 10%">
+<col style="width: 9%">
+<col style="width: 8%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 4%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">skim_variable</th>
+<th style="text-align: right;">n_missing</th>
+<th style="text-align: right;">complete_rate</th>
+<th style="text-align: right;">mean</th>
+<th style="text-align: right;">sd</th>
+<th style="text-align: right;">p0</th>
+<th style="text-align: right;">p25</th>
+<th style="text-align: right;">p50</th>
+<th style="text-align: right;">p75</th>
+<th style="text-align: right;">p100</th>
+<th style="text-align: left;">hist</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">age_recode</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">36.30</td>
+<td style="text-align: right;">14.98</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">35</td>
+<td style="text-align: right;">46</td>
+<td style="text-align: right;">72</td>
+<td style="text-align: left;">▃▇▇▅▂</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">facility_identifier_recode</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">4196.89</td>
+<td style="text-align: right;">1105.03</td>
+<td style="text-align: right;">3211</td>
+<td style="text-align: right;">3239</td>
+<td style="text-align: right;">4011</td>
+<td style="text-align: right;">5811</td>
+<td style="text-align: right;">5811</td>
+<td style="text-align: left;">▇▃▁▁▆</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">episode_length_of_stay</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">13.81</td>
+<td style="text-align: right;">11.41</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">89</td>
+<td style="text-align: left;">▇▂▁▁▁</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">mode_of_separation_recode</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">1.12</td>
+<td style="text-align: right;">0.75</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: left;">▇▁▁▁▁</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">sa2_2016_code</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">114981660.86</td>
+<td style="text-align: right;">7940071.13</td>
+<td style="text-align: right;">101021012</td>
+<td style="text-align: right;">109011174</td>
+<td style="text-align: right;">115031300</td>
+<td style="text-align: right;">121041416</td>
+<td style="text-align: right;">128021534</td>
+<td style="text-align: left;">▇▇▇▇▇</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">sex</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">1.39</td>
+<td style="text-align: right;">0.49</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">▇▁▁▁▅</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">procedure_codeP</td>
+<td style="text-align: right;">73</td>
+<td style="text-align: right;">0.50</td>
+<td style="text-align: right;">3750800.04</td>
+<td style="text-align: right;">667842.54</td>
+<td style="text-align: right;">3650300</td>
+<td style="text-align: right;">3650300</td>
+<td style="text-align: right;">3650300</td>
+<td style="text-align: right;">3650300</td>
+<td style="text-align: right;">9031700</td>
+<td style="text-align: left;">▇▁▁▁▁</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">procedure_code1</td>
+<td style="text-align: right;">76</td>
+<td style="text-align: right;">0.48</td>
+<td style="text-align: right;">7081052.10</td>
+<td style="text-align: right;">3095614.13</td>
+<td style="text-align: right;">1310000</td>
+<td style="text-align: right;">3656100</td>
+<td style="text-align: right;">9250202</td>
+<td style="text-align: right;">9250202</td>
+<td style="text-align: right;">9250202</td>
+<td style="text-align: left;">▂▂▁▁▇</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">procedure_code2</td>
+<td style="text-align: right;">89</td>
+<td style="text-align: right;">0.39</td>
+<td style="text-align: right;">5011465.93</td>
+<td style="text-align: right;">3434656.70</td>
+<td style="text-align: right;">1310000</td>
+<td style="text-align: right;">1311000</td>
+<td style="text-align: right;">3669101</td>
+<td style="text-align: right;">9250202</td>
+<td style="text-align: right;">9555009</td>
+<td style="text-align: left;">▇▃▃▁▇</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">procedure_code3</td>
+<td style="text-align: right;">104</td>
+<td style="text-align: right;">0.28</td>
+<td style="text-align: right;">4449010.73</td>
+<td style="text-align: right;">2856827.16</td>
+<td style="text-align: right;">1310000</td>
+<td style="text-align: right;">1820905</td>
+<td style="text-align: right;">3656100</td>
+<td style="text-align: right;">6138600</td>
+<td style="text-align: right;">9555002</td>
+<td style="text-align: left;">▆▇▃▁▅</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">procedure_code4</td>
+<td style="text-align: right;">112</td>
+<td style="text-align: right;">0.23</td>
+<td style="text-align: right;">5610980.27</td>
+<td style="text-align: right;">3541106.63</td>
+<td style="text-align: right;">1310000</td>
+<td style="text-align: right;">1821601</td>
+<td style="text-align: right;">4150000</td>
+<td style="text-align: right;">9250202</td>
+<td style="text-align: right;">9555003</td>
+<td style="text-align: left;">▅▃▁▁▇</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">procedure_code5</td>
+<td style="text-align: right;">118</td>
+<td style="text-align: right;">0.19</td>
+<td style="text-align: right;">4039839.41</td>
+<td style="text-align: right;">2958016.00</td>
+<td style="text-align: right;">1310000</td>
+<td style="text-align: right;">1370602</td>
+<td style="text-align: right;">3410609</td>
+<td style="text-align: right;">5688450</td>
+<td style="text-align: right;">9555011</td>
+<td style="text-align: left;">▇▇▂▁▃</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">procedure_code6</td>
+<td style="text-align: right;">125</td>
+<td style="text-align: right;">0.14</td>
+<td style="text-align: right;">5617241.60</td>
+<td style="text-align: right;">3448871.41</td>
+<td style="text-align: right;">1310000</td>
+<td style="text-align: right;">1381501</td>
+<td style="text-align: right;">5863700</td>
+<td style="text-align: right;">9250202</td>
+<td style="text-align: right;">9515011</td>
+<td style="text-align: left;">▆▂▃▁▇</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">procedure_code7</td>
+<td style="text-align: right;">129</td>
+<td style="text-align: right;">0.11</td>
+<td style="text-align: right;">5547944.94</td>
+<td style="text-align: right;">3280436.27</td>
+<td style="text-align: right;">1310000</td>
+<td style="text-align: right;">3249950</td>
+<td style="text-align: right;">4650550</td>
+<td style="text-align: right;">9217201</td>
+<td style="text-align: right;">9555003</td>
+<td style="text-align: left;">▃▇▂▁▇</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">procedure_code8</td>
+<td style="text-align: right;">134</td>
+<td style="text-align: right;">0.08</td>
+<td style="text-align: right;">6530255.27</td>
+<td style="text-align: right;">3459344.09</td>
+<td style="text-align: right;">1370602</td>
+<td style="text-align: right;">3463951</td>
+<td style="text-align: right;">9219200</td>
+<td style="text-align: right;">9250300</td>
+<td style="text-align: right;">9555001</td>
+<td style="text-align: left;">▂▂▁▁▇</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">procedure_code9</td>
+<td style="text-align: right;">136</td>
+<td style="text-align: right;">0.06</td>
+<td style="text-align: right;">5867712.56</td>
+<td style="text-align: right;">3729531.78</td>
+<td style="text-align: right;">1310000</td>
+<td style="text-align: right;">1370602</td>
+<td style="text-align: right;">5650700</td>
+<td style="text-align: right;">9250202</td>
+<td style="text-align: right;">9555009</td>
+<td style="text-align: left;">▆▁▃▁▇</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">procedure_code10</td>
+<td style="text-align: right;">140</td>
+<td style="text-align: right;">0.03</td>
+<td style="text-align: right;">6848180.00</td>
+<td style="text-align: right;">2332653.39</td>
+<td style="text-align: right;">3662400</td>
+<td style="text-align: right;">6138600</td>
+<td style="text-align: right;">6138600</td>
+<td style="text-align: right;">9095200</td>
+<td style="text-align: right;">9206100</td>
+<td style="text-align: left;">▃▁▇▁▇</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">procedure_code11</td>
+<td style="text-align: right;">140</td>
+<td style="text-align: right;">0.03</td>
+<td style="text-align: right;">3068001.40</td>
+<td style="text-align: right;">1870621.19</td>
+<td style="text-align: right;">1370602</td>
+<td style="text-align: right;">1370605</td>
+<td style="text-align: right;">3047300</td>
+<td style="text-align: right;">3680000</td>
+<td style="text-align: right;">5871500</td>
+<td style="text-align: left;">▇▃▃▁▃</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">procedure_code12</td>
+<td style="text-align: right;">141</td>
+<td style="text-align: right;">0.03</td>
+<td style="text-align: right;">4361401.00</td>
+<td style="text-align: right;">3378252.08</td>
+<td style="text-align: right;">1370603</td>
+<td style="text-align: right;">2748952</td>
+<td style="text-align: right;">3434401</td>
+<td style="text-align: right;">5046850</td>
+<td style="text-align: right;">9206200</td>
+<td style="text-align: left;">▃▇▁▁▃</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">procedure_code13</td>
+<td style="text-align: right;">141</td>
+<td style="text-align: right;">0.03</td>
+<td style="text-align: right;">1929500.50</td>
+<td style="text-align: right;">1155646.99</td>
+<td style="text-align: right;">1310000</td>
+<td style="text-align: right;">1355452</td>
+<td style="text-align: right;">1372801</td>
+<td style="text-align: right;">1946850</td>
+<td style="text-align: right;">3662400</td>
+<td style="text-align: left;">▇▁▁▁▂</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">procedure_code14</td>
+<td style="text-align: right;">141</td>
+<td style="text-align: right;">0.03</td>
+<td style="text-align: right;">4967400.50</td>
+<td style="text-align: right;">3318925.26</td>
+<td style="text-align: right;">1370602</td>
+<td style="text-align: right;">3089676</td>
+<td style="text-align: right;">4646400</td>
+<td style="text-align: right;">6524125</td>
+<td style="text-align: right;">9206200</td>
+<td style="text-align: left;">▇▇▇▁▇</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">procedure_code15</td>
+<td style="text-align: right;">141</td>
+<td style="text-align: right;">0.03</td>
+<td style="text-align: right;">4792177.25</td>
+<td style="text-align: right;">3437214.34</td>
+<td style="text-align: right;">1310008</td>
+<td style="text-align: right;">2594302</td>
+<td style="text-align: right;">4326251</td>
+<td style="text-align: right;">6524126</td>
+<td style="text-align: right;">9206200</td>
+<td style="text-align: left;">▇▇▇▁▇</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">procedure_code16</td>
+<td style="text-align: right;">143</td>
+<td style="text-align: right;">0.01</td>
+<td style="text-align: right;">2518800.50</td>
+<td style="text-align: right;">1608384.38</td>
+<td style="text-align: right;">1381501</td>
+<td style="text-align: right;">1950151</td>
+<td style="text-align: right;">2518801</td>
+<td style="text-align: right;">3087450</td>
+<td style="text-align: right;">3656100</td>
+<td style="text-align: left;">▇▁▁▁▇</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">procedure_code17</td>
+<td style="text-align: right;">143</td>
+<td style="text-align: right;">0.01</td>
+<td style="text-align: right;">9234700.00</td>
+<td style="text-align: right;">22061.73</td>
+<td style="text-align: right;">9219100</td>
+<td style="text-align: right;">9226900</td>
+<td style="text-align: right;">9234700</td>
+<td style="text-align: right;">9242500</td>
+<td style="text-align: right;">9250300</td>
+<td style="text-align: left;">▇▁▁▁▇</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">procedure_code18</td>
+<td style="text-align: right;">143</td>
+<td style="text-align: right;">0.01</td>
+<td style="text-align: right;">3349700.50</td>
+<td style="text-align: right;">437134.12</td>
+<td style="text-align: right;">3040600</td>
+<td style="text-align: right;">3195150</td>
+<td style="text-align: right;">3349701</td>
+<td style="text-align: right;">3504251</td>
+<td style="text-align: right;">3658801</td>
+<td style="text-align: left;">▇▁▁▁▇</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">procedure_code19</td>
+<td style="text-align: right;">143</td>
+<td style="text-align: right;">0.01</td>
+<td style="text-align: right;">9250202.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">9250202</td>
+<td style="text-align: right;">9250202</td>
+<td style="text-align: right;">9250202</td>
+<td style="text-align: right;">9250202</td>
+<td style="text-align: right;">9250202</td>
+<td style="text-align: left;">▁▁▇▁▁</td>
+</tr>
+</tbody>
+</table>
+</div>
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Check labelling of coded variables</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>tx_apdc_subset <span class="sc">%&gt;%</span> <span class="fu">generate_dictionary</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code> pos variable                   label col_type missing values
+ 1   ppn                        —     chr      0             
+ 2   age_recode                 —     dbl      0             
+ 3   episode_start_date         —     chr      0             
+ 4   episode_end_date           —     chr      0             
+ 5   facility_identifier_recode —     dbl      0             
+ 6   episode_length_of_stay     —     dbl      0             
+ 7   mode_of_separation_recode  —     dbl      0             
+ 8   sa2_2016_code              —     dbl      0             
+ 9   sex                        —     dbl      0             
+ 10  diagnosis_codeP            —     chr      73            
+ 11  diagnosis_code1            —     chr      73            
+ 12  diagnosis_code2            —     chr      77            
+ 13  diagnosis_code3            —     chr      82            
+ 14  diagnosis_code4            —     chr      93            
+ 15  diagnosis_code5            —     chr      101           
+ 16  diagnosis_code6            —     chr      102           
+ 17  diagnosis_code7            —     chr      109           
+ 18  diagnosis_code8            —     chr      114           
+ 19  diagnosis_code9            —     chr      125           
+ 20  diagnosis_code10           —     chr      131           
+ 21  diagnosis_code11           —     chr      134           
+ 22  diagnosis_code12           —     chr      135           
+ 23  diagnosis_code13           —     chr      137           
+ 24  diagnosis_code14           —     chr      138           
+ 25  diagnosis_code15           —     chr      140           
+ 26  diagnosis_code16           —     chr      141           
+ 27  diagnosis_code17           —     chr      142           
+ 28  diagnosis_code18           —     chr      143           
+ 29  diagnosis_code19           —     chr      143           
+ 30  procedure_codeP            —     dbl      73            
+ 31  procedure_code1            —     dbl      76            
+ 32  procedure_code2            —     dbl      89            
+ 33  procedure_code3            —     dbl      104           
+ 34  procedure_code4            —     dbl      112           
+ 35  procedure_code5            —     dbl      118           
+ 36  procedure_code6            —     dbl      125           
+ 37  procedure_code7            —     dbl      129           
+ 38  procedure_code8            —     dbl      134           
+ 39  procedure_code9            —     dbl      136           
+ 40  procedure_code10           —     dbl      140           
+ 41  procedure_code11           —     dbl      140           
+ 42  procedure_code12           —     dbl      141           
+ 43  procedure_code13           —     dbl      141           
+ 44  procedure_code14           —     dbl      141           
+ 45  procedure_code15           —     dbl      141           
+ 46  procedure_code16           —     dbl      143           
+ 47  procedure_code17           —     dbl      143           
+ 48  procedure_code18           —     dbl      143           
+ 49  procedure_code19           —     dbl      143           </code></pre>
+</div>
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Check variables with name containing the word &#39;date&#39;</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>tx_apdc_subset <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="fu">contains</span>(<span class="st">&quot;date&quot;</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 145 × 2
+   episode_start_date episode_end_date
+   &lt;chr&gt;              &lt;chr&gt;           
+ 1 22jan2013          29jan2013       
+ 2 09nov2003          14nov2003       
+ 3 07jun1994          17jun1994       
+ 4 30oct2001          10nov2001       
+ 5 26jul1993          08aug1993       
+ 6 25oct1993          05dec1993       
+ 7 05may1988          04jun1988       
+ 8 19aug1988          11oct1988       
+ 9 20jan2014          27jan2014       
+10 15jun1997          27jun1997       
+# ℹ 135 more rows</code></pre>
+</div>
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Check for duplicate rows</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>tx_apdc_subset <span class="sc">%&gt;%</span> <span class="fu">distinct</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 145 × 49
+   ppn     age_recode episode_start_date episode_end_date facility_identifier_…¹
+   &lt;chr&gt;        &lt;dbl&gt; &lt;chr&gt;              &lt;chr&gt;                             &lt;dbl&gt;
+ 1 W4UT/a…         18 22jan2013          29jan2013                          3260
+ 2 avp0qS…         47 09nov2003          14nov2003                          4011
+ 3 4B65Dw…         52 07jun1994          17jun1994                          5811
+ 4 egTPz0…         37 30oct2001          10nov2001                          5811
+ 5 xJY1Dp…          9 26jul1993          08aug1993                          3239
+ 6 O8LnyR…         40 25oct1993          05dec1993                          5811
+ 7 K03Evo…         53 05may1988          04jun1988                          5811
+ 8 89Mrbo…         19 19aug1988          11oct1988                          5811
+ 9 S6OFz.…         60 20jan2014          27jan2014                          4011
+10 0p2R/y…         37 15jun1997          27jun1997                          4011
+# ℹ 135 more rows
+# ℹ abbreviated name: ¹​facility_identifier_recode
+# ℹ 44 more variables: episode_length_of_stay &lt;dbl&gt;,
+#   mode_of_separation_recode &lt;dbl&gt;, sa2_2016_code &lt;dbl&gt;, sex &lt;dbl&gt;,
+#   diagnosis_codeP &lt;chr&gt;, diagnosis_code1 &lt;chr&gt;, diagnosis_code2 &lt;chr&gt;,
+#   diagnosis_code3 &lt;chr&gt;, diagnosis_code4 &lt;chr&gt;, diagnosis_code5 &lt;chr&gt;,
+#   diagnosis_code6 &lt;chr&gt;, diagnosis_code7 &lt;chr&gt;, diagnosis_code8 &lt;chr&gt;, …</code></pre>
+</div>
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>tx_apdc_subset <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="fu">duplicated</span>(.))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 0 × 49
+# ℹ 49 variables: ppn &lt;chr&gt;, age_recode &lt;dbl&gt;, episode_start_date &lt;chr&gt;,
+#   episode_end_date &lt;chr&gt;, facility_identifier_recode &lt;dbl&gt;,
+#   episode_length_of_stay &lt;dbl&gt;, mode_of_separation_recode &lt;dbl&gt;,
+#   sa2_2016_code &lt;dbl&gt;, sex &lt;dbl&gt;, diagnosis_codeP &lt;chr&gt;,
+#   diagnosis_code1 &lt;chr&gt;, diagnosis_code2 &lt;chr&gt;, diagnosis_code3 &lt;chr&gt;,
+#   diagnosis_code4 &lt;chr&gt;, diagnosis_code5 &lt;chr&gt;, diagnosis_code6 &lt;chr&gt;,
+#   diagnosis_code7 &lt;chr&gt;, diagnosis_code8 &lt;chr&gt;, diagnosis_code9 &lt;chr&gt;, …</code></pre>
+</div>
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Count number of individuals</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>tx_apdc_subset <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(ppn)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 145 × 49
+# Groups:   ppn [145]
+   ppn     age_recode episode_start_date episode_end_date facility_identifier_…¹
+   &lt;chr&gt;        &lt;dbl&gt; &lt;chr&gt;              &lt;chr&gt;                             &lt;dbl&gt;
+ 1 W4UT/a…         18 22jan2013          29jan2013                          3260
+ 2 avp0qS…         47 09nov2003          14nov2003                          4011
+ 3 4B65Dw…         52 07jun1994          17jun1994                          5811
+ 4 egTPz0…         37 30oct2001          10nov2001                          5811
+ 5 xJY1Dp…          9 26jul1993          08aug1993                          3239
+ 6 O8LnyR…         40 25oct1993          05dec1993                          5811
+ 7 K03Evo…         53 05may1988          04jun1988                          5811
+ 8 89Mrbo…         19 19aug1988          11oct1988                          5811
+ 9 S6OFz.…         60 20jan2014          27jan2014                          4011
+10 0p2R/y…         37 15jun1997          27jun1997                          4011
+# ℹ 135 more rows
+# ℹ abbreviated name: ¹​facility_identifier_recode
+# ℹ 44 more variables: episode_length_of_stay &lt;dbl&gt;,
+#   mode_of_separation_recode &lt;dbl&gt;, sa2_2016_code &lt;dbl&gt;, sex &lt;dbl&gt;,
+#   diagnosis_codeP &lt;chr&gt;, diagnosis_code1 &lt;chr&gt;, diagnosis_code2 &lt;chr&gt;,
+#   diagnosis_code3 &lt;chr&gt;, diagnosis_code4 &lt;chr&gt;, diagnosis_code5 &lt;chr&gt;,
+#   diagnosis_code6 &lt;chr&gt;, diagnosis_code7 &lt;chr&gt;, diagnosis_code8 &lt;chr&gt;, …</code></pre>
+</div>
+</div>
+<p><strong><em>In summary for tx_apdc_subset,</em></strong></p>
+<ol type="A">
+<li><p>How many records (rows) are there?<br>
+<span style="color:red;">145 records</span></p></li>
+<li><p>What is the unit or level of each record? That is, what does each observation/row represent. Is it one row per person or per something else?<br>
+<span style="color:red;">Each row represents a hospitalisation episode of care for one patient undergoing a kidney transplant</span></p></li>
+<li><p>Which is the ID variable? How has this been stored?<br>
+<span style="color:red;">‘ppn’ uniquely identifies each person. It is stored as a character string.</span></p></li>
+<li><p>Which variables are dates? Have these been formatted appropriately?<br>
+<span style="color:red;">‘episode_start_date’ and ‘episode_end_date’ are date variables. They are both stored as characters so will need to be converted to dates.</span></p></li>
+</ol>
+<div class="cell">
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Reformat dates</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>tx_apdc_subset <span class="ot">&lt;-</span> tx_apdc_subset <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">episode_start_date =</span> <span class="fu">as.Date</span>(episode_start_date, <span class="at">format =</span> <span class="st">&quot;%d%b%Y&quot;</span>),</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="at">episode_end_date =</span> <span class="fu">as.Date</span>(episode_end_date, <span class="at">format =</span> <span class="st">&quot;%d%b%Y&quot;</span>))</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="do">### Re-check variable formatting with name containing the word &#39;date&#39;</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>tx_apdc_subset <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="fu">contains</span>(<span class="st">&quot;date&quot;</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 145 × 2
+   episode_start_date episode_end_date
+   &lt;date&gt;             &lt;date&gt;          
+ 1 2013-01-22         2013-01-29      
+ 2 2003-11-09         2003-11-14      
+ 3 1994-06-07         1994-06-17      
+ 4 2001-10-30         2001-11-10      
+ 5 1993-07-26         1993-08-08      
+ 6 1993-10-25         1993-12-05      
+ 7 1988-05-05         1988-06-04      
+ 8 1988-08-19         1988-10-11      
+ 9 2014-01-20         2014-01-27      
+10 1997-06-15         1997-06-27      
+# ℹ 135 more rows</code></pre>
+</div>
+</div>
+<ol start="5" type="A">
+<li><p>Which variables are continuous? How have these been formatted?<br>
+<span style="color:red;">There are 26 variables that are numeric. These include ‘age_recode’, ‘facility_identifier_recode’, ‘episode_length_of_stay’, ‘mode_of_separation_recode’, ‘SA2_2016_code’, ‘sex’, ‘procedure_codeP’ and ‘procedure_code1’ until ‘procedure_code19’.</span></p></li>
+<li><p>Which variables should be categorical variables? How have these been stored? Have any of these variables been formatted or labelled? (Optional: consider labelling variables as appropriate)<br>
+<span style="color:red;">We should have ‘sex’ and ‘mode_of_separation_recode’ stored as categorical. Coding for labelling is provided below.</span></p></li>
+</ol>
+<div class="cell">
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Check sex variable values</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(tx_apdc_subset<span class="sc">$</span>sex)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ 1  2 
+89 56 </code></pre>
+</div>
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Labelling sex variable</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>tx_apdc_subset<span class="sc">$</span>sex <span class="ot">&lt;-</span> <span class="fu">factor</span>(tx_apdc_subset<span class="sc">$</span>sex,</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>),</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Male&quot;</span>, <span class="st">&quot;Female&quot;</span>))</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="do">## Re-check sex variable values</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(tx_apdc_subset<span class="sc">$</span>sex)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+  Male Female 
+    89     56 </code></pre>
+</div>
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Check mode of separation variable values</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(tx_apdc_subset<span class="sc">$</span>mode_of_separation_recode)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+  1   5   7 
+141   3   1 </code></pre>
+</div>
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Labelling mode_of_separation_recode variable</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>tx_apdc_subset<span class="sc">$</span>mode_of_separation_recode <span class="ot">&lt;-</span> <span class="fu">factor</span>(tx_apdc_subset<span class="sc">$</span>mode_of_separation_recode,</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">7</span>),</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Discharge by hospital&quot;</span>, <span class="st">&quot;Transfer to other hospital&quot;</span>, <span class="st">&quot;Death without autopsy&quot;</span>))</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="do">## Re-check mode_of_separation_recode variable values</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(tx_apdc_subset<span class="sc">$</span>mode_of_separation_recode)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+     Discharge by hospital Transfer to other hospital 
+                       141                          3 
+     Death without autopsy 
+                         1 </code></pre>
+</div>
+</div>
+<ol start="7" type="A">
+<li><p>Check for any identical or duplicates rows. <span style="color:red;">There are no duplicated or identical rows.</span></p></li>
+<li><p>Determine the number of individuals. <span style="color:red;">There are 145 individuals in the dataset</span></p></li>
+</ol>
+<p>Contents for the deaths data (<strong>dth_subset</strong>).</p>
+<p>Using the following R code:</p>
+<div class="cell">
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="do">## dth_subset</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="do">### Print the dataset to screen </span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="do">### (by default, a tibble will show the first 10 rows and however many columns fit on screen)</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>dth_subset</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 67 × 14
+   ppn     age_recode   sex death_date ucod_recode racs1 racs2 racs3 racs4 racs5
+   &lt;chr&gt;        &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt; &lt;lgl&gt; &lt;lgl&gt; &lt;lgl&gt;
+ 1 .2fSXx…         41     2 15jul2014  E1022       A412  &lt;NA&gt;  NA    NA    NA   
+ 2 .9Y7jv…         24     1 11aug1998  95707       &lt;NA&gt;  &lt;NA&gt;  NA    NA    NA   
+ 3 .n.tTr…         38     1 19dec2002  I219        &lt;NA&gt;  &lt;NA&gt;  NA    NA    NA   
+ 4 /Y1Ovt…         50     1 20dec2011  N059        &lt;NA&gt;  &lt;NA&gt;  NA    NA    NA   
+ 5 00g8yp…         56     1 11feb2008  B258        A047  &lt;NA&gt;  NA    NA    NA   
+ 6 096U3Z…         50     1 10feb2010  E1122       &lt;NA&gt;  &lt;NA&gt;  NA    NA    NA   
+ 7 0p2R/y…         54     1 23aug2013  M161        A419  F171  NA    NA    NA   
+ 8 1HpNRT…         64     1 23sep2013  M7268       A419  &lt;NA&gt;  NA    NA    NA   
+ 9 348ayo…         55     1 01apr2013  D467        &lt;NA&gt;  &lt;NA&gt;  NA    NA    NA   
+10 3A92ys…         65     1 29sep2008  N034        &lt;NA&gt;  &lt;NA&gt;  NA    NA    NA   
+# ℹ 57 more rows
+# ℹ 4 more variables: racs6 &lt;lgl&gt;, racs7 &lt;lgl&gt;, racs8 &lt;lgl&gt;, ucod_codeset &lt;chr&gt;</code></pre>
+</div>
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="do">### View full dataset in a separate tab</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(dth_subset)</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="do">### Summary of each variable</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="fu">skim</span>(dth_subset)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Data summary</caption>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Name</td>
+<td style="text-align: left;">dth_subset</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Number of rows</td>
+<td style="text-align: left;">67</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Number of columns</td>
+<td style="text-align: left;">14</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">_______________________</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Column type frequency:</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">character</td>
+<td style="text-align: left;">6</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">logical</td>
+<td style="text-align: left;">6</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">numeric</td>
+<td style="text-align: left;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">________________________</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Group variables</td>
+<td style="text-align: left;">None</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: character</strong></p>
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 19%">
+<col style="width: 13%">
+<col style="width: 19%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 8%">
+<col style="width: 12%">
+<col style="width: 15%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">skim_variable</th>
+<th style="text-align: right;">n_missing</th>
+<th style="text-align: right;">complete_rate</th>
+<th style="text-align: right;">min</th>
+<th style="text-align: right;">max</th>
+<th style="text-align: right;">empty</th>
+<th style="text-align: right;">n_unique</th>
+<th style="text-align: right;">whitespace</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">ppn</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">63</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">death_date</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">63</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ucod_recode</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">53</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">racs1</td>
+<td style="text-align: right;">52</td>
+<td style="text-align: right;">0.22</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">racs2</td>
+<td style="text-align: right;">66</td>
+<td style="text-align: right;">0.01</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ucod_codeset</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: logical</strong></p>
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">skim_variable</th>
+<th style="text-align: right;">n_missing</th>
+<th style="text-align: right;">complete_rate</th>
+<th style="text-align: right;">mean</th>
+<th style="text-align: left;">count</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">racs3</td>
+<td style="text-align: right;">67</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">NaN</td>
+<td style="text-align: left;">:</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">racs4</td>
+<td style="text-align: right;">67</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">NaN</td>
+<td style="text-align: left;">:</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">racs5</td>
+<td style="text-align: right;">67</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">NaN</td>
+<td style="text-align: left;">:</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">racs6</td>
+<td style="text-align: right;">67</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">NaN</td>
+<td style="text-align: left;">:</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">racs7</td>
+<td style="text-align: right;">67</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">NaN</td>
+<td style="text-align: left;">:</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">racs8</td>
+<td style="text-align: right;">67</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">NaN</td>
+<td style="text-align: left;">:</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: numeric</strong></p>
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 17%">
+<col style="width: 12%">
+<col style="width: 17%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 3%">
+<col style="width: 6%">
+<col style="width: 5%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 7%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">skim_variable</th>
+<th style="text-align: right;">n_missing</th>
+<th style="text-align: right;">complete_rate</th>
+<th style="text-align: right;">mean</th>
+<th style="text-align: right;">sd</th>
+<th style="text-align: right;">p0</th>
+<th style="text-align: right;">p25</th>
+<th style="text-align: right;">p50</th>
+<th style="text-align: right;">p75</th>
+<th style="text-align: right;">p100</th>
+<th style="text-align: left;">hist</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">age_recode</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">54.97</td>
+<td style="text-align: right;">12.83</td>
+<td style="text-align: right;">24</td>
+<td style="text-align: right;">48.5</td>
+<td style="text-align: right;">56</td>
+<td style="text-align: right;">63.5</td>
+<td style="text-align: right;">79</td>
+<td style="text-align: left;">▂▃▇▆▃</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">sex</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1.27</td>
+<td style="text-align: right;">0.45</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2.0</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">▇▁▁▁▃</td>
+</tr>
+</tbody>
+</table>
+</div>
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Check labelling of coded variables</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>dth_subset <span class="sc">%&gt;%</span> <span class="fu">generate_dictionary</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code> pos variable     label col_type missing values
+ 1   ppn          —     chr      0             
+ 2   age_recode   —     dbl      0             
+ 3   sex          —     dbl      0             
+ 4   death_date   —     chr      0             
+ 5   ucod_recode  —     chr      0             
+ 6   racs1        —     chr      52            
+ 7   racs2        —     chr      66            
+ 8   racs3        —     lgl      67            
+ 9   racs4        —     lgl      67            
+ 10  racs5        —     lgl      67            
+ 11  racs6        —     lgl      67            
+ 12  racs7        —     lgl      67            
+ 13  racs8        —     lgl      67            
+ 14  ucod_codeset —     chr      0             </code></pre>
+</div>
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Check variables with name containing the word &#39;date&#39;</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>dth_subset <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="fu">contains</span>(<span class="st">&quot;date&quot;</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 67 × 1
+   death_date
+   &lt;chr&gt;     
+ 1 15jul2014 
+ 2 11aug1998 
+ 3 19dec2002 
+ 4 20dec2011 
+ 5 11feb2008 
+ 6 10feb2010 
+ 7 23aug2013 
+ 8 23sep2013 
+ 9 01apr2013 
+10 29sep2008 
+# ℹ 57 more rows</code></pre>
+</div>
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Check for duplicate rows</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>dth_subset <span class="sc">%&gt;%</span> <span class="fu">distinct</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 64 × 14
+   ppn     age_recode   sex death_date ucod_recode racs1 racs2 racs3 racs4 racs5
+   &lt;chr&gt;        &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt; &lt;lgl&gt; &lt;lgl&gt; &lt;lgl&gt;
+ 1 .2fSXx…         41     2 15jul2014  E1022       A412  &lt;NA&gt;  NA    NA    NA   
+ 2 .9Y7jv…         24     1 11aug1998  95707       &lt;NA&gt;  &lt;NA&gt;  NA    NA    NA   
+ 3 .n.tTr…         38     1 19dec2002  I219        &lt;NA&gt;  &lt;NA&gt;  NA    NA    NA   
+ 4 /Y1Ovt…         50     1 20dec2011  N059        &lt;NA&gt;  &lt;NA&gt;  NA    NA    NA   
+ 5 00g8yp…         56     1 11feb2008  B258        A047  &lt;NA&gt;  NA    NA    NA   
+ 6 096U3Z…         50     1 10feb2010  E1122       &lt;NA&gt;  &lt;NA&gt;  NA    NA    NA   
+ 7 0p2R/y…         54     1 23aug2013  M161        A419  F171  NA    NA    NA   
+ 8 1HpNRT…         64     1 23sep2013  M7268       A419  &lt;NA&gt;  NA    NA    NA   
+ 9 348ayo…         55     1 01apr2013  D467        &lt;NA&gt;  &lt;NA&gt;  NA    NA    NA   
+10 3A92ys…         65     1 29sep2008  N034        &lt;NA&gt;  &lt;NA&gt;  NA    NA    NA   
+# ℹ 54 more rows
+# ℹ 4 more variables: racs6 &lt;lgl&gt;, racs7 &lt;lgl&gt;, racs8 &lt;lgl&gt;, ucod_codeset &lt;chr&gt;</code></pre>
+</div>
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>dth_subset <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="fu">duplicated</span>(.))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 14
+  ppn      age_recode   sex death_date ucod_recode racs1 racs2 racs3 racs4 racs5
+  &lt;chr&gt;         &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt; &lt;lgl&gt; &lt;lgl&gt; &lt;lgl&gt;
+1 9XA0jXN…         37     2 09jun2014  N028        I080  &lt;NA&gt;  NA    NA    NA   
+2 avp0qS4…         59     1 09nov2015  I2511       &lt;NA&gt;  &lt;NA&gt;  NA    NA    NA   
+3 egTPz07…         43     1 10apr2007  N288        &lt;NA&gt;  &lt;NA&gt;  NA    NA    NA   
+# ℹ 4 more variables: racs6 &lt;lgl&gt;, racs7 &lt;lgl&gt;, racs8 &lt;lgl&gt;, ucod_codeset &lt;chr&gt;</code></pre>
+</div>
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Count number of individuals</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>dth_subset <span class="sc">%&gt;%</span> <span class="fu">count</span>(ppn)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 63 × 2
+   ppn             n
+   &lt;chr&gt;       &lt;int&gt;
+ 1 .2fSXxjG5zp     1
+ 2 .9Y7jvB4VX2     1
+ 3 .n.tTrI04fE     1
+ 4 /Y1OvtbFPDR     1
+ 5 00g8yphOfNq     1
+ 6 096U3Za2wpb     1
+ 7 0p2R/yd/uCH     1
+ 8 1HpNRTiZMqk     1
+ 9 348ayoT3R39     1
+10 3A92ysKLrNy     1
+# ℹ 53 more rows</code></pre>
+</div>
+</div>
+<p><strong><em>In summary for dth_subset,</em></strong></p>
+<ol type="A">
+<li><p>How many records (rows) are there?<br>
+<span style="color:red;">67 records</span></p></li>
+<li><p>What is the unit or level of each record? That is, what does each observation/row represent. Is it one row per person or per something else?<br>
+<span style="color:red;">Each row represents a death record that should be unique to each person.</span></p></li>
+<li><p>Which is the ID variable? How has this been stored?<br>
+<span style="color:red;">‘ppn’ uniquely identifies each person. It is stored as a character string.</span></p></li>
+<li><p>Which variables are dates? Have these been formatted appropriately?<br>
+<span style="color:red;">‘death_date’ is the only date variables. This is stored as a character and needs to be converted to dates.</span></p></li>
+</ol>
+<div class="cell">
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Reformat dates</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>dth_subset <span class="ot">&lt;-</span> dth_subset <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">death_date =</span> <span class="fu">as.Date</span>(death_date, <span class="at">format =</span> <span class="st">&quot;%d%b%Y&quot;</span>))</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="do">### Re-check variable formatting with name containing the word &#39;date&#39;</span></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>dth_subset <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="fu">contains</span>(<span class="st">&quot;date&quot;</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 67 × 1
+   death_date
+   &lt;date&gt;    
+ 1 2014-07-15
+ 2 1998-08-11
+ 3 2002-12-19
+ 4 2011-12-20
+ 5 2008-02-11
+ 6 2010-02-10
+ 7 2013-08-23
+ 8 2013-09-23
+ 9 2013-04-01
+10 2008-09-29
+# ℹ 57 more rows</code></pre>
+</div>
+</div>
+<ol start="5" type="A">
+<li><p>Which variables are continuous? How have these been formatted?<br>
+<span style="color:red;">There are 2 variables that are numeric. These include ‘age_recode’ and ‘sex’.</span></p></li>
+<li><p>Which variables should be categorical variables? How have these been stored? Have any of these variables been formatted or labelled? (Optional: consider labelling variables as appropriate)<br>
+<span style="color:red;">We should have ‘sex’ stored as categorical. Coding for labelling is provided below. There are also 6 logical variables (racs3-racs8) that have occurred due to blank cells in all columns.</span></p></li>
+</ol>
+<div class="cell">
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Check sex variable values</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(dth_subset<span class="sc">$</span>sex)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ 1  2 
+49 18 </code></pre>
+</div>
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Labelling sex variable</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>dth_subset<span class="sc">$</span>sex <span class="ot">&lt;-</span> <span class="fu">factor</span>(dth_subset<span class="sc">$</span>sex,</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>),</span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Male&quot;</span>, <span class="st">&quot;Female&quot;</span>))</span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a><span class="do">## Re-check sex variable values</span></span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(dth_subset<span class="sc">$</span>sex)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+  Male Female 
+    49     18 </code></pre>
+</div>
+</div>
+<ol start="7" type="A">
+<li><p>Check for any identical or duplicates rows.<br>
+<span style="color:red;">There are 3 duplicated or identical rows. These should be reviewed and possibly removed</span></p></li>
+<li><p>Determine the number of individuals.<br>
+<span style="color:red;">There are 63 individuals in the dataset, suggesting errors due to duplicated death records.</span></p></li>
+</ol>
+</section>
+<section id="question-2" class="level2">
+<h2 class="anchored" data-anchor-id="question-2">Question 2</h2>
+<p>Compare the variables with common names across the datasets. If needed, rename and/or change how a variable is stored.</p>
+<div class="cell">
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Check for variables with same name in both datasets</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="fu">compare_df_cols</span>(tx_apdc_subset, dth_subset) <span class="sc">%&gt;%</span> </span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(tx_apdc_subset) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(dth_subset))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 3
+  column_name tx_apdc_subset dth_subset
+  &lt;chr&gt;       &lt;chr&gt;          &lt;chr&gt;     
+1 age_recode  numeric        numeric   
+2 ppn         character      character 
+3 sex         factor         factor    </code></pre>
+</div>
+</div>
+<p>We see that ppn variable is the same, which won’t cause any issues. We also see that sex and age_recode is the same between the datasets. Let’s rename both of these to retain them and cross-check if we need to.</p>
+<div class="cell">
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Rename age variable in each dataset</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>tx_apdc_subset <span class="ot">&lt;-</span> tx_apdc_subset <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">age_hosp =</span> age_recode, <span class="at">sex_hosp =</span> sex)</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>dth_subset <span class="ot">&lt;-</span> dth_subset <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">age_dth =</span> age_recode, <span class="at">sex_dth =</span> sex) </span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a><span class="do">##Check rename has worked</span></span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(tx_apdc_subset)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] &quot;ppn&quot;                        &quot;age_hosp&quot;                  
+ [3] &quot;episode_start_date&quot;         &quot;episode_end_date&quot;          
+ [5] &quot;facility_identifier_recode&quot; &quot;episode_length_of_stay&quot;    
+ [7] &quot;mode_of_separation_recode&quot;  &quot;sa2_2016_code&quot;             
+ [9] &quot;sex_hosp&quot;                   &quot;diagnosis_codeP&quot;           
+[11] &quot;diagnosis_code1&quot;            &quot;diagnosis_code2&quot;           
+[13] &quot;diagnosis_code3&quot;            &quot;diagnosis_code4&quot;           
+[15] &quot;diagnosis_code5&quot;            &quot;diagnosis_code6&quot;           
+[17] &quot;diagnosis_code7&quot;            &quot;diagnosis_code8&quot;           
+[19] &quot;diagnosis_code9&quot;            &quot;diagnosis_code10&quot;          
+[21] &quot;diagnosis_code11&quot;           &quot;diagnosis_code12&quot;          
+[23] &quot;diagnosis_code13&quot;           &quot;diagnosis_code14&quot;          
+[25] &quot;diagnosis_code15&quot;           &quot;diagnosis_code16&quot;          
+[27] &quot;diagnosis_code17&quot;           &quot;diagnosis_code18&quot;          
+[29] &quot;diagnosis_code19&quot;           &quot;procedure_codeP&quot;           
+[31] &quot;procedure_code1&quot;            &quot;procedure_code2&quot;           
+[33] &quot;procedure_code3&quot;            &quot;procedure_code4&quot;           
+[35] &quot;procedure_code5&quot;            &quot;procedure_code6&quot;           
+[37] &quot;procedure_code7&quot;            &quot;procedure_code8&quot;           
+[39] &quot;procedure_code9&quot;            &quot;procedure_code10&quot;          
+[41] &quot;procedure_code11&quot;           &quot;procedure_code12&quot;          
+[43] &quot;procedure_code13&quot;           &quot;procedure_code14&quot;          
+[45] &quot;procedure_code15&quot;           &quot;procedure_code16&quot;          
+[47] &quot;procedure_code17&quot;           &quot;procedure_code18&quot;          
+[49] &quot;procedure_code19&quot;          </code></pre>
+</div>
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(dth_subset)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] &quot;ppn&quot;          &quot;age_dth&quot;      &quot;sex_dth&quot;      &quot;death_date&quot;   &quot;ucod_recode&quot; 
+ [6] &quot;racs1&quot;        &quot;racs2&quot;        &quot;racs3&quot;        &quot;racs4&quot;        &quot;racs5&quot;       
+[11] &quot;racs6&quot;        &quot;racs7&quot;        &quot;racs8&quot;        &quot;ucod_codeset&quot;</code></pre>
+</div>
+</div>
+</section>
+<section id="question-3" class="level2">
+<h2 class="anchored" data-anchor-id="question-3">Question 3</h2>
+<p>Write code to determine which individuals have multiple death dates. Record their ID. Examine the hospitalisation data for these individuals.</p>
+<p>Can we conclude which record is most appropriate to retain? If so, remove the incorrect death dates from the death dataset. If not, remove all individuals with duplicated records from both <strong>tx_apdc_subset</strong> and <strong>dth_subset</strong>.</p>
+<div class="cell">
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="do">## View all records in dth_subset for individuals with more than 1 record</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>dth_subset <span class="sc">%&gt;%</span></span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(ppn) <span class="sc">%&gt;%</span></span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">n</span>() <span class="sc">&gt;</span> <span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 8 × 14
+# Groups:   ppn [4]
+  ppn       age_dth sex_dth death_date ucod_recode racs1 racs2 racs3 racs4 racs5
+  &lt;chr&gt;       &lt;dbl&gt; &lt;fct&gt;   &lt;date&gt;     &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt; &lt;lgl&gt; &lt;lgl&gt; &lt;lgl&gt;
+1 9XA0jXNL…      37 Female  2014-06-09 N028        I080  &lt;NA&gt;  NA    NA    NA   
+2 9XA0jXNL…      37 Female  2014-06-09 N028        I080  &lt;NA&gt;  NA    NA    NA   
+3 avp0qS4p…      59 Male    2015-11-09 I2511       &lt;NA&gt;  &lt;NA&gt;  NA    NA    NA   
+4 avp0qS4p…      59 Male    2015-11-09 I2511       &lt;NA&gt;  &lt;NA&gt;  NA    NA    NA   
+5 egTPz07L…      43 Male    2007-04-10 N288        &lt;NA&gt;  &lt;NA&gt;  NA    NA    NA   
+6 egTPz07L…      43 Male    2007-04-10 N288        &lt;NA&gt;  &lt;NA&gt;  NA    NA    NA   
+7 kxR9rzL6…      50 Female  2004-12-25 N059        &lt;NA&gt;  &lt;NA&gt;  NA    NA    NA   
+8 kxR9rzL6…      50 Female  2003-12-26 N059        &lt;NA&gt;  &lt;NA&gt;  NA    NA    NA   
+# ℹ 4 more variables: racs6 &lt;lgl&gt;, racs7 &lt;lgl&gt;, racs8 &lt;lgl&gt;, ucod_codeset &lt;chr&gt;</code></pre>
+</div>
+</div>
+<p><span style="color:red;">There are four individuals with two death records. For three of the four, the death records are identical duplicates so we can simply remove the duplicated records. For PPN kxR9rzL6oR2, there are two separate death dates that are one year apart. Let’s cross check with the hospital records.</span></p>
+<div class="cell">
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="do">## View all hospitalisation records for selected ppns as above</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>tx_apdc_subset <span class="sc">%&gt;%</span></span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(ppn <span class="sc">==</span> <span class="st">&quot;kxR9rzL6oR2&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">View</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p><span style="color:red;">For PPN kxR9rzL6oR2, that had a hospitalisation directly preceding their latest death date. So, we can sensibly assume that the death record with death date in 2003 was incorrect. Let’s remove this record and the duplicated records from the death data.</span></p>
+<div class="cell">
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="do">## From death data, remove exact duplicates and keep 2004 record for PPN kxR9rzL6oR2</span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>dth_subset <span class="ot">&lt;-</span> dth_subset <span class="sc">%&gt;%</span></span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>(ppn <span class="sc">==</span> <span class="st">&quot;kxR9rzL6oR2&quot;</span> <span class="sc">&amp;</span> death_date <span class="sc">==</span> <span class="fu">as.Date</span>(<span class="st">&#39;2003-12-26&#39;</span>))) <span class="sc">%&gt;%</span> </span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="question-4" class="level2">
+<h2 class="anchored" data-anchor-id="question-4">Question 4</h2>
+<p>Sort the <strong>tx_apdc_subset</strong> and <strong>dth_subset data</strong> by the appropriate variables and merge them together. Check for any errors or warning messages.</p>
+<div class="cell">
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Sort datasets by PPN (and episode start and end date for hospitalisations)</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>tx_apdc_subset <span class="ot">&lt;-</span> tx_apdc_subset <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(ppn, episode_start_date, episode_end_date)</span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>dth_subset <span class="ot">&lt;-</span> dth_subset <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(ppn)</span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Merge datasets together</span></span>
+<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a>merged_data <span class="ot">&lt;-</span> <span class="fu">full_join</span>(tx_apdc_subset <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">in_apdc =</span> <span class="dv">1</span>), <span class="co"># Create a flag for whether merged record was from tx_apdc_subset</span></span>
+<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a>                         dth_subset <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">in_dth =</span> <span class="dv">1</span>)) <span class="co"># Create a flag for whether merged record was from dth_subset</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p><span style="color:red;">We have successfully merged the files today and can now look at running some checks.</span></p>
+<div class="cell">
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Summarise records that were linked</span></span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>merged_data <span class="sc">%&gt;%</span> <span class="fu">tabyl</span>(in_apdc, in_dth)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code> in_apdc  1 NA_
+       1 48  97
+      NA 15   0</code></pre>
+</div>
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Count number of deaths without corresponding hospital records</span></span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>merged_data <span class="sc">%&gt;%</span> <span class="fu">filter</span>(in_dth <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;</span> <span class="fu">is.na</span>(in_apdc)) <span class="sc">%&gt;%</span>  <span class="fu">nrow</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 15</code></pre>
+</div>
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Count number of hospitalisations without corresponding death records</span></span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a><span class="do">### Records</span></span>
+<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a>merged_data <span class="sc">%&gt;%</span> </span>
+<span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(in_apdc <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;</span> <span class="fu">is.na</span>(in_dth)) <span class="sc">%&gt;%</span> </span>
+<span id="cb61-5"><a href="#cb61-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nrow</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 97</code></pre>
+</div>
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Individuals</span></span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>merged_data <span class="sc">%&gt;%</span> </span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(in_apdc <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;</span> <span class="fu">is.na</span>(in_dth)) <span class="sc">%&gt;%</span> </span>
+<span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(ppn) <span class="sc">%&gt;%</span></span>
+<span id="cb63-5"><a href="#cb63-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb63-6"><a href="#cb63-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nrow</span>() <span class="co"># Individuals</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 97</code></pre>
+</div>
+</div>
+<p>Using a cross tabulation, determine:</p>
+<ol type="A">
+<li><p>Number of records that have been linked.<br>
+<span style="color:red;">There were 48 records linked between APDC hospitalisations and death records.</span></p></li>
+<li><p>Number of deaths without corresponding hospitalisation records.<br>
+<span style="color:red;">There were 15 deaths without a corresponding APDC hospitalisation record.</span></p></li>
+<li><p>Number of hospitalisations with no death date linked.<br>
+<span style="color:red;">There were 97 APDC hospitalisations without a death record.</span></p></li>
+<li><p>List the possible reasons as to why not all records are linked.<br>
+<span style="color:red;">Records may not be linked if: a patient did not die, a patient died but was never admitted to hospital for a kidney transplant, or there were errors in our linkage (e.g. incorrect study cohort, incorrect ppn assigned).</span></p></li>
+</ol>
+</section>
+<section id="question-5" class="level2">
+<h2 class="anchored" data-anchor-id="question-5">Question 5</h2>
+<p>Use the merged dataset to compare the age recorded in <strong>tx_apdc_subset</strong> and the age recorded in <strong>dth_subset</strong>. Are they consistent?</p>
+<div class="cell">
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Summarise age variables</span></span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>merged_data <span class="sc">%&gt;%</span></span>
+<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">skim</span>(age_hosp, age_dth)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Data summary</caption>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Name</td>
+<td style="text-align: left;">Piped data</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Number of rows</td>
+<td style="text-align: left;">160</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Number of columns</td>
+<td style="text-align: left;">64</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">_______________________</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Column type frequency:</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">numeric</td>
+<td style="text-align: left;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">________________________</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Group variables</td>
+<td style="text-align: left;">None</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: numeric</strong></p>
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 18%">
+<col style="width: 12%">
+<col style="width: 18%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 3%">
+<col style="width: 6%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 6%">
+<col style="width: 7%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">skim_variable</th>
+<th style="text-align: right;">n_missing</th>
+<th style="text-align: right;">complete_rate</th>
+<th style="text-align: right;">mean</th>
+<th style="text-align: right;">sd</th>
+<th style="text-align: right;">p0</th>
+<th style="text-align: right;">p25</th>
+<th style="text-align: right;">p50</th>
+<th style="text-align: right;">p75</th>
+<th style="text-align: right;">p100</th>
+<th style="text-align: left;">hist</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">age_hosp</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">0.91</td>
+<td style="text-align: right;">36.30</td>
+<td style="text-align: right;">14.98</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">25.0</td>
+<td style="text-align: right;">35</td>
+<td style="text-align: right;">46</td>
+<td style="text-align: right;">72</td>
+<td style="text-align: left;">▃▇▇▅▂</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">age_dth</td>
+<td style="text-align: right;">97</td>
+<td style="text-align: right;">0.39</td>
+<td style="text-align: right;">55.46</td>
+<td style="text-align: right;">12.92</td>
+<td style="text-align: right;">24</td>
+<td style="text-align: right;">49.5</td>
+<td style="text-align: right;">56</td>
+<td style="text-align: right;">64</td>
+<td style="text-align: right;">79</td>
+<td style="text-align: left;">▂▃▇▆▃</td>
+</tr>
+</tbody>
+</table>
+</div>
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="do">## View the dataset to manually check whether ages are consistent between datasets</span></span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>merged_data <span class="sc">%&gt;%</span> </span>
+<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(in_apdc <span class="sc">==</span> <span class="dv">1</span>, in_dth <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(ppn, episode_start_date, age_hosp, death_date, age_dth) <span class="sc">%&gt;%</span></span>
+<span id="cb66-5"><a href="#cb66-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">View</span>()</span>
+<span id="cb66-6"><a href="#cb66-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-7"><a href="#cb66-7" aria-hidden="true" tabindex="-1"></a><span class="do">## Calculate time in years between death date and episode_start_date,</span></span>
+<span id="cb66-8"><a href="#cb66-8" aria-hidden="true" tabindex="-1"></a><span class="do">##  then add this to age at hospitalisation to estimate age at death,</span></span>
+<span id="cb66-9"><a href="#cb66-9" aria-hidden="true" tabindex="-1"></a><span class="do">##  then compare this against actual date of death to see if ages/dates align</span></span>
+<span id="cb66-10"><a href="#cb66-10" aria-hidden="true" tabindex="-1"></a>merged_data <span class="sc">%&gt;%</span></span>
+<span id="cb66-11"><a href="#cb66-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(in_apdc <span class="sc">==</span> <span class="dv">1</span>, in_dth <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb66-12"><a href="#cb66-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(ppn, episode_start_date, age_hosp, death_date, age_dth) <span class="sc">%&gt;%</span></span>
+<span id="cb66-13"><a href="#cb66-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">years_hosp_to_death =</span> <span class="fu">as.numeric</span>(death_date <span class="sc">-</span> episode_start_date) <span class="sc">/</span> <span class="fl">365.25</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb66-14"><a href="#cb66-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">estimated_age_dth =</span> age_hosp <span class="sc">+</span> years_hosp_to_death) <span class="sc">%&gt;%</span></span>
+<span id="cb66-15"><a href="#cb66-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(age_dth <span class="sc">!=</span> <span class="fu">floor</span>(estimated_age_dth)) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">age_diff=</span><span class="fu">abs</span>(estimated_age_dth<span class="sc">-</span>age_dth)) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(age_diff) <span class="sc">%&gt;%</span> <span class="fu">sort</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 0.07734428 0.14099932 0.14305270 0.14647502 0.17248460 0.20602327
+ [7] 0.24709103 0.24845996 0.26078029 0.27515400 0.34291581 0.34633812
+[13] 0.36618754 0.36892539 0.40725530 0.41752225 0.43874059 0.48870637
+[19] 0.53524983 0.55715264 0.81108830 0.82751540 0.88980151</code></pre>
+</div>
+</div>
+<p><span style="color:red;">Both age at hospitalisation and age at death are recorded as an integer, which makes it slightly easier to compare between the datasets but rounding can still cause issues. We also need to keep in mind that these ages may be recorded at different times, so a person’s age would be expected to change between death and time of hospitalisation in these instances.</span></p>
+<p><span style="color:red;">Of the 48 patients with both APDC hospitalisation and death records, we see that there are differences in age for 23 patients. However, having a closer look the differences between the age at death and expected age at death using the APDC hospitalisation episode start date show very minor differences. These are only in the order of less than one and does not cause any major concern.</span></p>
+</section>
+<section id="question-6" class="level2">
+<h2 class="anchored" data-anchor-id="question-6">Question 6</h2>
+<p>Which rows from the merged dataset could we drop if we wish to analyse the time between the last separation date and death?</p>
+<p><span style="color:red;">To analyse time from last separation to death, we would need to include only those with any linked hospitalisation records, and only keep the last hospitalisation record for each person. We can keep everyone regardless of whether they had a linked death date, since some people may not have died.</span></p>
+<div class="cell">
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="do">##Drop rows for analysis of time between last separation and death ----</span></span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>analysis_data <span class="ot">&lt;-</span> merged_data <span class="sc">%&gt;%</span></span>
+<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(in_apdc <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb68-4"><a href="#cb68-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(ppn) <span class="sc">%&gt;%</span></span>
+<span id="cb68-5"><a href="#cb68-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">last_sep_date =</span> <span class="fu">max</span>(episode_end_date)) <span class="sc">%&gt;%</span></span>
+<span id="cb68-6"><a href="#cb68-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb68-7"><a href="#cb68-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(ppn, last_sep_date, death_date) <span class="sc">%&gt;%</span></span>
+<span id="cb68-8"><a href="#cb68-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="question-7" class="level2">
+<h2 class="anchored" data-anchor-id="question-7">Question 7</h2>
+<p>Optional: Calculate the time (in days) between the last separation date and death. How many patients had died by the end of 2004? Summarise the number of deaths by year of last separation.</p>
+<div class="cell">
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Time (in days) between the last separation date and death</span></span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a>analysis_data <span class="ot">&lt;-</span> analysis_data <span class="sc">%&gt;%</span></span>
+<span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">days_to_death =</span> death_date <span class="sc">-</span> last_sep_date)</span>
+<span id="cb69-4"><a href="#cb69-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb69-5"><a href="#cb69-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Summary of time from last separation and date of death</span></span>
+<span id="cb69-6"><a href="#cb69-6" aria-hidden="true" tabindex="-1"></a><span class="fu">skim</span>(analysis_data<span class="sc">$</span>days_to_death)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Data summary</caption>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Name</td>
+<td style="text-align: left;">analysis_data$days_to_dea…</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Number of rows</td>
+<td style="text-align: left;">145</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Number of columns</td>
+<td style="text-align: left;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">_______________________</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Column type frequency:</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">difftime</td>
+<td style="text-align: left;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">________________________</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Group variables</td>
+<td style="text-align: left;">None</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: difftime</strong></p>
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 18%">
+<col style="width: 13%">
+<col style="width: 18%">
+<col style="width: 9%">
+<col style="width: 14%">
+<col style="width: 13%">
+<col style="width: 12%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">skim_variable</th>
+<th style="text-align: right;">n_missing</th>
+<th style="text-align: right;">complete_rate</th>
+<th style="text-align: left;">min</th>
+<th style="text-align: left;">max</th>
+<th style="text-align: left;">median</th>
+<th style="text-align: right;">n_unique</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">data</td>
+<td style="text-align: right;">97</td>
+<td style="text-align: right;">0.33</td>
+<td style="text-align: left;">0 days</td>
+<td style="text-align: left;">10719 days</td>
+<td style="text-align: left;">4268 days</td>
+<td style="text-align: right;">48</td>
+</tr>
+</tbody>
+</table>
+</div>
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="do">## How many had died by end of 2004?</span></span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>analysis_data <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="fu">year</span>(death_date) <span class="sc">&lt;=</span> <span class="dv">2004</span>) <span class="sc">%&gt;%</span> <span class="fu">nrow</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 16</code></pre>
+</div>
+<details open class="code-fold">
+<summary>Show R code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Summary of number of deaths by year of last separation</span></span>
+<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a>analysis_data <span class="sc">%&gt;%</span>  </span>
+<span id="cb72-3"><a href="#cb72-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(death_date) <span class="sc">&amp;</span> <span class="fu">year</span>(death_date) <span class="sc">&lt;=</span> <span class="dv">2004</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb72-4"><a href="#cb72-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">yearsep =</span> <span class="fu">year</span>(last_sep_date)) <span class="sc">%&gt;%</span></span>
+<span id="cb72-5"><a href="#cb72-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tabyl</span>(yearsep)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code> yearsep n percent
+    1988 5  0.3125
+    1989 1  0.0625
+    1990 1  0.0625
+    1993 4  0.2500
+    1994 2  0.1250
+    1995 1  0.0625
+    1999 1  0.0625
+    2004 1  0.0625</code></pre>
+</div>
+</div>
+<p><span style="color:red;">We have created the time between last separation date and death date. The median time was 4268 days or 11.7 years!</span></p>
+<p><span style="color:red;">There were 16 patients who had died by the end of 2004. The split by year of last separation is given above.</span></p>
 
 
 <!-- -->
@@ -4552,22 +6475,417 @@ vertical-align: -.125em;
     }
   });
   </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> &quot;Module 1 Solutions&quot;</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span><span class="co"> </span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">    embed-resources: true</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">    code-overflow: wrap</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, echo=FALSE}</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">message =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">warning =</span> <span class="cn">FALSE</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">## To be released soon</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb74" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> &quot;Module 1 Solutions&quot;</span></span>
+<span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span><span class="co"> </span></span>
+<span id="cb74-4"><a href="#cb74-4" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
+<span id="cb74-5"><a href="#cb74-5" aria-hidden="true" tabindex="-1"></a><span class="co">    embed-resources: true</span></span>
+<span id="cb74-6"><a href="#cb74-6" aria-hidden="true" tabindex="-1"></a><span class="co">    code-overflow: wrap</span></span>
+<span id="cb74-7"><a href="#cb74-7" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb74-8"><a href="#cb74-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-9"><a href="#cb74-9" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, echo=FALSE}</span></span>
+<span id="cb74-10"><a href="#cb74-10" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(</span>
+<span id="cb74-11"><a href="#cb74-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">message =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb74-12"><a href="#cb74-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">warning =</span> <span class="cn">FALSE</span></span>
+<span id="cb74-13"><a href="#cb74-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb74-14"><a href="#cb74-14" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb74-15"><a href="#cb74-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-16"><a href="#cb74-16" aria-hidden="true" tabindex="-1"></a><span class="fu">## Data set-up</span></span>
+<span id="cb74-17"><a href="#cb74-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-18"><a href="#cb74-18" aria-hidden="true" tabindex="-1"></a>We use the following packages for our recommended solutions, however you may take a different approach and get the same results.</span>
+<span id="cb74-19"><a href="#cb74-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-20"><a href="#cb74-20" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb74-21"><a href="#cb74-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Load libraries</span></span>
+<span id="cb74-22"><a href="#cb74-22" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse) <span class="co"># for data manipulation</span></span>
+<span id="cb74-23"><a href="#cb74-23" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(skimr) <span class="co"># for skim() to summarise datasets</span></span>
+<span id="cb74-24"><a href="#cb74-24" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(labelled) <span class="co"># for generate_dictionary() to view value labels </span></span>
+<span id="cb74-25"><a href="#cb74-25" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor) <span class="co"># for tabyl() to create frequency tables</span></span>
+<span id="cb74-26"><a href="#cb74-26" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate) <span class="co"># for working with date variables</span></span>
+<span id="cb74-27"><a href="#cb74-27" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb74-28"><a href="#cb74-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-31"><a href="#cb74-31" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb74-32"><a href="#cb74-32" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb74-33"><a href="#cb74-33" aria-hidden="true" tabindex="-1"></a><span class="co"># Load libraries</span></span>
+<span id="cb74-34"><a href="#cb74-34" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse) <span class="co"># for data manipulation</span></span>
+<span id="cb74-35"><a href="#cb74-35" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(skimr) <span class="co"># for skim() to summarise datasets</span></span>
+<span id="cb74-36"><a href="#cb74-36" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(labelled) <span class="co"># for generate_dictionary() to view value labels </span></span>
+<span id="cb74-37"><a href="#cb74-37" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor) <span class="co"># for tabyl() to create frequency tables</span></span>
+<span id="cb74-38"><a href="#cb74-38" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate) <span class="co"># for working with date variables</span></span>
+<span id="cb74-39"><a href="#cb74-39" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb74-40"><a href="#cb74-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-41"><a href="#cb74-41" aria-hidden="true" tabindex="-1"></a>We have uploaded our file to Github, so you&#39;ll be able to import this file as below.</span>
+<span id="cb74-42"><a href="#cb74-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-45"><a href="#cb74-45" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb74-46"><a href="#cb74-46" aria-hidden="true" tabindex="-1"></a><span class="co"># Import data from Github ----</span></span>
+<span id="cb74-47"><a href="#cb74-47" aria-hidden="true" tabindex="-1"></a><span class="do">## Read in csv file</span></span>
+<span id="cb74-48"><a href="#cb74-48" aria-hidden="true" tabindex="-1"></a>tx_apdc_subset <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/NicoleDeLaMata/LinkedData/refs/heads/main/tx_apdc_subset.csv&quot;</span>)</span>
+<span id="cb74-49"><a href="#cb74-49" aria-hidden="true" tabindex="-1"></a>dth_subset <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/NicoleDeLaMata/LinkedData/refs/heads/main/dth_subset.csv&quot;</span>)</span>
+<span id="cb74-50"><a href="#cb74-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-51"><a href="#cb74-51" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb74-52"><a href="#cb74-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-53"><a href="#cb74-53" aria-hidden="true" tabindex="-1"></a>Alternatively, if you choose to download the file into your local computer. Depending on whether you use Mac or Windows, we recommend you set the folder path directory and import the file as below. You will need to change the folder locations from &quot;//shared.sydney.edu.au/research-data/PRJ-Linked_data_course&quot; for Windows or &quot;/Volumes/PRJ-Linked_data_course&quot; for Mac to your own file path. </span>
+<span id="cb74-54"><a href="#cb74-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-55"><a href="#cb74-55" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb74-56"><a href="#cb74-56" aria-hidden="true" tabindex="-1"></a><span class="co"># Define directories (folders)</span></span>
+<span id="cb74-57"><a href="#cb74-57" aria-hidden="true" tabindex="-1"></a>rds <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(<span class="fu">Sys.info</span>()[<span class="st">&quot;sysname&quot;</span>]<span class="sc">==</span><span class="st">&quot;Windows&quot;</span>, <span class="co"># Determine if using Windows or Mac</span></span>
+<span id="cb74-58"><a href="#cb74-58" aria-hidden="true" tabindex="-1"></a>              <span class="st">&quot;//shared.sydney.edu.au/research-data/PRJ-Linked_data_course&quot;</span>, <span class="co"># Windows</span></span>
+<span id="cb74-59"><a href="#cb74-59" aria-hidden="true" tabindex="-1"></a>              <span class="st">&quot;/Volumes/PRJ-Linked_data_course&quot;</span>) <span class="co"># Mac</span></span>
+<span id="cb74-60"><a href="#cb74-60" aria-hidden="true" tabindex="-1"></a>exceldataloc <span class="ot">&lt;-</span> <span class="fu">file.path</span>(rds, <span class="st">&quot;Orig_data_READ_ONLY/Excel files&quot;</span>)</span>
+<span id="cb74-61"><a href="#cb74-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-62"><a href="#cb74-62" aria-hidden="true" tabindex="-1"></a><span class="co"># Import data ----</span></span>
+<span id="cb74-63"><a href="#cb74-63" aria-hidden="true" tabindex="-1"></a>tx_apdc_subset <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="at">file =</span> <span class="fu">file.path</span>(exceldataloc, <span class="fu">paste0</span>(<span class="st">&quot;tx_apdc_subset&quot;</span>, <span class="st">&quot;.csv&quot;</span>)))</span>
+<span id="cb74-64"><a href="#cb74-64" aria-hidden="true" tabindex="-1"></a>dth_subset <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="at">file =</span> <span class="fu">file.path</span>(exceldataloc, <span class="fu">paste0</span>(<span class="st">&quot;dth_subset&quot;</span>, <span class="st">&quot;.csv&quot;</span>)))</span>
+<span id="cb74-65"><a href="#cb74-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-66"><a href="#cb74-66" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb74-67"><a href="#cb74-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-68"><a href="#cb74-68" aria-hidden="true" tabindex="-1"></a><span class="fu">## Question 1</span></span>
+<span id="cb74-69"><a href="#cb74-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-70"><a href="#cb74-70" aria-hidden="true" tabindex="-1"></a>Contents for the APDC hospitalisations data (**tx_apdc_subset**).</span>
+<span id="cb74-71"><a href="#cb74-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-72"><a href="#cb74-72" aria-hidden="true" tabindex="-1"></a>Using the following R code:</span>
+<span id="cb74-73"><a href="#cb74-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-76"><a href="#cb74-76" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb74-77"><a href="#cb74-77" aria-hidden="true" tabindex="-1"></a><span class="do">## tx_apdc_subset</span></span>
+<span id="cb74-78"><a href="#cb74-78" aria-hidden="true" tabindex="-1"></a><span class="do">### Print the dataset to screen </span></span>
+<span id="cb74-79"><a href="#cb74-79" aria-hidden="true" tabindex="-1"></a><span class="do">### (by default, a tibble will show the first 10 rows and however many columns fit on screen)</span></span>
+<span id="cb74-80"><a href="#cb74-80" aria-hidden="true" tabindex="-1"></a>tx_apdc_subset</span>
+<span id="cb74-81"><a href="#cb74-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-82"><a href="#cb74-82" aria-hidden="true" tabindex="-1"></a><span class="do">### View full dataset in a separate tab</span></span>
+<span id="cb74-83"><a href="#cb74-83" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(tx_apdc_subset)</span>
+<span id="cb74-84"><a href="#cb74-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-85"><a href="#cb74-85" aria-hidden="true" tabindex="-1"></a><span class="do">### Summary of each variable</span></span>
+<span id="cb74-86"><a href="#cb74-86" aria-hidden="true" tabindex="-1"></a><span class="fu">skim</span>(tx_apdc_subset)</span>
+<span id="cb74-87"><a href="#cb74-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-88"><a href="#cb74-88" aria-hidden="true" tabindex="-1"></a><span class="do">### Check labelling of coded variables</span></span>
+<span id="cb74-89"><a href="#cb74-89" aria-hidden="true" tabindex="-1"></a>tx_apdc_subset <span class="sc">%&gt;%</span> <span class="fu">generate_dictionary</span>()</span>
+<span id="cb74-90"><a href="#cb74-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-91"><a href="#cb74-91" aria-hidden="true" tabindex="-1"></a><span class="do">### Check variables with name containing the word &#39;date&#39;</span></span>
+<span id="cb74-92"><a href="#cb74-92" aria-hidden="true" tabindex="-1"></a>tx_apdc_subset <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="fu">contains</span>(<span class="st">&quot;date&quot;</span>))</span>
+<span id="cb74-93"><a href="#cb74-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-94"><a href="#cb74-94" aria-hidden="true" tabindex="-1"></a><span class="do">### Check for duplicate rows</span></span>
+<span id="cb74-95"><a href="#cb74-95" aria-hidden="true" tabindex="-1"></a>tx_apdc_subset <span class="sc">%&gt;%</span> <span class="fu">distinct</span>()</span>
+<span id="cb74-96"><a href="#cb74-96" aria-hidden="true" tabindex="-1"></a>tx_apdc_subset <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="fu">duplicated</span>(.))</span>
+<span id="cb74-97"><a href="#cb74-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-98"><a href="#cb74-98" aria-hidden="true" tabindex="-1"></a><span class="do">### Count number of individuals</span></span>
+<span id="cb74-99"><a href="#cb74-99" aria-hidden="true" tabindex="-1"></a>tx_apdc_subset <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(ppn)</span>
+<span id="cb74-100"><a href="#cb74-100" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb74-101"><a href="#cb74-101" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-102"><a href="#cb74-102" aria-hidden="true" tabindex="-1"></a>***In summary for tx_apdc_subset,***</span>
+<span id="cb74-103"><a href="#cb74-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-104"><a href="#cb74-104" aria-hidden="true" tabindex="-1"></a>A.  How many records (rows) are there?\</span>
+<span id="cb74-105"><a href="#cb74-105" aria-hidden="true" tabindex="-1"></a>    <span class="co">[</span><span class="ot">145 records</span><span class="co">]</span>{style=&quot;color:red;&quot;}</span>
+<span id="cb74-106"><a href="#cb74-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-107"><a href="#cb74-107" aria-hidden="true" tabindex="-1"></a>B.  What is the unit or level of each record? That is, what does each observation/row represent. Is it one row per person or per something else?\</span>
+<span id="cb74-108"><a href="#cb74-108" aria-hidden="true" tabindex="-1"></a>    <span class="co">[</span><span class="ot">Each row represents a hospitalisation episode of care for one patient undergoing a kidney transplant</span><span class="co">]</span>{style=&quot;color:red;&quot;}</span>
+<span id="cb74-109"><a href="#cb74-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-110"><a href="#cb74-110" aria-hidden="true" tabindex="-1"></a>C.  Which is the ID variable? How has this been stored?\</span>
+<span id="cb74-111"><a href="#cb74-111" aria-hidden="true" tabindex="-1"></a>    <span class="co">[</span><span class="ot">&#39;ppn&#39; uniquely identifies each person. It is stored as a character string.</span><span class="co">]</span>{style=&quot;color:red;&quot;}</span>
+<span id="cb74-112"><a href="#cb74-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-113"><a href="#cb74-113" aria-hidden="true" tabindex="-1"></a>D.  Which variables are dates? Have these been formatted appropriately?\</span>
+<span id="cb74-114"><a href="#cb74-114" aria-hidden="true" tabindex="-1"></a>    <span class="co">[</span><span class="ot">&#39;episode_start_date&#39; and &#39;episode_end_date&#39; are date variables. They are both stored as characters so will need to be converted to dates.</span><span class="co">]</span>{style=&quot;color:red;&quot;}</span>
+<span id="cb74-115"><a href="#cb74-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-118"><a href="#cb74-118" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb74-119"><a href="#cb74-119" aria-hidden="true" tabindex="-1"></a><span class="do">### Reformat dates</span></span>
+<span id="cb74-120"><a href="#cb74-120" aria-hidden="true" tabindex="-1"></a>tx_apdc_subset <span class="ot">&lt;-</span> tx_apdc_subset <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">episode_start_date =</span> <span class="fu">as.Date</span>(episode_start_date, <span class="at">format =</span> <span class="st">&quot;%d%b%Y&quot;</span>),</span>
+<span id="cb74-121"><a href="#cb74-121" aria-hidden="true" tabindex="-1"></a><span class="at">episode_end_date =</span> <span class="fu">as.Date</span>(episode_end_date, <span class="at">format =</span> <span class="st">&quot;%d%b%Y&quot;</span>))</span>
+<span id="cb74-122"><a href="#cb74-122" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-123"><a href="#cb74-123" aria-hidden="true" tabindex="-1"></a><span class="do">### Re-check variable formatting with name containing the word &#39;date&#39;</span></span>
+<span id="cb74-124"><a href="#cb74-124" aria-hidden="true" tabindex="-1"></a>tx_apdc_subset <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="fu">contains</span>(<span class="st">&quot;date&quot;</span>))</span>
+<span id="cb74-125"><a href="#cb74-125" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb74-126"><a href="#cb74-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-127"><a href="#cb74-127" aria-hidden="true" tabindex="-1"></a>E.  Which variables are continuous? How have these been formatted?\</span>
+<span id="cb74-128"><a href="#cb74-128" aria-hidden="true" tabindex="-1"></a>    <span class="co">[</span><span class="ot">There are 26 variables that are numeric. These include &#39;age_recode&#39;, &#39;facility_identifier_recode&#39;, &#39;episode_length_of_stay&#39;, &#39;mode_of_separation_recode&#39;, &#39;SA2_2016_code&#39;, &#39;sex&#39;, &#39;procedure_codeP&#39; and &#39;procedure_code1&#39; until &#39;procedure_code19&#39;.</span><span class="co">]</span>{style=&quot;color:red;&quot;}</span>
+<span id="cb74-129"><a href="#cb74-129" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-130"><a href="#cb74-130" aria-hidden="true" tabindex="-1"></a>F.  Which variables should be categorical variables? How have these been stored? Have any of these variables been formatted or labelled? (Optional: consider labelling variables as appropriate)\</span>
+<span id="cb74-131"><a href="#cb74-131" aria-hidden="true" tabindex="-1"></a>    <span class="co">[</span><span class="ot">We should have &#39;sex&#39; and &#39;mode_of_separation_recode&#39; stored as categorical. Coding for labelling is provided below.</span><span class="co">]</span>{style=&quot;color:red;&quot;}</span>
+<span id="cb74-132"><a href="#cb74-132" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-135"><a href="#cb74-135" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb74-136"><a href="#cb74-136" aria-hidden="true" tabindex="-1"></a><span class="do">## Check sex variable values</span></span>
+<span id="cb74-137"><a href="#cb74-137" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(tx_apdc_subset<span class="sc">$</span>sex)</span>
+<span id="cb74-138"><a href="#cb74-138" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-139"><a href="#cb74-139" aria-hidden="true" tabindex="-1"></a><span class="do">### Labelling sex variable</span></span>
+<span id="cb74-140"><a href="#cb74-140" aria-hidden="true" tabindex="-1"></a>tx_apdc_subset<span class="sc">$</span>sex <span class="ot">&lt;-</span> <span class="fu">factor</span>(tx_apdc_subset<span class="sc">$</span>sex,</span>
+<span id="cb74-141"><a href="#cb74-141" aria-hidden="true" tabindex="-1"></a><span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>),</span>
+<span id="cb74-142"><a href="#cb74-142" aria-hidden="true" tabindex="-1"></a><span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Male&quot;</span>, <span class="st">&quot;Female&quot;</span>))</span>
+<span id="cb74-143"><a href="#cb74-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-144"><a href="#cb74-144" aria-hidden="true" tabindex="-1"></a><span class="do">## Re-check sex variable values</span></span>
+<span id="cb74-145"><a href="#cb74-145" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(tx_apdc_subset<span class="sc">$</span>sex)</span>
+<span id="cb74-146"><a href="#cb74-146" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-147"><a href="#cb74-147" aria-hidden="true" tabindex="-1"></a><span class="do">## Check mode of separation variable values</span></span>
+<span id="cb74-148"><a href="#cb74-148" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(tx_apdc_subset<span class="sc">$</span>mode_of_separation_recode)</span>
+<span id="cb74-149"><a href="#cb74-149" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-150"><a href="#cb74-150" aria-hidden="true" tabindex="-1"></a><span class="do">### Labelling mode_of_separation_recode variable</span></span>
+<span id="cb74-151"><a href="#cb74-151" aria-hidden="true" tabindex="-1"></a>tx_apdc_subset<span class="sc">$</span>mode_of_separation_recode <span class="ot">&lt;-</span> <span class="fu">factor</span>(tx_apdc_subset<span class="sc">$</span>mode_of_separation_recode,</span>
+<span id="cb74-152"><a href="#cb74-152" aria-hidden="true" tabindex="-1"></a><span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">7</span>),</span>
+<span id="cb74-153"><a href="#cb74-153" aria-hidden="true" tabindex="-1"></a><span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Discharge by hospital&quot;</span>, <span class="st">&quot;Transfer to other hospital&quot;</span>, <span class="st">&quot;Death without autopsy&quot;</span>))</span>
+<span id="cb74-154"><a href="#cb74-154" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-155"><a href="#cb74-155" aria-hidden="true" tabindex="-1"></a><span class="do">## Re-check mode_of_separation_recode variable values</span></span>
+<span id="cb74-156"><a href="#cb74-156" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(tx_apdc_subset<span class="sc">$</span>mode_of_separation_recode)</span>
+<span id="cb74-157"><a href="#cb74-157" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb74-158"><a href="#cb74-158" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-159"><a href="#cb74-159" aria-hidden="true" tabindex="-1"></a>G.  Check for any identical or duplicates rows. <span class="co">[</span><span class="ot">There are no duplicated or identical rows.</span><span class="co">]</span>{style=&quot;color:red;&quot;}</span>
+<span id="cb74-160"><a href="#cb74-160" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-161"><a href="#cb74-161" aria-hidden="true" tabindex="-1"></a>H.  Determine the number of individuals. <span class="co">[</span><span class="ot">There are 145 individuals in the dataset</span><span class="co">]</span>{style=&quot;color:red;&quot;}</span>
+<span id="cb74-162"><a href="#cb74-162" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-163"><a href="#cb74-163" aria-hidden="true" tabindex="-1"></a>Contents for the deaths data (**dth_subset**).</span>
+<span id="cb74-164"><a href="#cb74-164" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-165"><a href="#cb74-165" aria-hidden="true" tabindex="-1"></a>Using the following R code:</span>
+<span id="cb74-166"><a href="#cb74-166" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-169"><a href="#cb74-169" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb74-170"><a href="#cb74-170" aria-hidden="true" tabindex="-1"></a><span class="do">## dth_subset</span></span>
+<span id="cb74-171"><a href="#cb74-171" aria-hidden="true" tabindex="-1"></a><span class="do">### Print the dataset to screen </span></span>
+<span id="cb74-172"><a href="#cb74-172" aria-hidden="true" tabindex="-1"></a><span class="do">### (by default, a tibble will show the first 10 rows and however many columns fit on screen)</span></span>
+<span id="cb74-173"><a href="#cb74-173" aria-hidden="true" tabindex="-1"></a>dth_subset</span>
+<span id="cb74-174"><a href="#cb74-174" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-175"><a href="#cb74-175" aria-hidden="true" tabindex="-1"></a><span class="do">### View full dataset in a separate tab</span></span>
+<span id="cb74-176"><a href="#cb74-176" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(dth_subset)</span>
+<span id="cb74-177"><a href="#cb74-177" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-178"><a href="#cb74-178" aria-hidden="true" tabindex="-1"></a><span class="do">### Summary of each variable</span></span>
+<span id="cb74-179"><a href="#cb74-179" aria-hidden="true" tabindex="-1"></a><span class="fu">skim</span>(dth_subset)</span>
+<span id="cb74-180"><a href="#cb74-180" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-181"><a href="#cb74-181" aria-hidden="true" tabindex="-1"></a><span class="do">### Check labelling of coded variables</span></span>
+<span id="cb74-182"><a href="#cb74-182" aria-hidden="true" tabindex="-1"></a>dth_subset <span class="sc">%&gt;%</span> <span class="fu">generate_dictionary</span>()</span>
+<span id="cb74-183"><a href="#cb74-183" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-184"><a href="#cb74-184" aria-hidden="true" tabindex="-1"></a><span class="do">### Check variables with name containing the word &#39;date&#39;</span></span>
+<span id="cb74-185"><a href="#cb74-185" aria-hidden="true" tabindex="-1"></a>dth_subset <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="fu">contains</span>(<span class="st">&quot;date&quot;</span>))</span>
+<span id="cb74-186"><a href="#cb74-186" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-187"><a href="#cb74-187" aria-hidden="true" tabindex="-1"></a><span class="do">### Check for duplicate rows</span></span>
+<span id="cb74-188"><a href="#cb74-188" aria-hidden="true" tabindex="-1"></a>dth_subset <span class="sc">%&gt;%</span> <span class="fu">distinct</span>()</span>
+<span id="cb74-189"><a href="#cb74-189" aria-hidden="true" tabindex="-1"></a>dth_subset <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="fu">duplicated</span>(.))</span>
+<span id="cb74-190"><a href="#cb74-190" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-191"><a href="#cb74-191" aria-hidden="true" tabindex="-1"></a><span class="do">### Count number of individuals</span></span>
+<span id="cb74-192"><a href="#cb74-192" aria-hidden="true" tabindex="-1"></a>dth_subset <span class="sc">%&gt;%</span> <span class="fu">count</span>(ppn)</span>
+<span id="cb74-193"><a href="#cb74-193" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb74-194"><a href="#cb74-194" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-195"><a href="#cb74-195" aria-hidden="true" tabindex="-1"></a>***In summary for dth_subset,***</span>
+<span id="cb74-196"><a href="#cb74-196" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-197"><a href="#cb74-197" aria-hidden="true" tabindex="-1"></a>A.  How many records (rows) are there?\</span>
+<span id="cb74-198"><a href="#cb74-198" aria-hidden="true" tabindex="-1"></a>    <span class="co">[</span><span class="ot">67 records</span><span class="co">]</span>{style=&quot;color:red;&quot;}</span>
+<span id="cb74-199"><a href="#cb74-199" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-200"><a href="#cb74-200" aria-hidden="true" tabindex="-1"></a>B.  What is the unit or level of each record? That is, what does each observation/row represent. Is it one row per person or per something else?\</span>
+<span id="cb74-201"><a href="#cb74-201" aria-hidden="true" tabindex="-1"></a>    <span class="co">[</span><span class="ot">Each row represents a death record that should be unique to each person.</span><span class="co">]</span>{style=&quot;color:red;&quot;}</span>
+<span id="cb74-202"><a href="#cb74-202" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-203"><a href="#cb74-203" aria-hidden="true" tabindex="-1"></a>C.  Which is the ID variable? How has this been stored?\</span>
+<span id="cb74-204"><a href="#cb74-204" aria-hidden="true" tabindex="-1"></a>    <span class="co">[</span><span class="ot">&#39;ppn&#39; uniquely identifies each person. It is stored as a character string.</span><span class="co">]</span>{style=&quot;color:red;&quot;}</span>
+<span id="cb74-205"><a href="#cb74-205" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-206"><a href="#cb74-206" aria-hidden="true" tabindex="-1"></a>D.  Which variables are dates? Have these been formatted appropriately?\</span>
+<span id="cb74-207"><a href="#cb74-207" aria-hidden="true" tabindex="-1"></a>    <span class="co">[</span><span class="ot">&#39;death_date&#39; is the only date variables. This is stored as a character and needs to be converted to dates.</span><span class="co">]</span>{style=&quot;color:red;&quot;}</span>
+<span id="cb74-208"><a href="#cb74-208" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-211"><a href="#cb74-211" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb74-212"><a href="#cb74-212" aria-hidden="true" tabindex="-1"></a><span class="do">### Reformat dates</span></span>
+<span id="cb74-213"><a href="#cb74-213" aria-hidden="true" tabindex="-1"></a>dth_subset <span class="ot">&lt;-</span> dth_subset <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">death_date =</span> <span class="fu">as.Date</span>(death_date, <span class="at">format =</span> <span class="st">&quot;%d%b%Y&quot;</span>))</span>
+<span id="cb74-214"><a href="#cb74-214" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-215"><a href="#cb74-215" aria-hidden="true" tabindex="-1"></a><span class="do">### Re-check variable formatting with name containing the word &#39;date&#39;</span></span>
+<span id="cb74-216"><a href="#cb74-216" aria-hidden="true" tabindex="-1"></a>dth_subset <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="fu">contains</span>(<span class="st">&quot;date&quot;</span>))</span>
+<span id="cb74-217"><a href="#cb74-217" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb74-218"><a href="#cb74-218" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-219"><a href="#cb74-219" aria-hidden="true" tabindex="-1"></a>E.  Which variables are continuous? How have these been formatted?\</span>
+<span id="cb74-220"><a href="#cb74-220" aria-hidden="true" tabindex="-1"></a>    <span class="co">[</span><span class="ot">There are 2 variables that are numeric. These include &#39;age_recode&#39; and &#39;sex&#39;.</span><span class="co">]</span>{style=&quot;color:red;&quot;}</span>
+<span id="cb74-221"><a href="#cb74-221" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-222"><a href="#cb74-222" aria-hidden="true" tabindex="-1"></a>F.  Which variables should be categorical variables? How have these been stored? Have any of these variables been formatted or labelled? (Optional: consider labelling variables as appropriate)\</span>
+<span id="cb74-223"><a href="#cb74-223" aria-hidden="true" tabindex="-1"></a>    <span class="co">[</span><span class="ot">We should have &#39;sex&#39; stored as categorical. Coding for labelling is provided below. There are also 6 logical variables (racs3-racs8) that have occurred due to blank cells in all columns.</span><span class="co">]</span>{style=&quot;color:red;&quot;}</span>
+<span id="cb74-224"><a href="#cb74-224" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-227"><a href="#cb74-227" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb74-228"><a href="#cb74-228" aria-hidden="true" tabindex="-1"></a><span class="do">## Check sex variable values</span></span>
+<span id="cb74-229"><a href="#cb74-229" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(dth_subset<span class="sc">$</span>sex)</span>
+<span id="cb74-230"><a href="#cb74-230" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-231"><a href="#cb74-231" aria-hidden="true" tabindex="-1"></a><span class="do">### Labelling sex variable</span></span>
+<span id="cb74-232"><a href="#cb74-232" aria-hidden="true" tabindex="-1"></a>dth_subset<span class="sc">$</span>sex <span class="ot">&lt;-</span> <span class="fu">factor</span>(dth_subset<span class="sc">$</span>sex,</span>
+<span id="cb74-233"><a href="#cb74-233" aria-hidden="true" tabindex="-1"></a><span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>),</span>
+<span id="cb74-234"><a href="#cb74-234" aria-hidden="true" tabindex="-1"></a><span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Male&quot;</span>, <span class="st">&quot;Female&quot;</span>))</span>
+<span id="cb74-235"><a href="#cb74-235" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-236"><a href="#cb74-236" aria-hidden="true" tabindex="-1"></a><span class="do">## Re-check sex variable values</span></span>
+<span id="cb74-237"><a href="#cb74-237" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(dth_subset<span class="sc">$</span>sex)</span>
+<span id="cb74-238"><a href="#cb74-238" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb74-239"><a href="#cb74-239" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-240"><a href="#cb74-240" aria-hidden="true" tabindex="-1"></a>G.  Check for any identical or duplicates rows.\</span>
+<span id="cb74-241"><a href="#cb74-241" aria-hidden="true" tabindex="-1"></a>    <span class="co">[</span><span class="ot">There are 3 duplicated or identical rows. These should be reviewed and possibly removed</span><span class="co">]</span>{style=&quot;color:red;&quot;}</span>
+<span id="cb74-242"><a href="#cb74-242" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-243"><a href="#cb74-243" aria-hidden="true" tabindex="-1"></a>H.  Determine the number of individuals.\</span>
+<span id="cb74-244"><a href="#cb74-244" aria-hidden="true" tabindex="-1"></a>    <span class="co">[</span><span class="ot">There are 63 individuals in the dataset, suggesting errors due to duplicated death records.</span><span class="co">]</span>{style=&quot;color:red;&quot;}</span>
+<span id="cb74-245"><a href="#cb74-245" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-246"><a href="#cb74-246" aria-hidden="true" tabindex="-1"></a><span class="fu">## Question 2</span></span>
+<span id="cb74-247"><a href="#cb74-247" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-248"><a href="#cb74-248" aria-hidden="true" tabindex="-1"></a>Compare the variables with common names across the datasets. If needed, rename and/or change how a variable is stored.</span>
+<span id="cb74-249"><a href="#cb74-249" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-252"><a href="#cb74-252" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb74-253"><a href="#cb74-253" aria-hidden="true" tabindex="-1"></a><span class="do">## Check for variables with same name in both datasets</span></span>
+<span id="cb74-254"><a href="#cb74-254" aria-hidden="true" tabindex="-1"></a><span class="fu">compare_df_cols</span>(tx_apdc_subset, dth_subset) <span class="sc">%&gt;%</span> </span>
+<span id="cb74-255"><a href="#cb74-255" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb74-256"><a href="#cb74-256" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(tx_apdc_subset) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(dth_subset))</span>
+<span id="cb74-257"><a href="#cb74-257" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb74-258"><a href="#cb74-258" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-259"><a href="#cb74-259" aria-hidden="true" tabindex="-1"></a>We see that ppn variable is the same, which won&#39;t cause any issues. We also see that sex and age_recode is the same between the datasets. Let&#39;s rename both of these to retain them and cross-check if we need to.</span>
+<span id="cb74-260"><a href="#cb74-260" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-263"><a href="#cb74-263" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb74-264"><a href="#cb74-264" aria-hidden="true" tabindex="-1"></a><span class="do">## Rename age variable in each dataset</span></span>
+<span id="cb74-265"><a href="#cb74-265" aria-hidden="true" tabindex="-1"></a>tx_apdc_subset <span class="ot">&lt;-</span> tx_apdc_subset <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">age_hosp =</span> age_recode, <span class="at">sex_hosp =</span> sex)</span>
+<span id="cb74-266"><a href="#cb74-266" aria-hidden="true" tabindex="-1"></a>dth_subset <span class="ot">&lt;-</span> dth_subset <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">age_dth =</span> age_recode, <span class="at">sex_dth =</span> sex) </span>
+<span id="cb74-267"><a href="#cb74-267" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-268"><a href="#cb74-268" aria-hidden="true" tabindex="-1"></a><span class="do">##Check rename has worked</span></span>
+<span id="cb74-269"><a href="#cb74-269" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(tx_apdc_subset)</span>
+<span id="cb74-270"><a href="#cb74-270" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(dth_subset)</span>
+<span id="cb74-271"><a href="#cb74-271" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-272"><a href="#cb74-272" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb74-273"><a href="#cb74-273" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-274"><a href="#cb74-274" aria-hidden="true" tabindex="-1"></a><span class="fu">## Question 3</span></span>
+<span id="cb74-275"><a href="#cb74-275" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-276"><a href="#cb74-276" aria-hidden="true" tabindex="-1"></a>Write code to determine which individuals have multiple death dates. Record their ID. Examine the hospitalisation data for these individuals.</span>
+<span id="cb74-277"><a href="#cb74-277" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-278"><a href="#cb74-278" aria-hidden="true" tabindex="-1"></a>Can we conclude which record is most appropriate to retain? If so, remove the incorrect death dates from the death dataset. If not, remove all individuals with duplicated records from both **tx_apdc_subset** and **dth_subset**.</span>
+<span id="cb74-279"><a href="#cb74-279" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-282"><a href="#cb74-282" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb74-283"><a href="#cb74-283" aria-hidden="true" tabindex="-1"></a><span class="do">## View all records in dth_subset for individuals with more than 1 record</span></span>
+<span id="cb74-284"><a href="#cb74-284" aria-hidden="true" tabindex="-1"></a>dth_subset <span class="sc">%&gt;%</span></span>
+<span id="cb74-285"><a href="#cb74-285" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(ppn) <span class="sc">%&gt;%</span></span>
+<span id="cb74-286"><a href="#cb74-286" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">n</span>() <span class="sc">&gt;</span> <span class="dv">1</span>)</span>
+<span id="cb74-287"><a href="#cb74-287" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb74-288"><a href="#cb74-288" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-289"><a href="#cb74-289" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">There are four individuals with two death records. For three of the four, the death records are identical duplicates so we can simply remove the duplicated records. For PPN kxR9rzL6oR2, there are two separate death dates that are one year apart. Let&#39;s cross check with the hospital records.</span><span class="co">]</span>{style=&quot;color:red;&quot;}</span>
+<span id="cb74-290"><a href="#cb74-290" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-293"><a href="#cb74-293" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb74-294"><a href="#cb74-294" aria-hidden="true" tabindex="-1"></a><span class="do">## View all hospitalisation records for selected ppns as above</span></span>
+<span id="cb74-295"><a href="#cb74-295" aria-hidden="true" tabindex="-1"></a>tx_apdc_subset <span class="sc">%&gt;%</span></span>
+<span id="cb74-296"><a href="#cb74-296" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(ppn <span class="sc">==</span> <span class="st">&quot;kxR9rzL6oR2&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb74-297"><a href="#cb74-297" aria-hidden="true" tabindex="-1"></a>  <span class="fu">View</span>()</span>
+<span id="cb74-298"><a href="#cb74-298" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb74-299"><a href="#cb74-299" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-300"><a href="#cb74-300" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">For PPN kxR9rzL6oR2, that had a hospitalisation directly preceding their latest death date. So, we can sensibly assume that the death record with death date in 2003 was incorrect. Let&#39;s remove this record and the duplicated records from the death data.</span><span class="co">]</span>{style=&quot;color:red;&quot;}</span>
+<span id="cb74-301"><a href="#cb74-301" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-304"><a href="#cb74-304" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb74-305"><a href="#cb74-305" aria-hidden="true" tabindex="-1"></a><span class="do">## From death data, remove exact duplicates and keep 2004 record for PPN kxR9rzL6oR2</span></span>
+<span id="cb74-306"><a href="#cb74-306" aria-hidden="true" tabindex="-1"></a>dth_subset <span class="ot">&lt;-</span> dth_subset <span class="sc">%&gt;%</span></span>
+<span id="cb74-307"><a href="#cb74-307" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>(ppn <span class="sc">==</span> <span class="st">&quot;kxR9rzL6oR2&quot;</span> <span class="sc">&amp;</span> death_date <span class="sc">==</span> <span class="fu">as.Date</span>(<span class="st">&#39;2003-12-26&#39;</span>))) <span class="sc">%&gt;%</span> </span>
+<span id="cb74-308"><a href="#cb74-308" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>()</span>
+<span id="cb74-309"><a href="#cb74-309" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb74-310"><a href="#cb74-310" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-311"><a href="#cb74-311" aria-hidden="true" tabindex="-1"></a><span class="fu">## Question 4</span></span>
+<span id="cb74-312"><a href="#cb74-312" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-313"><a href="#cb74-313" aria-hidden="true" tabindex="-1"></a>Sort the **tx_apdc_subset** and **dth_subset data** by the appropriate variables and merge them together. Check for any errors or warning messages.</span>
+<span id="cb74-314"><a href="#cb74-314" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-317"><a href="#cb74-317" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb74-318"><a href="#cb74-318" aria-hidden="true" tabindex="-1"></a><span class="do">## Sort datasets by PPN (and episode start and end date for hospitalisations)</span></span>
+<span id="cb74-319"><a href="#cb74-319" aria-hidden="true" tabindex="-1"></a>tx_apdc_subset <span class="ot">&lt;-</span> tx_apdc_subset <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(ppn, episode_start_date, episode_end_date)</span>
+<span id="cb74-320"><a href="#cb74-320" aria-hidden="true" tabindex="-1"></a>dth_subset <span class="ot">&lt;-</span> dth_subset <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(ppn)</span>
+<span id="cb74-321"><a href="#cb74-321" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-322"><a href="#cb74-322" aria-hidden="true" tabindex="-1"></a><span class="do">## Merge datasets together</span></span>
+<span id="cb74-323"><a href="#cb74-323" aria-hidden="true" tabindex="-1"></a>merged_data <span class="ot">&lt;-</span> <span class="fu">full_join</span>(tx_apdc_subset <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">in_apdc =</span> <span class="dv">1</span>), <span class="co"># Create a flag for whether merged record was from tx_apdc_subset</span></span>
+<span id="cb74-324"><a href="#cb74-324" aria-hidden="true" tabindex="-1"></a>                         dth_subset <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">in_dth =</span> <span class="dv">1</span>)) <span class="co"># Create a flag for whether merged record was from dth_subset</span></span>
+<span id="cb74-325"><a href="#cb74-325" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb74-326"><a href="#cb74-326" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-327"><a href="#cb74-327" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">We have successfully merged the files today and can now look at running some checks.</span><span class="co">]</span>{style=&quot;color:red;&quot;}</span>
+<span id="cb74-328"><a href="#cb74-328" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-331"><a href="#cb74-331" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb74-332"><a href="#cb74-332" aria-hidden="true" tabindex="-1"></a><span class="do">## Summarise records that were linked</span></span>
+<span id="cb74-333"><a href="#cb74-333" aria-hidden="true" tabindex="-1"></a>merged_data <span class="sc">%&gt;%</span> <span class="fu">tabyl</span>(in_apdc, in_dth)</span>
+<span id="cb74-334"><a href="#cb74-334" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-335"><a href="#cb74-335" aria-hidden="true" tabindex="-1"></a><span class="do">## Count number of deaths without corresponding hospital records</span></span>
+<span id="cb74-336"><a href="#cb74-336" aria-hidden="true" tabindex="-1"></a>merged_data <span class="sc">%&gt;%</span> <span class="fu">filter</span>(in_dth <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;</span> <span class="fu">is.na</span>(in_apdc)) <span class="sc">%&gt;%</span>  <span class="fu">nrow</span>()</span>
+<span id="cb74-337"><a href="#cb74-337" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-338"><a href="#cb74-338" aria-hidden="true" tabindex="-1"></a><span class="do">## Count number of hospitalisations without corresponding death records</span></span>
+<span id="cb74-339"><a href="#cb74-339" aria-hidden="true" tabindex="-1"></a><span class="do">### Records</span></span>
+<span id="cb74-340"><a href="#cb74-340" aria-hidden="true" tabindex="-1"></a>merged_data <span class="sc">%&gt;%</span> </span>
+<span id="cb74-341"><a href="#cb74-341" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(in_apdc <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;</span> <span class="fu">is.na</span>(in_dth)) <span class="sc">%&gt;%</span> </span>
+<span id="cb74-342"><a href="#cb74-342" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nrow</span>()</span>
+<span id="cb74-343"><a href="#cb74-343" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-344"><a href="#cb74-344" aria-hidden="true" tabindex="-1"></a><span class="do">### Individuals</span></span>
+<span id="cb74-345"><a href="#cb74-345" aria-hidden="true" tabindex="-1"></a>merged_data <span class="sc">%&gt;%</span> </span>
+<span id="cb74-346"><a href="#cb74-346" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(in_apdc <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;</span> <span class="fu">is.na</span>(in_dth)) <span class="sc">%&gt;%</span> </span>
+<span id="cb74-347"><a href="#cb74-347" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(ppn) <span class="sc">%&gt;%</span></span>
+<span id="cb74-348"><a href="#cb74-348" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb74-349"><a href="#cb74-349" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nrow</span>() <span class="co"># Individuals</span></span>
+<span id="cb74-350"><a href="#cb74-350" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-351"><a href="#cb74-351" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb74-352"><a href="#cb74-352" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-353"><a href="#cb74-353" aria-hidden="true" tabindex="-1"></a>Using a cross tabulation, determine:</span>
+<span id="cb74-354"><a href="#cb74-354" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-355"><a href="#cb74-355" aria-hidden="true" tabindex="-1"></a>A.  Number of records that have been linked.\</span>
+<span id="cb74-356"><a href="#cb74-356" aria-hidden="true" tabindex="-1"></a>    <span class="co">[</span><span class="ot">There were 48 records linked between APDC hospitalisations and death records.</span><span class="co">]</span>{style=&quot;color:red;&quot;}</span>
+<span id="cb74-357"><a href="#cb74-357" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-358"><a href="#cb74-358" aria-hidden="true" tabindex="-1"></a>B.  Number of deaths without corresponding hospitalisation records.\</span>
+<span id="cb74-359"><a href="#cb74-359" aria-hidden="true" tabindex="-1"></a>    <span class="co">[</span><span class="ot">There were 15 deaths without a corresponding APDC hospitalisation record.</span><span class="co">]</span>{style=&quot;color:red;&quot;}</span>
+<span id="cb74-360"><a href="#cb74-360" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-361"><a href="#cb74-361" aria-hidden="true" tabindex="-1"></a>C.  Number of hospitalisations with no death date linked.\</span>
+<span id="cb74-362"><a href="#cb74-362" aria-hidden="true" tabindex="-1"></a>    <span class="co">[</span><span class="ot">There were 97 APDC hospitalisations without a death record.</span><span class="co">]</span>{style=&quot;color:red;&quot;}</span>
+<span id="cb74-363"><a href="#cb74-363" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-364"><a href="#cb74-364" aria-hidden="true" tabindex="-1"></a>D.  List the possible reasons as to why not all records are linked.\</span>
+<span id="cb74-365"><a href="#cb74-365" aria-hidden="true" tabindex="-1"></a>    <span class="co">[</span><span class="ot">Records may not be linked if: a patient did not die, a patient died but was never admitted to hospital for a kidney transplant, or there were errors in our linkage (e.g. incorrect study cohort, incorrect ppn assigned).</span><span class="co">]</span>{style=&quot;color:red;&quot;}</span>
+<span id="cb74-366"><a href="#cb74-366" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-367"><a href="#cb74-367" aria-hidden="true" tabindex="-1"></a><span class="fu">## Question 5</span></span>
+<span id="cb74-368"><a href="#cb74-368" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-369"><a href="#cb74-369" aria-hidden="true" tabindex="-1"></a>Use the merged dataset to compare the age recorded in **tx_apdc_subset** and the age recorded in **dth_subset**. Are they consistent?</span>
+<span id="cb74-370"><a href="#cb74-370" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-373"><a href="#cb74-373" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb74-374"><a href="#cb74-374" aria-hidden="true" tabindex="-1"></a><span class="do">## Summarise age variables</span></span>
+<span id="cb74-375"><a href="#cb74-375" aria-hidden="true" tabindex="-1"></a>merged_data <span class="sc">%&gt;%</span></span>
+<span id="cb74-376"><a href="#cb74-376" aria-hidden="true" tabindex="-1"></a>  <span class="fu">skim</span>(age_hosp, age_dth)</span>
+<span id="cb74-377"><a href="#cb74-377" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-378"><a href="#cb74-378" aria-hidden="true" tabindex="-1"></a><span class="do">## View the dataset to manually check whether ages are consistent between datasets</span></span>
+<span id="cb74-379"><a href="#cb74-379" aria-hidden="true" tabindex="-1"></a>merged_data <span class="sc">%&gt;%</span> </span>
+<span id="cb74-380"><a href="#cb74-380" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(in_apdc <span class="sc">==</span> <span class="dv">1</span>, in_dth <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb74-381"><a href="#cb74-381" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(ppn, episode_start_date, age_hosp, death_date, age_dth) <span class="sc">%&gt;%</span></span>
+<span id="cb74-382"><a href="#cb74-382" aria-hidden="true" tabindex="-1"></a>  <span class="fu">View</span>()</span>
+<span id="cb74-383"><a href="#cb74-383" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-384"><a href="#cb74-384" aria-hidden="true" tabindex="-1"></a><span class="do">## Calculate time in years between death date and episode_start_date,</span></span>
+<span id="cb74-385"><a href="#cb74-385" aria-hidden="true" tabindex="-1"></a><span class="do">##  then add this to age at hospitalisation to estimate age at death,</span></span>
+<span id="cb74-386"><a href="#cb74-386" aria-hidden="true" tabindex="-1"></a><span class="do">##  then compare this against actual date of death to see if ages/dates align</span></span>
+<span id="cb74-387"><a href="#cb74-387" aria-hidden="true" tabindex="-1"></a>merged_data <span class="sc">%&gt;%</span></span>
+<span id="cb74-388"><a href="#cb74-388" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(in_apdc <span class="sc">==</span> <span class="dv">1</span>, in_dth <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb74-389"><a href="#cb74-389" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(ppn, episode_start_date, age_hosp, death_date, age_dth) <span class="sc">%&gt;%</span></span>
+<span id="cb74-390"><a href="#cb74-390" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">years_hosp_to_death =</span> <span class="fu">as.numeric</span>(death_date <span class="sc">-</span> episode_start_date) <span class="sc">/</span> <span class="fl">365.25</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb74-391"><a href="#cb74-391" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">estimated_age_dth =</span> age_hosp <span class="sc">+</span> years_hosp_to_death) <span class="sc">%&gt;%</span></span>
+<span id="cb74-392"><a href="#cb74-392" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(age_dth <span class="sc">!=</span> <span class="fu">floor</span>(estimated_age_dth)) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">age_diff=</span><span class="fu">abs</span>(estimated_age_dth<span class="sc">-</span>age_dth)) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(age_diff) <span class="sc">%&gt;%</span> <span class="fu">sort</span>()</span>
+<span id="cb74-393"><a href="#cb74-393" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb74-394"><a href="#cb74-394" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-395"><a href="#cb74-395" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Both age at hospitalisation and age at death are recorded as an integer, which makes it slightly easier to compare between the datasets but rounding can still cause issues. We also need to keep in mind that these ages may be recorded at different times, so a person&#39;s age would be expected to change between death and time of hospitalisation in these instances.</span><span class="co">]</span>{style=&quot;color:red;&quot;}</span>
+<span id="cb74-396"><a href="#cb74-396" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-397"><a href="#cb74-397" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Of the 48 patients with both APDC hospitalisation and death records, we see that there are differences in age for 23 patients. However, having a closer look the differences between the age at death and expected age at death using the APDC hospitalisation episode start date show very minor differences. These are only in the order of less than one and does not cause any major concern.</span><span class="co">]</span>{style=&quot;color:red;&quot;}</span>
+<span id="cb74-398"><a href="#cb74-398" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-399"><a href="#cb74-399" aria-hidden="true" tabindex="-1"></a><span class="fu">## Question 6</span></span>
+<span id="cb74-400"><a href="#cb74-400" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-401"><a href="#cb74-401" aria-hidden="true" tabindex="-1"></a>Which rows from the merged dataset could we drop if we wish to analyse the time between the last separation date and death?</span>
+<span id="cb74-402"><a href="#cb74-402" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-403"><a href="#cb74-403" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">To analyse time from last separation to death, we would need to include only those with any linked hospitalisation records, and only keep the last hospitalisation record for each person. We can keep everyone regardless of whether they had a linked death date, since some people may not have died.</span><span class="co">]</span>{style=&quot;color:red;&quot;}</span>
+<span id="cb74-404"><a href="#cb74-404" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-407"><a href="#cb74-407" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb74-408"><a href="#cb74-408" aria-hidden="true" tabindex="-1"></a><span class="do">##Drop rows for analysis of time between last separation and death ----</span></span>
+<span id="cb74-409"><a href="#cb74-409" aria-hidden="true" tabindex="-1"></a>analysis_data <span class="ot">&lt;-</span> merged_data <span class="sc">%&gt;%</span></span>
+<span id="cb74-410"><a href="#cb74-410" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(in_apdc <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb74-411"><a href="#cb74-411" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(ppn) <span class="sc">%&gt;%</span></span>
+<span id="cb74-412"><a href="#cb74-412" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">last_sep_date =</span> <span class="fu">max</span>(episode_end_date)) <span class="sc">%&gt;%</span></span>
+<span id="cb74-413"><a href="#cb74-413" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb74-414"><a href="#cb74-414" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(ppn, last_sep_date, death_date) <span class="sc">%&gt;%</span></span>
+<span id="cb74-415"><a href="#cb74-415" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>()</span>
+<span id="cb74-416"><a href="#cb74-416" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb74-417"><a href="#cb74-417" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-418"><a href="#cb74-418" aria-hidden="true" tabindex="-1"></a><span class="fu">## Question 7</span></span>
+<span id="cb74-419"><a href="#cb74-419" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-420"><a href="#cb74-420" aria-hidden="true" tabindex="-1"></a>Optional: Calculate the time (in days) between the last separation date and death. How many patients had died by the end of 2004? Summarise the number of deaths by year of last separation.</span>
+<span id="cb74-421"><a href="#cb74-421" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-424"><a href="#cb74-424" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb74-425"><a href="#cb74-425" aria-hidden="true" tabindex="-1"></a><span class="do">## Time (in days) between the last separation date and death</span></span>
+<span id="cb74-426"><a href="#cb74-426" aria-hidden="true" tabindex="-1"></a>analysis_data <span class="ot">&lt;-</span> analysis_data <span class="sc">%&gt;%</span></span>
+<span id="cb74-427"><a href="#cb74-427" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">days_to_death =</span> death_date <span class="sc">-</span> last_sep_date)</span>
+<span id="cb74-428"><a href="#cb74-428" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-429"><a href="#cb74-429" aria-hidden="true" tabindex="-1"></a><span class="do">## Summary of time from last separation and date of death</span></span>
+<span id="cb74-430"><a href="#cb74-430" aria-hidden="true" tabindex="-1"></a><span class="fu">skim</span>(analysis_data<span class="sc">$</span>days_to_death)</span>
+<span id="cb74-431"><a href="#cb74-431" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-432"><a href="#cb74-432" aria-hidden="true" tabindex="-1"></a><span class="do">## How many had died by end of 2004?</span></span>
+<span id="cb74-433"><a href="#cb74-433" aria-hidden="true" tabindex="-1"></a>analysis_data <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="fu">year</span>(death_date) <span class="sc">&lt;=</span> <span class="dv">2004</span>) <span class="sc">%&gt;%</span> <span class="fu">nrow</span>()</span>
+<span id="cb74-434"><a href="#cb74-434" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-435"><a href="#cb74-435" aria-hidden="true" tabindex="-1"></a><span class="do">## Summary of number of deaths by year of last separation</span></span>
+<span id="cb74-436"><a href="#cb74-436" aria-hidden="true" tabindex="-1"></a>analysis_data <span class="sc">%&gt;%</span>  </span>
+<span id="cb74-437"><a href="#cb74-437" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(death_date) <span class="sc">&amp;</span> <span class="fu">year</span>(death_date) <span class="sc">&lt;=</span> <span class="dv">2004</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb74-438"><a href="#cb74-438" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">yearsep =</span> <span class="fu">year</span>(last_sep_date)) <span class="sc">%&gt;%</span></span>
+<span id="cb74-439"><a href="#cb74-439" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tabyl</span>(yearsep)</span>
+<span id="cb74-440"><a href="#cb74-440" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-441"><a href="#cb74-441" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-442"><a href="#cb74-442" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb74-443"><a href="#cb74-443" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-444"><a href="#cb74-444" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">We have created the time between last separation date and death date. The median time was 4268 days or 11.7 years!</span><span class="co">]</span>{style=&quot;color:red;&quot;}</span>
+<span id="cb74-445"><a href="#cb74-445" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-446"><a href="#cb74-446" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">There were 16 patients who had died by the end of 2004. The split by year of last separation is given above.</span><span class="co">]</span>{style=&quot;color:red;&quot;}</span>
+</code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
