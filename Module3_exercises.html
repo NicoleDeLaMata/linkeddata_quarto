@@ -4176,7 +4176,9 @@ vertical-align: -.125em;
 <h2 class="anchored" data-anchor-id="part-two">PART TWO</h2>
 <p>The aim of the next part of the exercise is to identify transfers (including type changes) in APDC hospitalisations data for a subset of patients who had a kidney transplant. We will then obtain an accurate measure of their mean length of stay.<br>
 </p>
-<p>We will be using all APDC hospitalisations (<strong>apdc_subset.csv</strong>) for a subset of patients who underwent a kidney transplant, based on ICD-10-AM code Z94. Import the data and undertake usual data processing to ensure date and other variables are appropriately formatted. Refer to <a href="Module1_exercise_solutions.html">Module 1 exercise solutions</a>.</p>
+<p>We will be using all APDC hospitalisations (<strong>apdc_subset.csv</strong>) for a subset of patients who underwent a kidney transplant, based on ICD-10-AM code Z94.</p>
+<p>For PUBH5215 students, please use the RDS version of Module 3 data, available in the Module 3 folder. Use the ‘archive’ package and the password “mod3inR” to access the password-protected zip file <strong>apdc_subset.zip</strong>.</p>
+<p>For SHEED short course, import the data and undertake usual data processing to ensure date and other variables are appropriately formatted. Refer to <a href="Module1_exercise_solutions.html">Module 1 exercise solutions</a>.</p>
 </section>
 <section id="question-7" class="level2">
 <h2 class="anchored" data-anchor-id="question-7">Question 7</h2>
@@ -4783,68 +4785,72 @@ vertical-align: -.125em;
 <span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a>The aim of the next part of the exercise is to identify transfers (including type changes) in APDC hospitalisations data for a subset of patients who had a kidney transplant. We will then obtain an accurate measure of their mean length of stay.\</span>
 <span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a>We will be using all APDC hospitalisations (**apdc_subset.csv**) for a subset of patients who underwent a kidney transplant, based on ICD-10-AM code Z94. Import the data and undertake usual data processing to ensure date and other variables are appropriately formatted. Refer to <span class="co">[</span><span class="ot">Module 1 exercise solutions</span><span class="co">](Module1_exercise_solutions.html)</span>.</span>
+<span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a>We will be using all APDC hospitalisations (**apdc_subset.csv**) for a subset of patients who underwent a kidney transplant, based on ICD-10-AM code Z94.</span>
 <span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a><span class="fu">## Question 7</span></span>
+<span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a>For PUBH5215 students, please use the RDS version of Module 3 data, available in the Module 3 folder. Use the &#39;archive&#39; package and the password &quot;mod3inR&quot; to access the password-protected zip file **apdc_subset.zip**.</span>
 <span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a>Define how you would appropriately construct a study population with all the available hospitalisation data to determine length of stay for their kidney transplant admission. Consider what records should be included. What important assumptions have we made in constructing this study population?</span>
+<span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a>For SHEED short course, import the data and undertake usual data processing to ensure date and other variables are appropriately formatted. Refer to <span class="co">[</span><span class="ot">Module 1 exercise solutions</span><span class="co">](Module1_exercise_solutions.html)</span>.</span>
 <span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a><span class="fu">## Question 8</span></span>
+<span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a><span class="fu">## Question 7</span></span>
 <span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a>We will now demonstrate some examples of different scenarios where transfers for episodes of care may or may not be appropriate to group together into one hospital admission. Consider how the episode_start_date and episode_end_date for one observation overlap with the episode_start_date and episode_end_date for the subsequent observation, and appropriately determine whether this would be the same or a different hospital admission.</span>
+<span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a>Define how you would appropriately construct a study population with all the available hospitalisation data to determine length of stay for their kidney transplant admission. Consider what records should be included. What important assumptions have we made in constructing this study population?</span>
 <span id="cb2-85"><a href="#cb2-85" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a>A.  Looking at observations relating to ppn &quot;Ue/R3tAbxDO&quot; and year of separation = 2012. Which episodes of care have overlapping dates and how many total hospital admissions did this person have?</span>
+<span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a><span class="fu">## Question 8</span></span>
 <span id="cb2-87"><a href="#cb2-87" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-88"><a href="#cb2-88" aria-hidden="true" tabindex="-1"></a>B.  Looking at observations relating to ppn &quot;7339/kP/Dy2&quot; and year of separation = 2001. Which episodes of care have overlapping dates and how many total hospital admissions did this person have?</span>
+<span id="cb2-88"><a href="#cb2-88" aria-hidden="true" tabindex="-1"></a>We will now demonstrate some examples of different scenarios where transfers for episodes of care may or may not be appropriate to group together into one hospital admission. Consider how the episode_start_date and episode_end_date for one observation overlap with the episode_start_date and episode_end_date for the subsequent observation, and appropriately determine whether this would be the same or a different hospital admission.</span>
 <span id="cb2-89"><a href="#cb2-89" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-90"><a href="#cb2-90" aria-hidden="true" tabindex="-1"></a>C.  Looking at observations relating to ppn &quot;XxhXRhIWyyH&quot; and year of separation = 2010. Which episodes of care have overlapping dates and how many total hospital admissions did this person have?</span>
+<span id="cb2-90"><a href="#cb2-90" aria-hidden="true" tabindex="-1"></a>A.  Looking at observations relating to ppn &quot;Ue/R3tAbxDO&quot; and year of separation = 2012. Which episodes of care have overlapping dates and how many total hospital admissions did this person have?</span>
 <span id="cb2-91"><a href="#cb2-91" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-92"><a href="#cb2-92" aria-hidden="true" tabindex="-1"></a>D.  Looking at observations relating to ppn &quot;XnTXoT3KSp1&quot; and year of separation = 2019. Which episodes of care have overlapping dates and how many total hospital admissions did this person have?</span>
+<span id="cb2-92"><a href="#cb2-92" aria-hidden="true" tabindex="-1"></a>B.  Looking at observations relating to ppn &quot;7339/kP/Dy2&quot; and year of separation = 2001. Which episodes of care have overlapping dates and how many total hospital admissions did this person have?</span>
 <span id="cb2-93"><a href="#cb2-93" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-94"><a href="#cb2-94" aria-hidden="true" tabindex="-1"></a>E.  What further information would be helpful in deciding which transfers align to the same hospital admission?</span>
+<span id="cb2-94"><a href="#cb2-94" aria-hidden="true" tabindex="-1"></a>C.  Looking at observations relating to ppn &quot;XxhXRhIWyyH&quot; and year of separation = 2010. Which episodes of care have overlapping dates and how many total hospital admissions did this person have?</span>
 <span id="cb2-95"><a href="#cb2-95" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-96"><a href="#cb2-96" aria-hidden="true" tabindex="-1"></a><span class="fu">## Question 9</span></span>
+<span id="cb2-96"><a href="#cb2-96" aria-hidden="true" tabindex="-1"></a>D.  Looking at observations relating to ppn &quot;XnTXoT3KSp1&quot; and year of separation = 2019. Which episodes of care have overlapping dates and how many total hospital admissions did this person have?</span>
 <span id="cb2-97"><a href="#cb2-97" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-98"><a href="#cb2-98" aria-hidden="true" tabindex="-1"></a>Define the data processing steps that would be necessary to identify and group together the episodes of care to reflect the same hospitalisation admission. That is, describe how would you approach this in your R coding to group together the same hospitalisation admission? You do not need to write out the associated R coding.</span>
+<span id="cb2-98"><a href="#cb2-98" aria-hidden="true" tabindex="-1"></a>E.  What further information would be helpful in deciding which transfers align to the same hospital admission?</span>
 <span id="cb2-99"><a href="#cb2-99" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-100"><a href="#cb2-100" aria-hidden="true" tabindex="-1"></a><span class="fu">## Question 10</span></span>
+<span id="cb2-100"><a href="#cb2-100" aria-hidden="true" tabindex="-1"></a><span class="fu">## Question 9</span></span>
 <span id="cb2-101"><a href="#cb2-101" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-102"><a href="#cb2-102" aria-hidden="true" tabindex="-1"></a>Apply the provided transfers code *transfers()* to add variables to your dataset to identify which episodes of care belong to the same hospital admission. Identify the number of transfers (including type changes):</span>
+<span id="cb2-102"><a href="#cb2-102" aria-hidden="true" tabindex="-1"></a>Define the data processing steps that would be necessary to identify and group together the episodes of care to reflect the same hospitalisation admission. That is, describe how would you approach this in your R coding to group together the same hospitalisation admission? You do not need to write out the associated R coding.</span>
 <span id="cb2-103"><a href="#cb2-103" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-104"><a href="#cb2-104" aria-hidden="true" tabindex="-1"></a>::: {.callout-caution appearance=&quot;simple&quot;}</span>
-<span id="cb2-105"><a href="#cb2-105" aria-hidden="true" tabindex="-1"></a><span class="fu">### Important detail</span></span>
-<span id="cb2-106"><a href="#cb2-106" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-107"><a href="#cb2-107" aria-hidden="true" tabindex="-1"></a>If you have already assigned labels to mode_of_separation_recode, you need to remove these before running *transfers()* as it will not work properly otherwise. You can do this by:</span>
-<span id="cb2-108"><a href="#cb2-108" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-109"><a href="#cb2-109" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb2-110"><a href="#cb2-110" aria-hidden="true" tabindex="-1"></a><span class="co">#Remove labels from mode of separation</span></span>
-<span id="cb2-111"><a href="#cb2-111" aria-hidden="true" tabindex="-1"></a>apdc_subset<span class="sc">$</span>mode_of_separation_recode <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>)[<span class="fu">as.integer</span>(apdc_subset<span class="sc">$</span>mode_of_separation_recode)]</span>
-<span id="cb2-112"><a href="#cb2-112" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb2-113"><a href="#cb2-113" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb2-114"><a href="#cb2-114" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-115"><a href="#cb2-115" aria-hidden="true" tabindex="-1"></a>A.  How many periods of stay contained one or more transfers? What is the maximum number of transfers?</span>
-<span id="cb2-116"><a href="#cb2-116" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-117"><a href="#cb2-117" aria-hidden="true" tabindex="-1"></a>B.  Examine a portion of the dataset to check that you have identified transfers correctly.</span>
+<span id="cb2-104"><a href="#cb2-104" aria-hidden="true" tabindex="-1"></a><span class="fu">## Question 10</span></span>
+<span id="cb2-105"><a href="#cb2-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-106"><a href="#cb2-106" aria-hidden="true" tabindex="-1"></a>Apply the provided transfers code *transfers()* to add variables to your dataset to identify which episodes of care belong to the same hospital admission. Identify the number of transfers (including type changes):</span>
+<span id="cb2-107"><a href="#cb2-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-108"><a href="#cb2-108" aria-hidden="true" tabindex="-1"></a>::: {.callout-caution appearance=&quot;simple&quot;}</span>
+<span id="cb2-109"><a href="#cb2-109" aria-hidden="true" tabindex="-1"></a><span class="fu">### Important detail</span></span>
+<span id="cb2-110"><a href="#cb2-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-111"><a href="#cb2-111" aria-hidden="true" tabindex="-1"></a>If you have already assigned labels to mode_of_separation_recode, you need to remove these before running *transfers()* as it will not work properly otherwise. You can do this by:</span>
+<span id="cb2-112"><a href="#cb2-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-113"><a href="#cb2-113" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb2-114"><a href="#cb2-114" aria-hidden="true" tabindex="-1"></a><span class="co">#Remove labels from mode of separation</span></span>
+<span id="cb2-115"><a href="#cb2-115" aria-hidden="true" tabindex="-1"></a>apdc_subset<span class="sc">$</span>mode_of_separation_recode <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>)[<span class="fu">as.integer</span>(apdc_subset<span class="sc">$</span>mode_of_separation_recode)]</span>
+<span id="cb2-116"><a href="#cb2-116" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb2-117"><a href="#cb2-117" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb2-118"><a href="#cb2-118" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-119"><a href="#cb2-119" aria-hidden="true" tabindex="-1"></a><span class="fu">## Question 11</span></span>
+<span id="cb2-119"><a href="#cb2-119" aria-hidden="true" tabindex="-1"></a>A.  How many periods of stay contained one or more transfers? What is the maximum number of transfers?</span>
 <span id="cb2-120"><a href="#cb2-120" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-121"><a href="#cb2-121" aria-hidden="true" tabindex="-1"></a>Using all the available data in the data set, create a data set containing only records relating to kidney transplant.</span>
+<span id="cb2-121"><a href="#cb2-121" aria-hidden="true" tabindex="-1"></a>B.  Examine a portion of the dataset to check that you have identified transfers correctly.</span>
 <span id="cb2-122"><a href="#cb2-122" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-123"><a href="#cb2-123" aria-hidden="true" tabindex="-1"></a>::: {.callout-caution appearance=&quot;simple&quot; collapse=&quot;true&quot;}</span>
-<span id="cb2-124"><a href="#cb2-124" aria-hidden="true" tabindex="-1"></a><span class="fu">### Hint</span></span>
-<span id="cb2-125"><a href="#cb2-125" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-126"><a href="#cb2-126" aria-hidden="true" tabindex="-1"></a>There should be 706 records with kidney transplants</span>
-<span id="cb2-127"><a href="#cb2-127" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb2-128"><a href="#cb2-128" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-129"><a href="#cb2-129" aria-hidden="true" tabindex="-1"></a><span class="fu">## Question 12</span></span>
-<span id="cb2-130"><a href="#cb2-130" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-131"><a href="#cb2-131" aria-hidden="true" tabindex="-1"></a>Calculate the mean length of stay by:</span>
+<span id="cb2-123"><a href="#cb2-123" aria-hidden="true" tabindex="-1"></a><span class="fu">## Question 11</span></span>
+<span id="cb2-124"><a href="#cb2-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-125"><a href="#cb2-125" aria-hidden="true" tabindex="-1"></a>Using all the available data in the data set, create a data set containing only records relating to kidney transplant.</span>
+<span id="cb2-126"><a href="#cb2-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-127"><a href="#cb2-127" aria-hidden="true" tabindex="-1"></a>::: {.callout-caution appearance=&quot;simple&quot; collapse=&quot;true&quot;}</span>
+<span id="cb2-128"><a href="#cb2-128" aria-hidden="true" tabindex="-1"></a><span class="fu">### Hint</span></span>
+<span id="cb2-129"><a href="#cb2-129" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-130"><a href="#cb2-130" aria-hidden="true" tabindex="-1"></a>There should be 706 records with kidney transplants</span>
+<span id="cb2-131"><a href="#cb2-131" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb2-132"><a href="#cb2-132" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-133"><a href="#cb2-133" aria-hidden="true" tabindex="-1"></a>A.  ignoring transfers (i.e., assume each episode of care is a separate hospital admission, with transfers representing a ‘new’ admission).</span>
+<span id="cb2-133"><a href="#cb2-133" aria-hidden="true" tabindex="-1"></a><span class="fu">## Question 12</span></span>
 <span id="cb2-134"><a href="#cb2-134" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-135"><a href="#cb2-135" aria-hidden="true" tabindex="-1"></a>B.  accounting for transfers (i.e., where all episodes of care for a single hospital admission have been linked)</span>
+<span id="cb2-135"><a href="#cb2-135" aria-hidden="true" tabindex="-1"></a>Calculate the mean length of stay by:</span>
 <span id="cb2-136"><a href="#cb2-136" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-137"><a href="#cb2-137" aria-hidden="true" tabindex="-1"></a>C.  compare these with the mean of the existing APDC variable *episode_length_of_stay*.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal><i class="bi"></i></button></div>
+<span id="cb2-137"><a href="#cb2-137" aria-hidden="true" tabindex="-1"></a>A.  ignoring transfers (i.e., assume each episode of care is a separate hospital admission, with transfers representing a ‘new’ admission).</span>
+<span id="cb2-138"><a href="#cb2-138" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-139"><a href="#cb2-139" aria-hidden="true" tabindex="-1"></a>B.  accounting for transfers (i.e., where all episodes of care for a single hospital admission have been linked)</span>
+<span id="cb2-140"><a href="#cb2-140" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-141"><a href="#cb2-141" aria-hidden="true" tabindex="-1"></a>C.  compare these with the mean of the existing APDC variable *episode_length_of_stay*.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
