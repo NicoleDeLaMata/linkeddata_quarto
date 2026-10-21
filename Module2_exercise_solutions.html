@@ -4813,7 +4813,7 @@ vertical-align: -.125em;
 </section>
 <section id="question-1-1" class="level2">
 <h2 class="anchored" data-anchor-id="question-1-1">Question 1</h2>
-<p>Import <strong>kidney_long.csv</strong> and save into data frame (<strong>kidney_wide</strong>). Familiarize yourself with the data items.</p>
+<p>Import <strong>kidney_long.csv</strong> and save into data frame (<strong>kidney_long</strong>). Familiarize yourself with the data items.</p>
 <p>The file includes kidney transplant recipients and the date and donor type of their respective kidney transplants. Some people may receive multiple kidney transplants over their lifetime.</p>
 <p>Create a <em>tx_seq</em> sequence variable that counts each kidney transplant for each patient.</p>
 <p>How many people in the dataset received 2 or more kidney transplants?<br>
@@ -4834,7 +4834,7 @@ vertical-align: -.125em;
 <details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create tx_seq</span></span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>kidney_wide <span class="ot">&lt;-</span> kidney_long <span class="sc">%&gt;%</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>kidney_long <span class="ot">&lt;-</span> kidney_long <span class="sc">%&gt;%</span></span>
 <span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">transplantdate =</span> <span class="fu">dmy</span>(transplantdate)) <span class="sc">%&gt;%</span></span>
 <span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(id, transplantdate) <span class="sc">%&gt;%</span></span>
 <span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(id) <span class="sc">%&gt;%</span></span>
@@ -4842,7 +4842,7 @@ vertical-align: -.125em;
 <span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
 <span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Frequency table of tx_seq</span></span>
-<span id="cb49-10"><a href="#cb49-10" aria-hidden="true" tabindex="-1"></a>kidney_wide <span class="sc">%&gt;%</span> <span class="fu">tabyl</span>(tx_seq)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb49-10"><a href="#cb49-10" aria-hidden="true" tabindex="-1"></a>kidney_long <span class="sc">%&gt;%</span> <span class="fu">tabyl</span>(tx_seq)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code> tx_seq   n    percent
@@ -4854,13 +4854,13 @@ vertical-align: -.125em;
 <details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Total count of 2 or more kidney transplants</span></span>
-<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>kidney_wide <span class="sc">%&gt;%</span> <span class="fu">filter</span>(tx_seq<span class="sc">&gt;=</span><span class="dv">2</span>) <span class="sc">%&gt;%</span> <span class="fu">nrow</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>kidney_long <span class="sc">%&gt;%</span> <span class="fu">filter</span>(tx_seq<span class="sc">&gt;=</span><span class="dv">2</span>) <span class="sc">%&gt;%</span> <span class="fu">select</span>(id) <span class="sc">%&gt;%</span> <span class="fu">distinct</span>() <span class="sc">%&gt;%</span> <span class="fu">nrow</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 166</code></pre>
+<pre><code>[1] 142</code></pre>
 </div>
 </div>
-<p><span style="color:red;">There were 166 with 2 or more kidney tranplants.</span><br>
+<p><span style="color:red;">There were 142 with 2 or more kidney tranplants.</span><br>
 </p>
 </section>
 <section id="question-2-1" class="level2">
@@ -4872,17 +4872,17 @@ vertical-align: -.125em;
 <details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create post_ltx_seq</span></span>
-<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>kidney_wide <span class="ot">&lt;-</span> kidney_wide <span class="sc">%&gt;%</span></span>
-<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ltx =</span> <span class="fu">if_else</span>(donortype <span class="sc">==</span> <span class="st">&quot;Living&quot;</span>, <span class="dv">1</span>, <span class="dv">0</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>kidney_long <span class="ot">&lt;-</span> kidney_long <span class="sc">%&gt;%</span></span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ltx =</span> <span class="fu">if_else</span>(donortype <span class="sc">==</span> <span class="st">&quot;Living&quot;</span>, <span class="dv">1</span>, <span class="dv">0</span>)) <span class="sc">%&gt;%</span> </span>
 <span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(id) <span class="sc">%&gt;%</span></span>
-<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">post_ltx =</span> <span class="fu">if_else</span>(<span class="fu">cumsum</span>(ltx) <span class="sc">&gt;=</span> <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">post_ltx =</span> <span class="fu">if_else</span>(<span class="fu">cumsum</span>(ltx) <span class="sc">&gt;=</span> <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>)) <span class="sc">%&gt;%</span> </span>
 <span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
 <span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(id, post_ltx) <span class="sc">%&gt;%</span></span>
 <span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">post_ltx_seq =</span> <span class="fu">row_number</span>() <span class="sc">*</span> post_ltx) <span class="sc">%&gt;%</span></span>
 <span id="cb53-9"><a href="#cb53-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
 <span id="cb53-10"><a href="#cb53-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb53-11"><a href="#cb53-11" aria-hidden="true" tabindex="-1"></a><span class="co">#Check resulting variables</span></span>
-<span id="cb53-12"><a href="#cb53-12" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(kidney_wide[<span class="dv">10</span><span class="sc">:</span><span class="dv">20</span>,])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb53-12"><a href="#cb53-12" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(kidney_long[<span class="dv">10</span><span class="sc">:</span><span class="dv">20</span>,])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 11 × 8
@@ -4908,7 +4908,7 @@ vertical-align: -.125em;
 <details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Frequency table of post_ltx_seq</span></span>
-<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>kidney_wide <span class="sc">%&gt;%</span> <span class="fu">tabyl</span>(post_ltx_seq)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>kidney_long <span class="sc">%&gt;%</span> <span class="fu">tabyl</span>(post_ltx_seq)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code> post_ltx_seq   n     percent
@@ -4925,7 +4925,7 @@ vertical-align: -.125em;
 <br>
 </li>
 </ol>
-<p><span style="color:red;">48 patients had at least one kidney transplant following their first living kidney transplant.</span><br>
+<p><span style="color:red;">46 patients had at least one kidney transplant following their first living kidney transplant.</span><br>
 </p>
 </section>
 <section id="question-3-1" class="level2">
@@ -4937,13 +4937,13 @@ vertical-align: -.125em;
 <details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create liv_seq</span></span>
-<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>kidney_wide <span class="ot">&lt;-</span> kidney_wide <span class="sc">%&gt;%</span></span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>kidney_long <span class="ot">&lt;-</span> kidney_long <span class="sc">%&gt;%</span></span>
 <span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(id, ltx) <span class="sc">%&gt;%</span></span>
 <span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">liv_seq =</span> <span class="fu">row_number</span>() <span class="sc">*</span> ltx) <span class="sc">%&gt;%</span></span>
 <span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() </span>
 <span id="cb57-6"><a href="#cb57-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb57-7"><a href="#cb57-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Check resulting variables</span></span>
-<span id="cb57-8"><a href="#cb57-8" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(kidney_wide[<span class="dv">10</span><span class="sc">:</span><span class="dv">20</span>,])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb57-8"><a href="#cb57-8" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(kidney_long[<span class="dv">10</span><span class="sc">:</span><span class="dv">20</span>,])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 11 × 9
@@ -4970,7 +4970,7 @@ vertical-align: -.125em;
 <details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Frequency table of post_ltx_seq</span></span>
-<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>kidney_wide <span class="sc">%&gt;%</span> <span class="fu">tabyl</span>(liv_seq)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>kidney_long <span class="sc">%&gt;%</span> <span class="fu">tabyl</span>(liv_seq)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code> liv_seq   n    percent
@@ -5000,7 +5000,7 @@ vertical-align: -.125em;
 <details open class="code-fold">
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Proportion with deceased donor immediately after first living donor</span></span>
-<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>kidney_wide <span class="sc">%&gt;%</span> </span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>kidney_long <span class="sc">%&gt;%</span> </span>
 <span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(post_ltx_seq <span class="sc">==</span> <span class="dv">2</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tabyl</span>(donortype)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
@@ -5020,7 +5020,7 @@ vertical-align: -.125em;
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Proportion with deceased donor immediately after first living donor, </span></span>
 <span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   where first living donor transplant was also their first ever transplant</span></span>
-<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>kidney_wide <span class="sc">%&gt;%</span> </span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>kidney_long <span class="sc">%&gt;%</span> </span>
 <span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(post_ltx_seq <span class="sc">==</span> <span class="dv">2</span> <span class="sc">&amp;</span> tx_seq <span class="sc">==</span> <span class="dv">2</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb63-5"><a href="#cb63-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tabyl</span>(donortype)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
@@ -5041,7 +5041,7 @@ vertical-align: -.125em;
 <summary>Show R code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Proportion with deceased donor immediately after first living donor, </span></span>
 <span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   where first living donor transplant was NOT their first ever transplant</span></span>
-<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a>kidney_wide <span class="sc">%&gt;%</span> </span>
+<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a>kidney_long <span class="sc">%&gt;%</span> </span>
 <span id="cb65-4"><a href="#cb65-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(post_ltx_seq <span class="sc">==</span> <span class="dv">2</span> <span class="sc">&amp;</span> tx_seq <span class="sc">!=</span> <span class="dv">2</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb65-5"><a href="#cb65-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tabyl</span>(donortype)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
@@ -6045,7 +6045,7 @@ vertical-align: -.125em;
 <span id="cb67-565"><a href="#cb67-565" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb67-566"><a href="#cb67-566" aria-hidden="true" tabindex="-1"></a><span class="fu">## Question 1</span></span>
 <span id="cb67-567"><a href="#cb67-567" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb67-568"><a href="#cb67-568" aria-hidden="true" tabindex="-1"></a>Import **kidney_long.csv** and save into data frame (**kidney_wide**). Familiarize yourself with the data items.</span>
+<span id="cb67-568"><a href="#cb67-568" aria-hidden="true" tabindex="-1"></a>Import **kidney_long.csv** and save into data frame (**kidney_long**). Familiarize yourself with the data items.</span>
 <span id="cb67-569"><a href="#cb67-569" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb67-570"><a href="#cb67-570" aria-hidden="true" tabindex="-1"></a>The file includes kidney transplant recipients and the date and donor type of their respective kidney transplants. Some people may receive multiple kidney transplants over their lifetime.</span>
 <span id="cb67-571"><a href="#cb67-571" aria-hidden="true" tabindex="-1"></a></span>
@@ -6065,7 +6065,7 @@ vertical-align: -.125em;
 <span id="cb67-587"><a href="#cb67-587" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb67-590"><a href="#cb67-590" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb67-591"><a href="#cb67-591" aria-hidden="true" tabindex="-1"></a><span class="co"># Create tx_seq</span></span>
-<span id="cb67-592"><a href="#cb67-592" aria-hidden="true" tabindex="-1"></a>kidney_wide <span class="ot">&lt;-</span> kidney_long <span class="sc">%&gt;%</span></span>
+<span id="cb67-592"><a href="#cb67-592" aria-hidden="true" tabindex="-1"></a>kidney_long <span class="ot">&lt;-</span> kidney_long <span class="sc">%&gt;%</span></span>
 <span id="cb67-593"><a href="#cb67-593" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">transplantdate =</span> <span class="fu">dmy</span>(transplantdate)) <span class="sc">%&gt;%</span></span>
 <span id="cb67-594"><a href="#cb67-594" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(id, transplantdate) <span class="sc">%&gt;%</span></span>
 <span id="cb67-595"><a href="#cb67-595" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(id) <span class="sc">%&gt;%</span></span>
@@ -6073,13 +6073,13 @@ vertical-align: -.125em;
 <span id="cb67-597"><a href="#cb67-597" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
 <span id="cb67-598"><a href="#cb67-598" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb67-599"><a href="#cb67-599" aria-hidden="true" tabindex="-1"></a><span class="co"># Frequency table of tx_seq</span></span>
-<span id="cb67-600"><a href="#cb67-600" aria-hidden="true" tabindex="-1"></a>kidney_wide <span class="sc">%&gt;%</span> <span class="fu">tabyl</span>(tx_seq)</span>
+<span id="cb67-600"><a href="#cb67-600" aria-hidden="true" tabindex="-1"></a>kidney_long <span class="sc">%&gt;%</span> <span class="fu">tabyl</span>(tx_seq)</span>
 <span id="cb67-601"><a href="#cb67-601" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb67-602"><a href="#cb67-602" aria-hidden="true" tabindex="-1"></a><span class="co">#Total count of 2 or more kidney transplants</span></span>
-<span id="cb67-603"><a href="#cb67-603" aria-hidden="true" tabindex="-1"></a>kidney_wide <span class="sc">%&gt;%</span> <span class="fu">filter</span>(tx_seq<span class="sc">&gt;=</span><span class="dv">2</span>) <span class="sc">%&gt;%</span> <span class="fu">nrow</span>()</span>
+<span id="cb67-603"><a href="#cb67-603" aria-hidden="true" tabindex="-1"></a>kidney_long <span class="sc">%&gt;%</span> <span class="fu">filter</span>(tx_seq<span class="sc">&gt;=</span><span class="dv">2</span>) <span class="sc">%&gt;%</span> <span class="fu">select</span>(id) <span class="sc">%&gt;%</span> <span class="fu">distinct</span>() <span class="sc">%&gt;%</span> <span class="fu">nrow</span>()</span>
 <span id="cb67-604"><a href="#cb67-604" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb67-605"><a href="#cb67-605" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb67-606"><a href="#cb67-606" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">There were 166 with 2 or more kidney tranplants.</span><span class="co">]</span>{style=&quot;color:red;&quot;}\</span>
+<span id="cb67-606"><a href="#cb67-606" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">There were 142 with 2 or more kidney tranplants.</span><span class="co">]</span>{style=&quot;color:red;&quot;}\</span>
 <span id="cb67-607"><a href="#cb67-607" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb67-608"><a href="#cb67-608" aria-hidden="true" tabindex="-1"></a><span class="fu">## Question 2</span></span>
 <span id="cb67-609"><a href="#cb67-609" aria-hidden="true" tabindex="-1"></a></span>
@@ -6089,24 +6089,24 @@ vertical-align: -.125em;
 <span id="cb67-613"><a href="#cb67-613" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb67-616"><a href="#cb67-616" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb67-617"><a href="#cb67-617" aria-hidden="true" tabindex="-1"></a><span class="co"># Create post_ltx_seq</span></span>
-<span id="cb67-618"><a href="#cb67-618" aria-hidden="true" tabindex="-1"></a>kidney_wide <span class="ot">&lt;-</span> kidney_wide <span class="sc">%&gt;%</span></span>
-<span id="cb67-619"><a href="#cb67-619" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ltx =</span> <span class="fu">if_else</span>(donortype <span class="sc">==</span> <span class="st">&quot;Living&quot;</span>, <span class="dv">1</span>, <span class="dv">0</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb67-618"><a href="#cb67-618" aria-hidden="true" tabindex="-1"></a>kidney_long <span class="ot">&lt;-</span> kidney_long <span class="sc">%&gt;%</span></span>
+<span id="cb67-619"><a href="#cb67-619" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ltx =</span> <span class="fu">if_else</span>(donortype <span class="sc">==</span> <span class="st">&quot;Living&quot;</span>, <span class="dv">1</span>, <span class="dv">0</span>)) <span class="sc">%&gt;%</span> </span>
 <span id="cb67-620"><a href="#cb67-620" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(id) <span class="sc">%&gt;%</span></span>
-<span id="cb67-621"><a href="#cb67-621" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">post_ltx =</span> <span class="fu">if_else</span>(<span class="fu">cumsum</span>(ltx) <span class="sc">&gt;=</span> <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb67-621"><a href="#cb67-621" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">post_ltx =</span> <span class="fu">if_else</span>(<span class="fu">cumsum</span>(ltx) <span class="sc">&gt;=</span> <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>)) <span class="sc">%&gt;%</span> </span>
 <span id="cb67-622"><a href="#cb67-622" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
 <span id="cb67-623"><a href="#cb67-623" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(id, post_ltx) <span class="sc">%&gt;%</span></span>
 <span id="cb67-624"><a href="#cb67-624" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">post_ltx_seq =</span> <span class="fu">row_number</span>() <span class="sc">*</span> post_ltx) <span class="sc">%&gt;%</span></span>
 <span id="cb67-625"><a href="#cb67-625" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
 <span id="cb67-626"><a href="#cb67-626" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb67-627"><a href="#cb67-627" aria-hidden="true" tabindex="-1"></a><span class="co">#Check resulting variables</span></span>
-<span id="cb67-628"><a href="#cb67-628" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(kidney_wide[<span class="dv">10</span><span class="sc">:</span><span class="dv">20</span>,])</span>
+<span id="cb67-628"><a href="#cb67-628" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(kidney_long[<span class="dv">10</span><span class="sc">:</span><span class="dv">20</span>,])</span>
 <span id="cb67-629"><a href="#cb67-629" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb67-630"><a href="#cb67-630" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb67-631"><a href="#cb67-631" aria-hidden="true" tabindex="-1"></a>A.  How many patients had at least one kidney transplant from a living donor?</span>
 <span id="cb67-632"><a href="#cb67-632" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb67-635"><a href="#cb67-635" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb67-636"><a href="#cb67-636" aria-hidden="true" tabindex="-1"></a><span class="co"># Frequency table of post_ltx_seq</span></span>
-<span id="cb67-637"><a href="#cb67-637" aria-hidden="true" tabindex="-1"></a>kidney_wide <span class="sc">%&gt;%</span> <span class="fu">tabyl</span>(post_ltx_seq)</span>
+<span id="cb67-637"><a href="#cb67-637" aria-hidden="true" tabindex="-1"></a>kidney_long <span class="sc">%&gt;%</span> <span class="fu">tabyl</span>(post_ltx_seq)</span>
 <span id="cb67-638"><a href="#cb67-638" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb67-639"><a href="#cb67-639" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb67-640"><a href="#cb67-640" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">86 patients had at least one living donor kidney transplant.</span><span class="co">]</span>{style=&quot;color:red;&quot;}\</span>
@@ -6114,7 +6114,7 @@ vertical-align: -.125em;
 <span id="cb67-642"><a href="#cb67-642" aria-hidden="true" tabindex="-1"></a>B.  How many patients with a living kidney donor transplant had at least one subsequent kidney transplant?\</span>
 <span id="cb67-643"><a href="#cb67-643" aria-hidden="true" tabindex="-1"></a>    \</span>
 <span id="cb67-644"><a href="#cb67-644" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb67-645"><a href="#cb67-645" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">48 patients had at least one kidney transplant following their first living kidney transplant.</span><span class="co">]</span>{style=&quot;color:red;&quot;}\</span>
+<span id="cb67-645"><a href="#cb67-645" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">46 patients had at least one kidney transplant following their first living kidney transplant.</span><span class="co">]</span>{style=&quot;color:red;&quot;}\</span>
 <span id="cb67-646"><a href="#cb67-646" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb67-647"><a href="#cb67-647" aria-hidden="true" tabindex="-1"></a><span class="fu">## Question 3</span></span>
 <span id="cb67-648"><a href="#cb67-648" aria-hidden="true" tabindex="-1"></a></span>
@@ -6124,20 +6124,20 @@ vertical-align: -.125em;
 <span id="cb67-652"><a href="#cb67-652" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb67-655"><a href="#cb67-655" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb67-656"><a href="#cb67-656" aria-hidden="true" tabindex="-1"></a><span class="co"># Create liv_seq</span></span>
-<span id="cb67-657"><a href="#cb67-657" aria-hidden="true" tabindex="-1"></a>kidney_wide <span class="ot">&lt;-</span> kidney_wide <span class="sc">%&gt;%</span></span>
+<span id="cb67-657"><a href="#cb67-657" aria-hidden="true" tabindex="-1"></a>kidney_long <span class="ot">&lt;-</span> kidney_long <span class="sc">%&gt;%</span></span>
 <span id="cb67-658"><a href="#cb67-658" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(id, ltx) <span class="sc">%&gt;%</span></span>
 <span id="cb67-659"><a href="#cb67-659" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">liv_seq =</span> <span class="fu">row_number</span>() <span class="sc">*</span> ltx) <span class="sc">%&gt;%</span></span>
 <span id="cb67-660"><a href="#cb67-660" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() </span>
 <span id="cb67-661"><a href="#cb67-661" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb67-662"><a href="#cb67-662" aria-hidden="true" tabindex="-1"></a><span class="co">#Check resulting variables</span></span>
-<span id="cb67-663"><a href="#cb67-663" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(kidney_wide[<span class="dv">10</span><span class="sc">:</span><span class="dv">20</span>,])</span>
+<span id="cb67-663"><a href="#cb67-663" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(kidney_long[<span class="dv">10</span><span class="sc">:</span><span class="dv">20</span>,])</span>
 <span id="cb67-664"><a href="#cb67-664" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb67-665"><a href="#cb67-665" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb67-666"><a href="#cb67-666" aria-hidden="true" tabindex="-1"></a>A.  What is maximum number of living donor transplants to one patient in our study population?</span>
 <span id="cb67-667"><a href="#cb67-667" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb67-670"><a href="#cb67-670" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb67-671"><a href="#cb67-671" aria-hidden="true" tabindex="-1"></a><span class="co"># Frequency table of post_ltx_seq</span></span>
-<span id="cb67-672"><a href="#cb67-672" aria-hidden="true" tabindex="-1"></a>kidney_wide <span class="sc">%&gt;%</span> <span class="fu">tabyl</span>(liv_seq)</span>
+<span id="cb67-672"><a href="#cb67-672" aria-hidden="true" tabindex="-1"></a>kidney_long <span class="sc">%&gt;%</span> <span class="fu">tabyl</span>(liv_seq)</span>
 <span id="cb67-673"><a href="#cb67-673" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb67-674"><a href="#cb67-674" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb67-675"><a href="#cb67-675" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">The maximum number of living donor kidney transplants was 2.</span><span class="co">]</span>{style=&quot;color:red;&quot;}\</span>
@@ -6158,7 +6158,7 @@ vertical-align: -.125em;
 <span id="cb67-690"><a href="#cb67-690" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb67-693"><a href="#cb67-693" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb67-694"><a href="#cb67-694" aria-hidden="true" tabindex="-1"></a><span class="co"># Proportion with deceased donor immediately after first living donor</span></span>
-<span id="cb67-695"><a href="#cb67-695" aria-hidden="true" tabindex="-1"></a>kidney_wide <span class="sc">%&gt;%</span> </span>
+<span id="cb67-695"><a href="#cb67-695" aria-hidden="true" tabindex="-1"></a>kidney_long <span class="sc">%&gt;%</span> </span>
 <span id="cb67-696"><a href="#cb67-696" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(post_ltx_seq <span class="sc">==</span> <span class="dv">2</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb67-697"><a href="#cb67-697" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tabyl</span>(donortype)</span>
 <span id="cb67-698"><a href="#cb67-698" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
@@ -6170,7 +6170,7 @@ vertical-align: -.125em;
 <span id="cb67-706"><a href="#cb67-706" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb67-707"><a href="#cb67-707" aria-hidden="true" tabindex="-1"></a><span class="co"># Proportion with deceased donor immediately after first living donor, </span></span>
 <span id="cb67-708"><a href="#cb67-708" aria-hidden="true" tabindex="-1"></a><span class="co">#   where first living donor transplant was also their first ever transplant</span></span>
-<span id="cb67-709"><a href="#cb67-709" aria-hidden="true" tabindex="-1"></a>kidney_wide <span class="sc">%&gt;%</span> </span>
+<span id="cb67-709"><a href="#cb67-709" aria-hidden="true" tabindex="-1"></a>kidney_long <span class="sc">%&gt;%</span> </span>
 <span id="cb67-710"><a href="#cb67-710" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(post_ltx_seq <span class="sc">==</span> <span class="dv">2</span> <span class="sc">&amp;</span> tx_seq <span class="sc">==</span> <span class="dv">2</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb67-711"><a href="#cb67-711" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tabyl</span>(donortype)</span>
 <span id="cb67-712"><a href="#cb67-712" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
@@ -6182,7 +6182,7 @@ vertical-align: -.125em;
 <span id="cb67-720"><a href="#cb67-720" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb67-721"><a href="#cb67-721" aria-hidden="true" tabindex="-1"></a><span class="co"># Proportion with deceased donor immediately after first living donor, </span></span>
 <span id="cb67-722"><a href="#cb67-722" aria-hidden="true" tabindex="-1"></a><span class="co">#   where first living donor transplant was NOT their first ever transplant</span></span>
-<span id="cb67-723"><a href="#cb67-723" aria-hidden="true" tabindex="-1"></a>kidney_wide <span class="sc">%&gt;%</span> </span>
+<span id="cb67-723"><a href="#cb67-723" aria-hidden="true" tabindex="-1"></a>kidney_long <span class="sc">%&gt;%</span> </span>
 <span id="cb67-724"><a href="#cb67-724" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(post_ltx_seq <span class="sc">==</span> <span class="dv">2</span> <span class="sc">&amp;</span> tx_seq <span class="sc">!=</span> <span class="dv">2</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb67-725"><a href="#cb67-725" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tabyl</span>(donortype)</span>
 <span id="cb67-726"><a href="#cb67-726" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
