@@ -1,0 +1,141 @@
+---
+title: "Module 3 Exercises"
+format: 
+  html:
+    embed-resources: true
+    code-overflow: wrap
+---
+
+```{r, echo=FALSE}
+knitr::opts_chunk$set(
+  message = FALSE,
+  warning = FALSE
+)
+```
+
+## Exercise for Module 3
+
+::: {.callout-tip appearance="simple"}
+## Objectives
+
+-   Demonstrate prevalent pool effect and apply clearance period methods.
+-   Identify hospital transfers and use data manipulation to link between hospital transfers.
+-   Calculate length of stay per admission, taking account of hospital transfers.
+:::
+
+## Context
+
+For this exercise we will use APDC hospitalisations data in NSW.
+
+## PART ONE
+
+In this part, we will demonstrate the prevalent pool effect that arises when estimating an annual incidence of a recurrent disease. We will compare the annual number of incident cases using different lengths for the clearance or lookback period.
+
+We will be using APDC hospitalisations in NSW, 2000-2020 (**ppn_subset_2000.csv**), for admissions relating to ischemic heart disease, based on ICD-10-AM codes I20 - I22 and I24 - I25 (capital letter *i* followed by two digits).
+
+## Question 1
+
+Sort the data by patient identifier number (*ppn*), admission date (*episode_start_date*) and separation date (*episode_end_date*). Identify those patient admissions with ischemic heart disease admissions in any of the diagnosis fields and create a flag variable ihd that takes the value 1 for these admissions.
+
+## Question 2
+
+Create the variable *year_sep* as the year of separation.
+
+A.  Create a frequency table of *year_sep* against flag variable ihd. How many acute cardiovascular events occurred in 2002?
+
+B.  Why do we use year of separation rather than year of admission?
+
+## Question 3
+
+Using all the available data,
+
+A.  Find incident cases by flagging the first admission with ischemic heart disease event (if any) for each patient and number all subsequent records after this index admission. Create this sequence variable and name it *ihd_seq*. Tabulate *ihd_seq*.
+
+B.  Produce a table containing the number of first hospital admissions with ischemic heart disease event (*ihd_seq* = 1) by year of separation. Save this into a data frame.
+
+## Question 4
+
+Now, restrict the data to years 2008-2020 (inclusive). Create a new dataset containing only the records with year of separation for 2008 onwards. Using this dataset, repeat part (a) and (b) from question 3.
+
+## Question 5
+
+Further restrict the data to years 2010-2020 (inclusive). Create a new dataset containing only the records with year of separation for 2010 onwards. Using this dataset, repeat part (a) and (b) from question 3.
+
+## Question 6
+
+Produce a line graph of the annual number of incident cases of ischemic heart disease events from 2010-2020 based on the three datasets you used above.
+
+A.  What do you notice about the frequencies compared between the three datasets?
+
+B.  Do you think a 4-year clearance period would be sufficient for obtaining an accurate estimate of incident cases in 2010?
+
+## PART TWO
+
+The aim of the next part of the exercise is to identify transfers (including type changes) in APDC hospitalisations data for a subset of patients who had a kidney transplant. We will then obtain an accurate measure of their mean length of stay.\
+
+We will be using all APDC hospitalisations (**apdc_subset.csv**) for a subset of patients who underwent a kidney transplant, based on ICD-10-AM code Z94.
+
+For PUBH5215 students, please use the RDS version of Module 3 data, available in the Module 3 folder. Use the 'archive' package and the password "mod3inR" to access the password-protected zip file **apdc_subset.zip**.
+
+For SHEED short course, import the data and undertake usual data processing to ensure date and other variables are appropriately formatted. Refer to [Module 1 exercise solutions](Module1_exercise_solutions.html).
+
+## Question 7
+
+Define how you would appropriately construct a study population with all the available hospitalisation data to determine length of stay for their kidney transplant admission. Consider what records should be included. What important assumptions have we made in constructing this study population?
+
+## Question 8
+
+We will now demonstrate some examples of different scenarios where transfers for episodes of care may or may not be appropriate to group together into one hospital admission. Consider how the episode_start_date and episode_end_date for one observation overlap with the episode_start_date and episode_end_date for the subsequent observation, and appropriately determine whether this would be the same or a different hospital admission.
+
+A.  Looking at observations relating to ppn "Ue/R3tAbxDO" and year of separation = 2012. Which episodes of care have overlapping dates and how many total hospital admissions did this person have?
+
+B.  Looking at observations relating to ppn "7339/kP/Dy2" and year of separation = 2001. Which episodes of care have overlapping dates and how many total hospital admissions did this person have?
+
+C.  Looking at observations relating to ppn "XxhXRhIWyyH" and year of separation = 2010. Which episodes of care have overlapping dates and how many total hospital admissions did this person have?
+
+D.  Looking at observations relating to ppn "XnTXoT3KSp1" and year of separation = 2019. Which episodes of care have overlapping dates and how many total hospital admissions did this person have?
+
+E.  What further information would be helpful in deciding which transfers align to the same hospital admission?
+
+## Question 9
+
+Define the data processing steps that would be necessary to identify and group together the episodes of care to reflect the same hospitalisation admission. That is, describe how would you approach this in your R coding to group together the same hospitalisation admission? You do not need to write out the associated R coding.
+
+## Question 10
+
+Apply the provided transfers code *transfers()* to add variables to your dataset to identify which episodes of care belong to the same hospital admission. Identify the number of transfers (including type changes):
+
+::: {.callout-caution appearance="simple"}
+### Important detail
+
+If you have already assigned labels to mode_of_separation_recode, you need to remove these before running *transfers()* as it will not work properly otherwise. You can do this by:
+
+```{{r}}
+#Remove labels from mode of separation
+apdc_subset$mode_of_separation_recode <- c(0,1,2,4,5,7,8,9)[as.integer(apdc_subset$mode_of_separation_recode)]
+```
+:::
+
+A.  How many periods of stay contained one or more transfers? What is the maximum number of transfers?
+
+B.  Examine a portion of the dataset to check that you have identified transfers correctly.
+
+## Question 11
+
+Using all the available data in the data set, create a data set containing only records relating to kidney transplant.
+
+::: {.callout-caution appearance="simple" collapse="true"}
+### Hint
+
+There should be 731 records with kidney transplants
+:::
+
+## Question 12
+
+Calculate the mean length of stay by:
+
+A.  ignoring transfers (i.e., assume each episode of care is a separate hospital admission, with transfers representing a ‘new’ admission).
+
+B.  accounting for transfers (i.e., where all episodes of care for a single hospital admission have been linked)
+
+C.  compare these with the mean of the existing APDC variable *episode_length_of_stay*.
